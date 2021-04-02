@@ -1,0 +1,55 @@
+ion-title{
+	font-size: 2.1vh;
+}
+.forward-btn{
+	text-transform: capitalize;
+    letter-spacing: 0;
+}
+
+.pdf-div{
+	width: 30vw;
+    float: right;
+    margin: 5px;
+	img{
+		    width: 31vw;
+    		height: 16vh;
+	}
+	ion-icon{
+		font-size: 47px;
+	    position: absolute;
+	    right: 9vh;
+	    top: 8vh;
+	    color: #2979ff;
+	}
+}
+.user-list{
+	width: 82%;
+	ion-list-header{
+		font-size: 12px;
+    font-weight: bold;
+	}
+}
+.image_single{
+    width: 157px;
+    height: 150px;
+}
+.lock{
+	    position: absolute;
+	    left: 10px;
+	    top: 9px;
+	    font-size: 18px;
+}
+ion-card{
+	ion-card-header{
+		padding-bottom: unset;
+		h3{
+			margin-top: unset;
+			font-size: 13px;
+			margin-bottom: 1px;
+			font-weight: 600;
+		}
+		span{
+			font-size: 10px;
+		}
+	}
+}

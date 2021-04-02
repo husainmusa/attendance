@@ -1,0 +1,116 @@
+app-connect-chat:host {
+    .margintop{
+        margin-top: 8px !important;
+    }
+    h6{
+        margin: 2vw;
+    }
+    .avatar-img {
+        width: 40px;
+        height: 40px;
+        background-position: center;
+        background-size: cover;
+        border-radius: 50%;
+        margin-left: 9px;
+    }
+    .sender-message{
+        text-align: left;
+        background: #43a047;
+        color: #fff;
+        padding: 7px;
+        max-width: 100%;
+        width: fit-content;
+        float: right;
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+        margin-right: 3px;
+    }
+    .sender-message-first-child:after{
+        width: 0;
+        height: 0;
+        content: "";
+        top: 5px;
+        right: -1px;
+        position: absolute;
+        border-style: solid;
+        border-width: 13px 13px 0 0;
+        border-color: #43a047 transparent transparent transparent;
+    }
+
+    .receiver-message {
+            background: #00b0ff;
+            padding: 7px;
+            max-width: 100%;
+            width: fit-content;
+            border-top-right-radius: 6px;
+            border-bottom-right-radius: 6px;
+            display: flex;
+            color: #fff;
+            margin-left: 4px;
+    }
+    .receiver-message-first-child:before {
+        width: 0;
+        height: 0;
+        content: "";
+        top: 5px;
+        left: 1px;
+        position: absolute;
+        border-style: solid;
+        border-width: 0 13px 13px 0;
+        border-color: transparent #00b0ff transparent transparent;
+    }
+    .receiver-message ul {
+        margin: 0;
+        padding: 0;
+    }
+    .receiver-message ul li {
+        list-style: none;
+        margin: 0;
+    }
+    li.sender-name {
+        font-weight: bold;
+        font-size: 12px;
+    }
+    ion-row{
+        margin-bottom: 2px;
+    }
+    ion-footer{
+        .post-image-sec.item.item-block.item-md {
+            max-height: 200px;
+            overflow: hidden;
+            .post-image {
+                width: 100%;
+                height: auto;
+            }
+        }
+        .send-icon{
+            margin: -6px -6px;
+            button{
+                transform: rotate(-45deg);
+            }
+        }
+    }
+    .connectImg {
+        margin-top: 7px;
+    }
+    .download-button {
+        position: absolute;
+        bottom: 1rem;
+        ion-icon::before {
+            font-size: 30px;
+        }
+    }
+    .image-sec {
+        background: #fff !important;
+    }
+    .send-btn{
+    --border-radius: 100%;
+    width: 45px;
+    height: 45px;
+    --box-shadow: 0px 0px 10px #00000026;
+    }
+    .attech-btn{
+        --box-shadow:unset;
+        color:black;
+    }
+}

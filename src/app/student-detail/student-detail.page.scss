@@ -1,0 +1,256 @@
+app-student-detail:host {
+    $colors: (
+  primary:      #2979ff,
+  secondary:    #43a047,
+  danger:       #f53d3d,
+  light:        #f4f4f4,
+  dark:         #000,
+  content-back: #fafafa,
+  menu-color:   #797979,
+  card-color:   #eeeeee,
+  count-color:  #eaedfe,
+  icon-header:  #000,
+  white:        #fff,
+  input-setting:#ececec,
+  remove-app:   #ffa500,
+  rating:       #04855f
+
+);
+ion-title{
+      font-size: 18px !important;
+}
+    ion-segment-button{
+            font-size: 12px;
+            letter-spacing: 0;
+    }
+    .header-md::after{
+        background-image: none !important;
+    }
+
+    .absence-count{
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 0;
+    }
+    .absence{
+        font-size: 11px;
+        font-weight: 400;
+        color: #666;
+    }
+    .message-content{
+        margin: 12px auto;
+    }
+    .message-content::before {
+        font-size: 18px;
+    }
+    .student-background-image {
+        width: 100px;
+        height: 100px;
+        background-position: center;
+        background-size: cover;
+        display: flex;
+        margin: 0 auto;
+        border-radius: 50%;
+    }
+    .add-circle{
+        position: absolute;
+        top: 13px;
+        left: 8px;
+    }
+    ion-card{
+        border-radius: 10px !important;
+        background: #ececec !important;
+        position: relative;
+        p{
+            float: right;
+            width: 100%;
+            text-align: right
+        }
+        .absence-note-sec {
+            width: 100%;
+            float: left;
+            .note-trash-icon-sec {
+                width: 10%;
+                display: flex;
+                float: left;
+                align-items: center;
+                justify-content: center;
+                padding: 2px;
+                .note-trash-icon-sec ion-icon::before {
+                    font-size: 2rem;
+                }
+            }
+            .absence-note-desc {
+                width: 85%;
+                float: left;
+                padding: 2px 3px 2px;
+            }
+            .absence-note-icon {
+                width: 5%;
+                float: left;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 2px;
+            }
+        }
+    }
+    .details{
+        margin: -22px 0;
+        .bahaviou-text{
+            margin: 3px 0;
+            color: #666;
+            font-size: 13px;
+        }
+    }
+    .segement{
+        background: #ffffff;
+        margin: 18px 0;
+        border-top-left-radius: 17px;
+        border-top-right-radius: 17px;
+        ion-badge{
+                border-radius: 50%;
+                vertical-align: middle;
+                min-width: 20px;
+                text-align: center;
+        }
+    }
+    .bgcircle{
+        border-radius: 50%;
+        background: #ececec;
+        height: 35px;
+        width: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+    }
+    .trash-icon{
+        float: left;
+        font-size:30px;
+    }
+    .notes-desc{
+        font-size: 18px;
+        white-space: normal;
+    }
+    .username{
+        height: 35px;
+        width: 36px;
+        border-radius: 50%;
+    }
+    .message{
+        border-radius: 25px 25px 25px 25px;
+        background: #f1f1f1;
+        font-size: larger;
+    }
+    .send-icon{
+        margin: -6px -6px;
+        button{
+            transform: rotate(-45deg);
+        }
+    }
+    .notes-sec{
+        .rating-review-sec{
+            .add_icon{
+                padding-top: 16px;
+            }
+            background: #fff;
+            ion-col{
+                ion-icon {
+                    font-size: 24px;
+
+                }
+            }
+            h1{
+                font-size: 4em;
+                margin: 0;
+            }
+            p{
+                margin: 0;
+            }
+            .rating-bar-sec {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 5px;
+                .rating-bar {
+                    width: 93%;
+                    height: 10px;
+                    background: #eeeeee;
+                    border-radius: 10px;
+                    position: relative;
+                    .ranking-fill {
+                        position: absolute;
+                        right: 0;
+                        background: #04855f;
+                        height: 10px;
+                        border-radius: 10px;
+                    }
+                }
+                .rating-star-number {
+                    width: 7%;
+                    text-align: center;
+                }
+            }
+            .total-rating-sec{
+                text-align: center;
+                h4{
+                    font-size: 40px;
+                    font-weight: bold;
+                    padding-top: unset;
+                    margin-top: unset;
+                }
+                ion-icon{
+                    font-size:0.8rem;
+                    padding: 3px;
+                }
+            }
+            .half-star {
+                transform: rotateY(180deg);
+            }
+        }
+        .user-rating {
+            width: 100%;
+            float: right;
+        }
+    }
+    .footer-height{
+        .scroll-content{
+            margin-bottom: 56px !important;
+        }
+    }
+    .max_length {
+        text-align: left;
+        padding-left: 16px;
+        color: #ababab;
+        margin-top: 10px;
+    }
+
+    @media only screen and (max-width: 249px) {
+        ion-card .description{
+            font-size: 0.6rem !important;
+        }
+    }
+
+    @media only screen and (min-width: 250px) and (max-width: 319px) {
+        .student-background-image{
+            width: 80px;
+            height: 80px;
+        }
+        ion-card .description{
+            font-size: 0.6rem !important;
+        }
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 380px) {
+        ion-card .description{
+            font-size: 0.7rem !important;
+        }
+    }
+
+    @media only screen and (min-width: 381px) {
+        ion-card .description{
+                font-size: 0.8rem !important;
+        }
+    }
+}

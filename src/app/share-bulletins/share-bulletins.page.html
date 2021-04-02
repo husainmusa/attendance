@@ -1,0 +1,34 @@
+<ion-header mode="md">
+  <ion-toolbar>
+  	<ion-buttons slot="end">
+  		<ion-back-button>
+  		</ion-back-button>
+  	</ion-buttons>
+
+  	<ion-buttons slot="start">
+  		<ion-menu-button>
+  		</ion-menu-button>
+  	</ion-buttons>
+    <ion-title>{{'bulletin.title' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="md">
+
+	<ion-list lines="none" *ngIf="bulletin">
+		<ion-item>
+			<p >{{bulletin.description}}</p>
+			<!-- <ion-input placeholder="{{bulletin.description}}" readonly="true">
+			</ion-input> -->
+		</ion-item>
+		<ion-item>
+			<ion-label position="stacked">{{'bulletin.note' | translate}}</ion-label>
+			<ion-textarea placeholder="" [(ngModel)]="description">
+			</ion-textarea>
+		</ion-item>
+	</ion-list>
+
+</ion-content>
+<ion-footer>
+	<ion-button expand="block" shape="round" color="primary" (click)="share()">{{'bulletin.select_user' | translate}}</ion-button>
+</ion-footer>

@@ -1,0 +1,50 @@
+<ion-header mode="md">
+
+  <ion-toolbar transparent>
+   	<ion-buttons slot="end">
+      <!-- <ion-button icon-only (click)="selectNewsCountry()">
+        <ion-icon name="help-circle-outline" ></ion-icon>
+      </ion-button> -->
+   		<ion-back-button>
+   		</ion-back-button>
+   	</ion-buttons>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title text-right>{{'eLearning.title' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+ 
+<ion-content padding mode="md">
+    <ion-row class="county">
+
+        <ion-item >
+          <ion-label>{{'location.select_country'| translate}}</ion-label>
+          <ionic-selectable
+            [(ngModel)]="selected_country"
+            [items]="country"
+            itemValueField="code"
+            itemTextField="name"
+            (onChange)="portChange($event)"
+            [canSearch]="true">
+          </ionic-selectable>
+        </ion-item>
+  </ion-row>
+  <div class="body">
+    
+    <ion-card  *ngFor="let school of schools" (click)="openschool(school)">
+      <ion-card-content>
+        <ion-item lines="none">
+          <ion-avatar item-start>
+            <img [src]="school.pic">
+          </ion-avatar>
+          <label>
+  	        <h2>{{school.school_name}}</h2>
+  	        <h3>{{school.detail}}</h3>
+          </label>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+    <ion-label item-center class="norecord-found" *ngIf = "schools?.length == 0">{{noDataFound}}</ion-label>
+  </div>
+</ion-content>

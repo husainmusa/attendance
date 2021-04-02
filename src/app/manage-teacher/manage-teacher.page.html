@@ -1,0 +1,72 @@
+<ion-header mode="md">
+  <ion-toolbar>
+  	<ion-buttons slot="end">
+  		<ion-back-button></ion-back-button>
+  	</ion-buttons>
+    <ion-title>{{'edit_teacher.title' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="md"> 
+
+	<ion-list lines="none" class="list" *ngIf="trimmedTeacher"> 
+		<ion-list-header class="list-header">
+			<ion-item style="width: 100%;">
+				<ion-searchbar mode="ios" placeholder="{{'search.search_teacher' | translate}}" id="search" (keyup)="filterList($event)"></ion-searchbar>
+			</ion-item>
+		</ion-list-header>
+		<div id="teacher">
+			<ion-card class="card" *ngFor="let list of trimmedTeacher; let i=index" (click)="openEditPage(list)">
+				<ion-card-header class="card-header">
+					<ion-item class="item">
+						<ion-avatar slot="start">
+							<img [src]="list.pic" onerror="this.onerror=null;this.src='assets/imgs/logo.png';"> 
+						</ion-avatar>
+						<ion-label>
+							<h2>{{list.first_name}}</h2>
+								<p>{{list.username}}</p>
+							<p>{{'edit_teacher.teacher_assign' | translate}}: 
+								<ion-badge color="primary" mode="ios" style="vertical-align: middle;">{{list.in_class.length}}</ion-badge></p>
+						</ion-label>
+					</ion-item>
+				</ion-card-header>
+				<ion-card-content class="card-content">
+					<!-- <ion-item class="item-lover">
+						<div class="item-text">
+							{{'edit_teacher.teacher_assign' | translate}}
+						</div>
+					  	<ion-row class="row">
+					  		<ion-col size="6" class="col">
+					  			{{'edit_teacher.regular' | translate}}
+					  			<ion-checkbox [checked]="list.is_assigned==1 && list.assigned_as=='regular'" (click)="markTeacher(list,'reg',$event,i)" color="primary" id="reg{{i}}"></ion-checkbox>
+					  		</ion-col>
+					  		<ion-col size="6" class="col">
+					  			{{'edit_teacher.split' | translate}}
+								<ion-checkbox [checked]="list.is_assigned==1 && list.assigned_as=='split'" color="secondary" (click)="markTeacher(list,'spl',$event,i)" id="spl{{i}}"></ion-checkbox>
+					  		</ion-col>
+					  	</ion-row>
+					</ion-item> -->
+				</ion-card-content>
+			</ion-card>
+		</div>
+	</ion-list>
+
+	<ion-list *ngIf="trimmedTeacher.length<1 && noTeacher">
+		<ion-list-header>
+			{{'edit_teacher.no_data' | translate}}
+		</ion-list-header>
+	</ion-list>
+	<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+<!-- 	<ion-row>
+		<ion-col size="12">
+			<ion-button  expand="block" class="btn-primary margin" *ngIf="trimmedTeacher.length>1"  color="primary" (click)="submitTeacher()">{{'edit_teacher.assign' | translate}}</ion-button>
+		</ion-col>
+		<ion-col size="12">
+			<ion-button  expand="block" class="btn-primary margin"  color="danger" (click)="deletClass()">{{'edit_teacher.delete' | translate}}</ion-button>
+		</ion-col>
+	</ion-row> -->
+
+</ion-content>

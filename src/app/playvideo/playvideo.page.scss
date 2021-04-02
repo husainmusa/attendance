@@ -1,0 +1,60 @@
+app-playvideo:host {
+    .video-fix{
+        width: 100%;
+        margin: 0 auto;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        h4{
+            font-size: 17px;
+            font-weight: 600;
+         }
+    }
+    [ion-fixed] {
+        height: 100%;
+    }
+    .video{
+        width: 100%;
+        height: 33vh;
+        img{
+          width: 100%;    
+         }
+         video{
+            height: 100%;
+            width: 100%;
+         }
+         
+     }
+
+     .videoscroll{
+        width: 100%;
+        height: 280px;
+        .upcomming-video{
+            height: 58px;
+            width: 100%;
+            border-radius: 10px;
+         }
+         .videosname{
+             font-size: 17px;
+             font-weight: 400;
+         }
+     }
+
+     .playingvideo{
+        height: 75px;
+        border-bottom: 1px solid #dad4d4;
+        h4{
+            font-size: 17px;
+            font-weight: 500;
+         }
+     }
+
+    .material-video-iframe{
+        width: 100%;
+        height: 100%;
+    }
+
+
+}

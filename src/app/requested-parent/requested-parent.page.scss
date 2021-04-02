@@ -1,0 +1,53 @@
+.list{
+	.list-header{
+		    font-size: 16px;
+    		font-weight: 700;
+	}
+	.card{
+		.card-header{
+			padding: unset;
+    		border: 0.2px solid #00000017;
+			.item{
+
+			}
+		}
+		.card-content{
+			padding: unset;
+    		margin: unset;
+			.item-lover{
+				--padding-start: unset;
+    			--padding-end: unset;
+				.item-text{
+					min-width: 183px;
+    				text-align: center;
+				}
+				.row{
+					    width: 100%;
+    					text-align: center;
+					.col{
+						font-size: 11px;
+						ion-checkbox{
+							margin: 0px auto;
+    						padding-top: 2px;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+ion-button{
+	text-transform: capitalize;
+}
+.parentOption{
+	direction: ltr;
+    font-size: 12px;
+    ion-checkbox{
+    	margin-left: 5px;
+    }
+}
+ion-item{
+	p{
+		font-size: 12px;
+	}
+}

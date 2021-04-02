@@ -1,0 +1,55 @@
+<ion-header mode="md">
+  <ion-toolbar>
+    <ion-title text-right>{{'reg_teacher.pagetitle' | translate}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding mode="md">
+  <form #registerForm='ngForm'>
+    <ion-list>
+      <ion-item class="background-input" align-items-center>
+        <ion-label color="dark" floating>{{'reg_teacher.teacherid' | translate}}</ion-label>
+        <ion-input type="text" name="teacherID" #teacherID='ngModel' class="centerInput" [(ngModel)]="teacher.teacherId"
+          pattern="[0-9]*$" (keypress)="_keyPress($event)" text-right required>
+        </ion-input>
+      </ion-item>
+      <div *ngIf="teacherID.invalid && (teacherID.touched)" class="alert alert-danger">
+        <div *ngIf="teacherID.errors.required">
+          {{'validations.required' | translate}}
+        </div>
+        <div *ngIf="teacherID.errors.pattern">
+          {{'validations.invalidteacherId' | translate}}
+        </div>
+      </div>
+
+      <ion-item class="background-input" align-items-center>
+        <ion-label color="dark" floating>{{'reg_teacher.teachername' | translate}}</ion-label>
+        <ion-input type="text" name="teacherName" #teacherName='ngModel' class="centerInput" [(ngModel)]="teacher.name" text-right required>
+        </ion-input>
+      </ion-item>
+      <div *ngIf="teacherName.invalid && (teacherName.touched)" class="alert alert-danger">
+        <div *ngIf="teacherName.errors.required">
+          {{'validations.required' | translate}}
+        </div>
+      </div>
+
+      <ion-item class="background-input" align-items-center>
+        <ion-label color="dark" floating>{{'reg_teacher.teacherpassword' | translate}}</ion-label>
+        <ion-input type="password" name="teacherPassword" #teacherPassword='ngModel' class="centerInput" [(ngModel)]="teacher.password" text-right required></ion-input>
+      </ion-item>
+      <div *ngIf="teacherPassword.invalid && (teacherPassword.touched)" class="alert alert-danger">
+        <div *ngIf="teacherPassword.errors.required">
+          {{'validations.required' | translate}}
+        </div>
+      </div>
+
+      <ion-row padding>
+        <ion-button  expand="full" class="btn-primary" shape="round" color="primary"  [disabled]="registerForm.invalid"
+          (click)="registerTeacher()">{{'reg_teacher.reg_btn' | translate}}</ion-button>
+      </ion-row>
+    </ion-list>
+  </form>
+</ion-content>
+ 

@@ -1,0 +1,98 @@
+<ion-header mode="md">
+  <ion-toolbar>
+  	<ion-buttons slot="end">
+  		<ion-back-button>
+  		</ion-back-button>
+  	</ion-buttons>
+
+  	<ion-buttons slot="start">
+  		<ion-menu-button>
+  		</ion-menu-button>
+  	</ion-buttons>
+    <ion-title>{{'bulletin.title' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="md">
+
+	<div class="container" *ngIf="inputText">
+		<ion-row class="scan-btn-col">
+			<form enctype="multipart/formdata" class="mform">
+				<ion-item style="width: 100%;">
+					<ion-label position="floating">{{'bulletin.input_title' | translate}}</ion-label>
+					<ion-input type="text" [(ngModel)]="tital" [ngModelOptions]="{standalone: true}" placeholder="{{'bulletin.placeholder' | translate}}" ></ion-input>	
+				<!-- [(ngModel)]="formdata.title" -->
+				</ion-item>
+				<ion-item style="display: none;">
+					<input type="file" id="myFileInput" (change)="onSelectFiles($event)"  multiple="true" />
+				</ion-item>
+			</form>
+			<div class="scan-btn-div">
+				<ion-button expand="block" color="primary" shape="round" (click)="scanDocument()">
+					{{'bulletin.select_file' | translate}}
+					<!-- <ion-icon name="scan-outline"></ion-icon> -->
+				</ion-button>
+			</div>
+		</ion-row>
+		<ion-row class="view-image" *ngIf="selectedDocument.length>0">
+			<ion-col size="4" *ngFor="let doc of selectedDocument; let i=index" class="selected-image">
+				<ion-icon name="close-outline" (click)="removeImage(i)"></ion-icon>
+				<img src="assets/imgs/pdf.png" *ngIf="doc.extention=='pdf'">
+				<img src="assets/imgs/doc.png" *ngIf="doc.extention=='docx'||doc.extention=='doc'|| doc.extention=='txt'">
+				<img src="assets/imgs/image.png" *ngIf="doc.extention=='png' || doc.extention=='jpg'">
+				<img src="assets/imgs/pdssf.png" *ngIf="doc.extention!='png' && doc.extention!='jpg' && doc.extention!='docx'&& doc.extention!='txt'&& doc.extention!='pdf'">
+				<span class="image-name">{{doc.name}}</span>
+			</ion-col>
+			<ion-col size="4">
+				<div class="add-more" (click)="scanDocument()">
+					<ion-icon name="add-outline"></ion-icon>
+				</div>
+			</ion-col>
+		</ion-row>
+	</div>
+
+	<div *ngIf="inputUser">
+		<ion-item>
+			 <ion-searchbar style="padding-top: 15px;" mode="ios" placeholder="{{'search.search_user' | translate}}" id="search" (keyup)="filterList($event)"></ion-searchbar>
+		</ion-item>
+		<ion-list *ngIf="uploadStaus">
+	        <ion-list-header>
+	          <ion-label>{{uploadStaus}}%</ion-label>
+	        </ion-list-header>
+	        <ion-range min="0" max="100" step="2" [value]="uploadStaus">
+		      <ion-icon slot="end" name="cloud-upload-outline"></ion-icon>
+		      <ion-icon size="small" slot="start"  name="cloud-upload"></ion-icon>
+		    </ion-range>
+	        <!-- <ion-progress-bar value="0.{{uploadStaus}}"></ion-progress-bar> -->
+	    </ion-list>
+		<div  id="students" *ngIf="!uploadStaus" > 
+		<!-- <ion-virtual-scroll [items]="students" approxItemHeight="320px"> -->
+		<ion-card  class="text-left body-font card heigt-min"  *ngFor="let users of allUsers">		
+			<ion-item class="students"  (click)="markUser(users)">
+				<ion-avatar slot="start">
+					<img [src]="users.pic"  onerror="this.onerror=null;this.src='assets/imgs/logo.png';">
+				</ion-avatar>
+			    <ion-label>
+			    	<h4>{{users.first_name}}</h4>
+			    	<p>{{users.username}}</p> 
+			    </ion-label>
+			</ion-item>
+		</ion-card> 
+			<!-- </ion-virtual-scroll> -->
+	</div>
+		
+	<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+	    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+	</ion-infinite-scroll>
+	</div>
+	
+
+</ion-content>
+<ion-footer>
+	<ion-button [disabled]="selectedDocument.length==0" *ngIf="!inputUser" expand="block" color="primary" shape="round" (click)="openUser()">
+					{{'bulletin.select_user' | translate}}
+	</ion-button>
+	<ion-button *ngIf="inputUser" expand="block" color="primary" shape="round" (click)="submit()" [disabled]="!selectedUsers" >
+			{{'bulletin.share' | translate}}
+	</ion-button>
+</ion-footer>

@@ -1,0 +1,82 @@
+<ion-header mode="md">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <!-- <ion-button icon-only (click)="selectNewsCountry()">
+        <ion-icon name="help-circle-outline" ></ion-icon>
+      </ion-button> -->
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end" *ngIf="userDetails.details">
+      <ion-button icon-only (click)="addNews()" *ngIf="userDetails.details.user_type != '4'">
+        <ion-icon name="add-outline" style="font-size: 26px;" ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title text-right>{{'news.pagetitle' | translate}}</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content mode="md">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-row class="county">
+
+        <ion-item >
+          <ion-label>{{'location.select_country'| translate}}</ion-label>
+          <ionic-selectable
+            [(ngModel)]="selected_country"
+            [items]="country"
+            itemValueField="code"
+            itemTextField="name"
+            (onChange)="portChange($event)"
+            [canSearch]="true">
+          </ionic-selectable>
+        </ion-item>
+  </ion-row>
+  <div *ngIf = "allNews?.length > 0" class="body">
+    <ion-card *ngFor="let news of allNews">
+      <ion-item>
+        <ion-avatar slot="start">
+          <img *ngIf="news.school_logo;else app_logo" [src]="news.school_logo" onerror="this.onerror=null;this.src='./assets/imgs/logo.png';" />
+          <ng-template #app_logo><img src="./assets/imgs/logo.png" /></ng-template>
+        </ion-avatar>
+        <ion-label>
+	        <h2>{{news.school_name}}</h2>
+	        <p class="location-sec">{{news.detail}}</p>
+	        <p class="time-sec">{{news.ago}}</p>
+	    </ion-label>
+      </ion-item>
+      <ion-card-content>
+        <div (click)="openUrl($event)" [innerHtml]="news.content"></div>
+      </ion-card-content>
+      <img [src]="news.news_image" *ngIf="news.news_image" imageViewer (click)="showPhoto(news.news_image)">
+      <div class="video" color="menu-color" *ngIf="news.video_url != ''">
+        <video #videoPlayer controls [src]="news.video_url" class="videoPlayer" poster="https://webapp.ws/att-admin/uploads/no-thumb.jpg"></video>
+      </div>
+      <ion-row class="right-direction">
+        <ion-col align-self-center text-left>
+          <ion-button  icon-only clear small class="share-btn btn-primary" color="menu-color" (click)="share(news)">
+            <ion-icon name="share-social"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col>
+        </ion-col>
+        <ion-col align-self-center text-right>
+          <ion-button  icon-only clear small class="btn-primary" color="menu-color" (click)="changeLike(news)">
+            <div class="total-likes" class="share-btn">{{news.total_likes}}</div>
+            <ion-icon name="thumbs-up" [ngStyle]="{'color': news.already_like == 'true'? '#2979ff':'#797979'}" class="like-icon"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </div>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <ion-label item-center class="norecord-found" *ngIf="allNews?.length == 0">{{noDataFound}}</ion-label>
+</ion-content>

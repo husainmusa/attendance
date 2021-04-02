@@ -1,0 +1,35 @@
+<ion-header mode="md">
+  <ion-toolbar>
+    <ion-title>{{'parentconnect__newmsg.pagetitle' | translate}}
+      <ion-icon item-end name="close" (click)="dismiss()" class="close"></ion-icon>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding mode="md"> 
+  <form #ticketForm='ngForm'>
+    <div class="subject">
+      <ion-item>
+        <ion-input class="message" placeholder="{{'parentconnect__newmsg.title' | translate}}"
+          [(ngModel)]="message.title" text-right name="title" #title='ngModel' required maxlength="35"></ion-input>
+      </ion-item>
+    </div>
+    <div class="subject">
+      <ion-item>
+        <ion-textarea rows="10" cols="20" placeholder="{{'parentconnect__newmsg.msg_body' | translate}}"
+          [(ngModel)]="message.message" text-right name="msg_body" #msg_body='ngModel' required maxlength="140">
+        </ion-textarea>
+      </ion-item>
+      <ion-button class="attachment" icon-only  (click) = "takePicture()">
+        <ion-icon name="attach"></ion-icon>
+      </ion-button>
+    </div>
+    <div class="attach-image" *ngIf = "ticketImage != ''">
+      <img [src]="ticketImage" />
+    </div>
+  </form>
+</ion-content>
+<ion-footer>
+  <ion-button  expand="full" class="send-btn" (click)="sendMessage()">{{'parentconnect__newmsg.send' |
+    translate}}</ion-button>
+</ion-footer>

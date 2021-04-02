@@ -1,0 +1,120 @@
+<ion-header class="right-direction" mode="md">
+  <ion-toolbar transparent>
+   	<ion-buttons slot="start">
+   		<ion-back-button>
+   		</ion-back-button>
+   	</ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-row >
+      <ion-col size="6" align-self-center no-padding>
+        <ion-buttons start clear>
+          <!-- <ion-button  small clear icon-only (click)="submitAttendance()"
+            *ngIf="(userType == '1' || userType == '3') && !isHoliday">
+            <ion-icon name="send-outline" class="add-circle" item-end color="icon-header"></ion-icon>
+          </ion-button> -->
+          <ion-button  small clear icon-only (click)="enableEditingMode()"
+            *ngIf="userType == '1' && !editMode && !isHoliday">
+            <ion-icon name="pencil" class="add-circle" item-end color="icon-header"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-col>
+      <ion-col size="6" class="header-row text-right" align-self-center no-padding >
+        <div class="title" (click)="openCalenderModal()">{{dateSelected | date: 'mediumDate'}}</div>
+      </ion-col>
+    </ion-row>
+
+
+  </ion-toolbar>
+  <ion-row>
+    <ion-col size="2" align-self-center class="text-center">{{'delay_stu_list.a_d' | translate}}</ion-col>
+    <ion-col size="4" align-self-center class="text-left"></ion-col>
+    <ion-col size="6" style="padding-right: 23px;" align-self-center class="text-right">{{courseInfo?.name}}</ion-col>
+    <!-- <ion-col size="1"></ion-col> -->
+  </ion-row>
+</ion-header>
+
+<ion-content mode="md">
+  <div class="main-content">
+    <ion-list *ngIf = "students?.length > 0" lines="none">
+      <ion-card class="student-class" *ngFor="let student of students; let sno = index;">
+        <ion-card-content no-padding style="padding: unset;">
+          <ion-row justify-content-center class="right-direction">
+            <ion-col text-left align-self-center no-padding class="checkbox-area" size="3.5">
+              <ion-row>
+                <ion-col size="5" align-self-center no-padding>
+                  <div class="text-hidden" text-center no-margin>{{student.useedforabsent.one /
+                    delayRule}}/{{student.useedforabsent.zero}}</div>
+                </ion-col>
+                <ion-col size="7" align-self-center text-left (click)="changeAttendanceStatus(student)">
+                  <div class="checkbox-remove"
+                    [ngClass]="{'present': student.sheet['cem-1'] == true, 'absent':  student.suspend_leave == true || student.medical_leave == true, '': student.sheet['cem-1'] == 'undefined'}">
+                    <ion-icon name="checkmark" *ngIf="student.sheet['cem-1'] == true" color="light"></ion-icon>
+                    <ion-icon name="close" *ngIf="student.suspend_leave || student.medical_leave" color="light">
+                    </ion-icon>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+            <ion-col no-padding size="8.5" align-self-center no-padding>
+              <ion-item no-padding>
+                <ion-label  class="text-right" (click)="openStudentDetail(student.sid,student)" class="left-direction">
+                  <h2><span class="serial-number">{{sno+1}}.</span> {{student.name}}</h2>
+                  <p>{{'delay_stu_list.total_delay' | translate}} {{student.total_delay}}</p>
+                </ion-label>
+                <ion-avatar item-end slot="end">
+                  <img [src]="student.pic" (click)="openUserImageModal(student)">
+                </ion-avatar>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+      <ion-button  expand="block" class="btn-primary margin" color="primary" (click)="submitAttendance()" *ngIf="(userType == '1' || userType == '3') && !isHoliday">{{'list-student.submitbtn' | translate}}</ion-button>
+    </ion-list>
+    <ion-label item-center class="norecord-found" *ngIf="students?.length == 0">{{noDataFound}}</ion-label>
+  </div>
+</ion-content>
+
+<div class="custom-calender-modal-main" *ngIf="showCalenderModal">
+  <div class="calender-container">
+    <div class="calender-body" class="right-direction">
+      <ion-calendar #calendar [options]="options" canBackwardsSelected="true"  (change)="onDaySelect($event)"></ion-calendar>
+    </div>
+  </div>
+  <div class="clickd-div" (click)="hideCalenderModal()"></div>
+</div>
+
+<div class="custom-modal-main" *ngIf="showProfileModal" (click)="hideUserImageModal($event)">
+  <div class="custom-modal">
+    <div class="custom-modal-header">
+      <div class="image-sec" [ngStyle]="{'background-image': 'url('+student.pic+')'}">
+        <div class="add-image-icon" (click)="takePicture()" *ngIf="userDetails.details.user_type != '2' && userDetails.details.user_type != '7'">
+          <ion-icon name="add-circle"></ion-icon>
+        </div>
+      </div>
+    </div>
+    <div class="custom-modal-content">
+      <h2>{{student.name}}</h2>
+      <p *ngIf="studentBehaviour != ''">{{studentBehaviour}}</p>
+      <p>{{'list-student.total_absents' | translate}} : {{student.total_absent}}</p>
+    </div>
+    <div class="custom-modal-footer">
+      <ion-row>
+        <ion-col size="4"  class=" text-left lefthorizline">
+          <p  class=" text-center absence-count">{{student.unacceptable_absent_days}}</p>
+          <p  class="text-center absence">{{'list-student.unacceptable_absence' | translate}}</p>
+        </ion-col>
+        <ion-col size="4"  class="text-center">
+          <p  class="text-center absence-count">{{student.suspend_days}}</p>
+          <p  class="text-center absence">{{'list-student.suspension_days' | translate}}</p>
+        </ion-col>
+        <ion-col size="4"  class="text-right text-center">
+          <p  class="text-center absence-count">{{student.medical_days}}</p>
+          <p  class="text-center absence">{{'list-student.medical_days' | translate}}</p>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+</div>

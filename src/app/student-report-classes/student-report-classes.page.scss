@@ -1,0 +1,191 @@
+app-student-report-classes:host {
+    ion-toolbar:after{
+        height: 0px !important;
+    }
+    .container{
+        padding:2px;
+        background:#dcdcdc;
+        min-height: 100%;
+    }
+    .edit_enabled_text{
+        width: 30%;
+        float: left;
+        text-align: left;
+    }
+    .body{
+        background:#fff;
+    }
+    .check-icon{
+        position: absolute;
+        z-index: 2;
+        right: 8px;
+        top: 8px;
+        font-size: 17px;
+        color: #fff;
+        background: #43a047;
+        border-radius: 50%;
+    }
+    .segement{
+        background: #fff;
+        margin: 6px 0px 0px 0px;
+        border-top-left-radius: 17px;
+        border-top-right-radius: 17px;
+        ion-badge{
+            border-radius: 36vw;
+            vertical-align: middle;
+        }
+    }
+    .card-addon{
+            min-width: 43vw;
+            float: right;
+            // margin: 7px 14px !important;
+    }
+   .cards-description{
+        border-radius: 6px;
+        min-height: 100px;
+        position: relative;
+            // margin: 7px;
+        ion-card-title {
+            width: 70%;
+            font-size: 15px;
+
+          //  padding-right: 10px;
+        }
+        .card-title{
+                width: 73% !important;
+                z-index: 1;
+            }
+        ion-card-content{
+                color: #fff;
+            width: 70%;
+            font-size: 11px;
+
+          //  padding-right: 10px;
+        }
+        .card-constent{
+                   // padding-right: 5px;
+                    font-size: 0.7rem;
+                    width: 100% !important;
+                    box-sizing: 187;
+                    z-index: 2 !important;
+            }
+        
+    }
+    .small-data{
+        ion-card-content{
+                padding-right: 4px !important;
+        }
+        .background-image-div{
+            width: 75% !important;
+            height: 100%;
+            position: absolute;
+            z-index: 0;
+            top: -8px !important;
+            background-image: url(../../assets/imgs/class-background-image.svg);
+            left: -60px;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+    }
+
+    .add-circle{
+        float: left;
+        margin-right: 10px;
+        font-size: 27px;
+    }
+
+    @media only screen and (max-width: 249px) and (orientation: portrait) {
+        .cards-description{
+            ion-card-title{
+                padding-right: 5px;
+                font-size: 1.2rem;
+                width: 60%;
+            }
+            .card-title{
+                width: 73% !important;
+                z-index: 1;
+            }
+            ion-card-content{
+                padding-right: 5px;
+                font-size: 1rem;
+                width: 60% !important;
+            }
+            .card-constent{
+                    padding-right: 5px;
+                    font-size: 0.7rem;
+                    width: 100% !important;
+                    box-sizing: 187;
+                    z-index: 2 !important;
+            }
+            .background-image-div{
+                left: -46px !important;
+            }
+        }
+    }
+
+    @media only screen and (min-width: 250px) and (max-width: 319px) and (orientation: portrait) {
+        .cards-description{
+            ion-card-title{
+                padding-right: 5px;
+                font-size: 1.1rem;
+                width: 60%;
+            }
+            .card-title{
+                width: 73% !important;
+                z-index: 1;
+            }
+            ion-card-content{
+                padding-right: 5px;
+                font-size: 1rem;
+                width: 60% !important;
+            }
+            .card-constent{
+                    padding-right: 5px;
+                    font-size: 0.8rem;
+                    width: 100% !important;
+                    box-sizing: 187;
+                    z-index: 2 !important;
+            }
+        }
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 359px) and (orientation: portrait) {
+        .cards-description{
+          ion-card-header{
+            padding: 15px 6px 5px 0px;
+          }
+            ion-card-title{
+                // padding-right: 5px;
+                font-size: 1rem;
+                width: 60%;
+            }
+            .card-title{
+                width: 73% !important;
+                z-index: 1;
+            }
+            ion-card-content{
+                padding-right: 5px;
+                font-size: 1rem;
+                width: 60% !important;
+            }
+            .card-constent{
+                    padding-right: 5px;
+                   font-size: 0.8rem;
+                    width: 100% !important;
+                    box-sizing: 187;
+                    z-index: 2;
+            }
+        }
+    }
+}
+.background-image-div {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: 0;
+            top: 0;
+            background-image: url(../../assets/imgs/class-background-image.svg);
+            left: -60px;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }

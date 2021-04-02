@@ -1,0 +1,134 @@
+<ion-header mode="md">
+  <ion-toolbar>
+  	<ion-buttons slot="end">
+  		<ion-back-button></ion-back-button>
+  	</ion-buttons>
+    <ion-title>{{'sidemenu.new_parent' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="md">
+	<ion-row>
+		<ion-segment mode="md" [(ngModel)]="category" color="primary">
+	        <ion-row>
+	          <ion-col size="6">
+	            <ion-segment-button value="parents" >
+	             {{'parent_request_list.parents' | translate}}
+	            </ion-segment-button>
+	          </ion-col>
+
+	          <ion-col size="6">
+	            <ion-segment-button value="requested">
+	              {{'parent_request_list.requested' | translate}}
+	            </ion-segment-button>
+	          </ion-col>
+	        </ion-row>
+	    </ion-segment>
+    </ion-row>
+    <div [ngSwitch]="category" class="body">
+    	<div *ngSwitchCase="'requested'">
+			<ion-list lines="none" class="list" *ngIf="parentList">
+				<ion-list-header class="list-header">
+					{{'parent_request_list.sub_title' | translate}}
+				</ion-list-header>
+				<ion-card class="card" *ngFor="let list of parentList; let i=index">
+					<ion-card-header class="card-header">
+						<ion-item class="item">
+							<ion-avatar slot="start">
+								<img [src]="list.profile"  onerror="this.onerror=null;this.src='assets/imgs/logo.png';">
+							</ion-avatar>
+							<ion-label>
+								<h2>{{list.name}}</h2>
+								<p> {{list.datetime}}</p>
+								<!-- {{'parent_request_list.created' | translate}} : -->
+							</ion-label>
+						</ion-item>
+					</ion-card-header>
+					<ion-card-content class="card-content">
+						<ion-item class="item-lover">
+							<div class="item-text">
+								<ion-row class="row">
+							  		<ion-col size="6" class="col">
+							  			<ion-button color="primary" expand="block" (click)="acceptRequest(i,list)" >{{'parent_request_list.accept' | translate}}</ion-button>
+							  		</ion-col>
+							  		<ion-col size="6" class="col" (click)="deleteRequest(list)">
+							  			<ion-button color="secondary" expand="block">{{'parent_request_list.denay' | translate}}</ion-button>
+							  		</ion-col>
+						  		</ion-row>
+							</div>
+						  	<ion-row class="row">
+						  		<ion-col size="12" class="col">
+						  			{{'parent_request_list.all_permission' | translate}}
+						  			<ion-checkbox color="primary" id="check{{i}}"></ion-checkbox>
+						  		</ion-col>
+						  	</ion-row>
+						</ion-item>
+					</ion-card-content>
+				</ion-card>
+			</ion-list>
+			<ion-list *ngIf="parentList.length<1 && noParants">
+				<ion-list-header>
+					{{'parent_request_list.no_data' | translate}}
+				</ion-list-header>
+			</ion-list>
+		</div>
+		<div *ngSwitchCase="'parents'" class="body">
+			<ion-list lines="none" class="list" *ngIf="allParentList">
+				<ion-list-header class="list-header">
+					<ion-item style="width: 100%;">
+		        		<ion-searchbar mode="ios" placeholder="{{'search.search_parent' | translate}}" id="search" (keyup)="filterList($event)"></ion-searchbar>
+					</ion-item>
+				</ion-list-header>
+				<ion-card class="card" *ngFor="let list of allParentFilter; let i=index">
+					<ion-card-header class="card-header">
+						<ion-item class="item">
+							<ion-avatar slot="start">
+								<img [src]="list.pic"  onerror="this.onerror=null;this.src='assets/imgs/logo.png';">
+							</ion-avatar>
+							<ion-label>
+								<h2>{{list.first_name}}</h2>
+								<p> {{list.username}}</p>
+								<!-- <p> {{list.user_no}}:{{'parent_request_list.id' | translate}}</p> -->
+								<p *ngFor="let st of list.student_info"> {{st.name}}</p>
+								<!-- {{'parent_request_list.created' | translate}} : -->
+							</ion-label>
+						</ion-item>
+					</ion-card-header>
+					<ion-card-content class="card-content">
+							<ion-row class="row">
+						  		<ion-item size="12" class="col" class="parentOption">
+						  			<ion-label>{{'parent_request_list.all_permission' | translate}}</ion-label>
+						  			<ion-checkbox color="primary" [checked]="list.access_mode=='1'" id="permit{{i}}"></ion-checkbox>
+						  		</ion-item>
+						  	</ion-row>
+							<div class="item-text">
+								<ion-row class="row">
+							  		<ion-col size="6" class="col">
+							  			<ion-button color="primary" expand="block" (click)="changeStatus(i,list)" >{{'parent_request_list.change' | translate}}</ion-button>
+							  		</ion-col>
+							  		<ion-col size="6" class="col" >
+							  			<ion-button color="secondary" expand="block" (click)="deleteParent(i,list)" >{{'parent_request_list.delete' | translate}}</ion-button>
+							  		</ion-col>
+						  		</ion-row>
+							</div>
+					</ion-card-content>
+				</ion-card>
+			</ion-list>
+
+			<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+			    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+			</ion-infinite-scroll>
+		</div>
+	</div>
+
+
+<!-- 	<ion-row>
+		<ion-col size="12">
+			<ion-button  expand="block" class="btn-primary margin"  color="primary">Assign</ion-button>
+		</ion-col>
+		<ion-col size="12">
+			<ion-button  expand="block" class="btn-primary margin"  color="danger">Delete class</ion-button>
+		</ion-col>
+	</ion-row> -->
+
+</ion-content>

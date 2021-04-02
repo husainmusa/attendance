@@ -1,0 +1,242 @@
+
+<ion-header mode="md">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title text-right>{{'classlist.pagetitle' | translate}}
+      <ion-icon name="send-outline" (click)="editMode = !editMode" class="add-circle" item-end color="icon-header" *ngIf = "editMode"></ion-icon>
+      <ion-icon name="pencil" class="add-circle" item-end color="icon-header" (click) = "enableEditMode()" *ngIf = "userType == '1' && !editMode"></ion-icon>
+      <ion-icon name="add" class="add-outline" item-end color="icon-header" class="add-circle" (click) = "createClass()" *ngIf = "userType == '1'"></ion-icon>
+      <ion-icon name="search" class="add-outline add-circle" item-end color="icon-header" (click)="openSearchPage()"></ion-icon>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-datetime value="2019-10-01T15:43:40.394Z" display-timezone="utc"></ion-datetime>
+
+F2:D8:53:DB:7D:6B:63:C5:76:B5:EE:69:4A:5E:2F:20:F8:93:E7:2F
+
+<ion-content mode="md">
+  <ion-refresher slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <!-- The reorder gesture is disabled by default, enable it to drag and drop items -->
+
+
+
+  <div class="container">
+    <ion-row class="segement">
+      <ion-segment *ngIf = "userType == '1'" [(ngModel)]="category" color="primary"  (ionChange)="segmentChanged($event)">
+        <ion-row>
+          <ion-col size="6">
+            <ion-segment-button value="list" >
+             {{'classlist.pagetitle' | translate}}
+            </ion-segment-button>
+          </ion-col>
+
+          <ion-col size="6">
+            <ion-segment-button value="data">
+              {{'classlist.seminar' | translate}}
+            </ion-segment-button>
+          </ion-col>
+        </ion-row>
+      </ion-segment>
+    </ion-row>
+   <div [ngSwitch]="category" class="body">
+      <div *ngSwitchCase="'list'">
+        <ion-grid no-padding>
+          <ion-row *ngIf = "classes?.length > 0">
+            <ion-col size="6" *ngFor="let course of classes" no-padding>
+              <!-- <ion-icon *ngIf="course.attendence_submitted" class="check-icon"  name="checkmark-circle-outline"></ion-icon>
+ -->              
+              <ion-card class="cards-description" [ngStyle]="{'background-color': course.backgroundColor}" (click)="openClassStudents(course)">
+                <ion-card-header no-padding>
+                  <ion-card-title color="light">{{course.name}}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content no-padding color="light">
+                  {{course.desc}}
+                </ion-card-content>
+                <div class="background-image-div"></div>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-label item-center class="norecord-found" *ngIf = "classes?.length == 0">{{noDataFound}}</ion-label>
+      </div>
+      <div *ngSwitchCase="'data'">
+        <ion-grid no-padding>
+          <ion-row *ngIf = "classes?.length > 0" class="small-data">
+            <ion-col size="6" *ngFor="let seminar of dashBoard
+              let i=index" no-padding>
+              <ion-card class="cards-description" [ngStyle]="{'background-color': classBackgroundColor[i]}" (click)="openSeminar(i+1)">
+                <ion-card-header no-padding>
+                  <ion-card-title color="light" class="card-title">{{seminar.name}}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content no-padding color="light" class="card-constent">
+                 <span>  {{'classlist.present' | translate}}: {{seminar.present}} </span><br>
+                 <span> {{'classlist.absent' | translate}}: {{seminar.absent}}</span><br>
+                 <span> {{'classlist.total_student' | translate}}: {{seminar.total_student}}</span><br>
+                 <span> {{'classlist.present_pecent' | translate}}: {{seminar.total_per_sent}}</span>
+                </ion-card-content>
+                <div class="background-image-div"></div>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-label item-center class="norecord-found" *ngIf = "dashBoard?.length == 0">{{noDataFound}}</ion-label>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+
+
+
+        <preference name="android-minSdkVersion" value="19" />
+        <preference name="android-targetSdkVersion" value="29" />
+@angular-devkit/build-angular/src/angular-cli-files/models/webpack-configs/utils
+
+
+
+
+
+
+
+
+https://stackoverflow.com/questions/37048895/how-to-sort-the-ionic-grid-using-drag-and-drop
+
+
+
+
+
+ > cordova.cmd platform add android@8.1.0
+Using cordova-fetch for cordova-android@8.1.0
+Adding android project...
+Creating Cordova project for the Android platform:
+        Path: platforms\android
+        Package: com.webapp.attendance
+        Name: _____________
+        Activity: MainActivity
+        Android target: android-28
+Subproject Path: CordovaLib
+Subproject Path: app
+Android project created with cordova-android@8.1.0
+
+
+
+
+
+https://enappd.com/blog/how-to-in-app-purchase-in-ionic-4-apps-ios/99/
+
+Important : To be able to use iOS In-app purchase, you need to have all Tax and Banking information updated and approved in App Store Connect. Also, you’ll have to agree to all Apple agreements pending in Agreements, tax and banking section.	
+
+keytool -keystore path-to-debug-or-production-keystore -list -v
+
+keytool -list -v -keystore "C:\Users\Arpite\.android\debug.keystore" -alias androiddebugkey -storepass android -keypass android 
+
+
+<=======================
+
+
+
+
+
+<ion-header [translucent]="true">
+  <app-header-landing [p_name]="'Start Your  Journey'"> </app-header-landing>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="body_background">
+   
+
+
+  <ion-row class="jourenylist_block" *ngIf="ischallengeList">
+    <ion-col size=12 *ngFor="let challenge of challengList"> 
+      <!-- <ion-item-group class="information_block"> 
+        <ion-item >
+          <ion-thumbnail>
+            <img [src]="challenge.mission_poster_url">
+          </ion-thumbnail> 
+        </ion-item>
+        <ion-item-group class="details"> 
+          <ion-text>  {{challenge.mission_title}} </ion-text> 
+          <ion-item class="btn_block">
+              <ion-button *ngIf="!challenge.is_started" expand="full" class="button_submit btn_start" (click)="jourenyDetails(challenge)"> Start </ion-button>
+              <ion-button *ngIf="challenge.is_started" expand="full" class="btn btn_view" (click)="openLeaderBoard()"> <ion-icon name="eye-outline"></ion-icon> Leaderboard  </ion-button>
+          </ion-item>
+        </ion-item-group>
+      </ion-item-group> -->
+
+
+
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Card Title</ion-card-title>
+          <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+          
+        </ion-card-header>
+      
+        <ion-card-content>
+          <img [src]="challenge.mission_poster_url">
+          Keep close to Nature's heart... and break clear away, once in awhile,
+          and climb a mountain or spend a week in the woods. Wash your spirit clean.
+        </ion-card-content>
+
+        <ion-item>
+          <ion-icon name="pin" slot="start"></ion-icon>
+          <ion-button fill="outline" slot="start">View</ion-button>
+          <ion-button fill="outline" slot="end">View</ion-button>
+        </ion-item>
+      </ion-card>
+      
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="!ischallengeList" class="jourenylist_block" >
+    <ion-col size=6 >  
+      <ion-item-group class="information_block"> 
+        <ion-item >
+          <ion-thumbnail>
+            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          </ion-thumbnail> 
+        </ion-item>
+        <ion-item-group class="details"> 
+          <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          <ion-item class="btn_block">
+            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text> 
+          </ion-item>
+        </ion-item-group>
+      </ion-item-group>
+    </ion-col>
+    <ion-col size=6 >  
+      <ion-item-group class="information_block"> 
+        <ion-item >
+          <ion-thumbnail>
+            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          </ion-thumbnail> 
+        </ion-item>
+        <ion-item-group class="details"> 
+          <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text> 
+          <ion-item class="btn_block">
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text> 
+          </ion-item>
+        </ion-item-group>
+      </ion-item-group>
+    </ion-col>
+    <ion-col size=6 >  
+      <ion-item-group class="information_block"> 
+        <ion-item >
+          <ion-thumbnail>
+            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          </ion-thumbnail> 
+        </ion-item>
+        <ion-item-group class="details"> 
+          <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text> 
+          <ion-item class="btn_block">
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text> 
+          </ion-item>
+        </ion-item-group>
+      </ion-item-group>
+    </ion-col>
+  </ion-row>
+</ion-content>  

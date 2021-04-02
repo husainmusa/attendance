@@ -1,0 +1,22 @@
+
+ion-toolbar{
+	    height: 76px;
+	    ion-searchbar{
+	    	    --box-shadow: unset;
+			    font-size: 31px !important;
+			    min-height: 80px !important;
+	    }
+}
+.students{
+	background: #f7f5f5;
+    min-height: 100%;
+    padding: 10px;
+    ion-item{
+    	margin: 0px 5px 5px 5px;
+    }
+}
+ion-item{
+	p{
+		font-size: 12px;
+	}
+}

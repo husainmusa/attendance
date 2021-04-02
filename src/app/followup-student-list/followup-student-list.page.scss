@@ -1,0 +1,167 @@
+app-followup-student-list:host {
+    .item-img{
+                --padding-start: unset;
+                --padding-end: unset;
+                --inner-padding-end: unset;
+                --inner-padding-start: unset;
+    }
+    ion-header{
+        ion-list{
+            background: #fff;
+        }
+    }
+    .item-inner {
+        border-bottom: none !important;
+    }
+    .margin{
+        width: 92%;
+        margin: 13px;
+    }
+    .checkbox-container {
+        width: 100%;
+        display: flex;
+        .checkbox-icon {
+            width: 14%;
+            height: auto;
+        }
+    }
+    .title{
+   //     font-size: 1.7rem;
+        font-weight: 600;
+        color: #000;
+            padding-top: 1vh;
+            font-size: 15px;
+    }
+    .sem-number-outer {
+        border-radius: 50%;
+        width: 23px;
+        height: 23px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+    }
+    .att-not-marked{
+        background:#ececec;
+        color: #000;
+    }
+    .att-marked{
+        background: #32db64;
+        color: #fff;
+    }
+    .top-col{
+        text-align: center;
+        p{
+            margin:unset;
+        }
+    }
+    .add-circle{
+        float: left;
+        margin-right: 10px;
+        font-size: 27px;
+    }
+    .student-behaviour {
+        margin: 0;
+        font-size: 10px;
+        color: #7d7d7d;
+        padding-top: 5px;
+    }
+    .student-card {
+        background: #fff;
+        box-shadow: 1px 1px 6px #ececec;
+        border-radius: 2px;
+        margin-bottom: 10px;
+        h4 {
+                margin: 0;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                font-size: 13px;
+                font-weight: 600;
+                padding-top: 7px;
+            .serial-number{
+                font-weight: normal;
+            }
+        }
+    }
+    .checkbox-all{
+        margin: 0px 0;
+    }
+    .checkbox-area{
+        margin: 5px 0;
+        .checkbox-remove{
+            // background:color($colors, remove-app, base) !important;
+            border: 1px solid grey;
+            height: 24px;
+            width: 24px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /*ion-icon{
+                font-size: 23px;
+                font-weight: 800;
+                padding-right: 7px;
+                padding-top: 0;
+            }*/
+            .att-icon:before{
+                font-size: 22px;
+            }
+        }
+        .present{
+            background: #32db64;
+        }
+        .absent{
+            background: #f53d3d;
+        }
+        .delay{
+            background: #ffa500;
+        }
+    }
+
+    @media only screen and (min-width: 250px) and (max-width: 319px) and (orientation: portrait) {
+        .title, h4 {
+            font-size: 0.7rem;
+        }
+        ion-list {
+            padding: 5px !important;
+        }
+        .add-circle {
+            margin-right: 0px !important;
+            font-size: 24px !important;
+        }
+        ion-header ion-icon {
+            min-width: 18px !important;
+        }
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 380px) and (orientation: portrait) {
+
+        .add-circle {
+            margin-right: 0px !important;
+            font-size: 24px !important;
+        }
+        ion-header ion-icon {
+            min-width: 18px !important;
+        }
+    }
+}
+.all-check{
+    border-radius: 20%;
+}
+.marks-row{
+    text-align: center;
+    .marks-col{
+        p{
+            margin: 0px 0px 5px 0px;
+            font-size: 0.6rem;
+            font-weight: bold;
+            color: #3a3a3a;
+
+        }
+        ion-input{
+            border: 1px solid #00000061;
+            border-radius: 5px;
+        }
+    }
+}

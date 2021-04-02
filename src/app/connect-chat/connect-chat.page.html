@@ -1,0 +1,78 @@
+<ion-header mode="md">
+  <ion-toolbar>
+  	<ion-buttons slot="end">
+  		<ion-back-button>
+  		</ion-back-button>
+  	</ion-buttons>
+
+    <ion-row no-padding no-margin *ngIf="chat">
+      <ion-col size="2" no-padding no-margin>
+        <img class="avatar-img" [src]="chat.pic" onerror="this.onerror=null;this.src='assets/imgs/logo.png';" imageViewer  (click)="showPhoto(chat.pic)"/>
+      </ion-col>
+      <ion-col size="10" align-self-center no-padding no-margin text-right>
+        <h6>{{chat.name}}</h6>
+      </ion-col>
+    </ion-row> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding #contentArea class="right-direction" mode="md">
+  <div *ngFor="let message of messages; let i = index">
+    <ion-row *ngIf="message.receiver == 'false'"
+      [class.margintop]="i > 0 && messages[i-1].receiver != message.receiver">
+      <ion-col size="4" align-self-center no-padding></ion-col>
+      <ion-col size="8" align-self-center text-right no-padding>
+        <div class="sender-message"
+          [class.sender-message-first-child]="(i > 0 && messages[i-1].receiver != message.receiver) || i==0">
+          <span>{{message.message}}</span>
+          <div class="image-sec" *ngIf="message.attachment_url != '' && message.attachment_url != undefined">
+            <img class="connectImg" [src]="message.attachment_url" imageViewer (click)="showPhoto(message.attachment_url)" />
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="message.receiver == 'true'" [class.margintop]="i > 0 && messages[i-1].receiver != message.receiver">
+      <ion-col size="8" align-self-center no-padding>
+        <div class="receiver-message"
+          [class.receiver-message-first-child]="(i > 0 && messages[i-1].receiver != message.receiver) || i==0">
+          <ul>
+            <li class="sender-name">{{message.senderName}}</li>
+            <li>{{message.message}}</li>
+            <li class="image-sec" *ngIf="message.attachment_url != '' && message.attachment_url != undefined">
+              <img class="connectImg" [src]="message.attachment_url" imageViewer (click)="showPhoto(message.attachment_url)" />
+              <div class="download-button">
+                <ion-button ion-button small icon-only outline color="white" (click)="downloadImage(message.attachment_url)">
+                  <ion-icon name="download" color="dark" style="font-size: 25px;"></ion-icon>
+                </ion-button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </ion-col>
+      <ion-col size="4" align-self-center no-padding></ion-col>
+    </ion-row>
+  </div>
+</ion-content>
+<ion-footer *ngIf="chat && chat.ticket_status == '0'">
+  <ion-item class="post-image-sec" *ngIf="image != ''">
+    <img [src]="image" class="post-image" />
+  </ion-item>
+  <ion-row>
+    <ion-col size="8.5">
+      <ion-input class="message" [(ngModel)]="message" text-right
+        placeholder="{{'parentconnect_chat.typehere'| translate}}"></ion-input>
+    </ion-col>
+    <ion-col size="1.5">
+      <ion-button class="attech-btn"  clear small icon-only color="menu-color" (click)="takePicture()">
+        <ion-icon name="attach"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col size="2" class="send-icon">
+      <ion-fab>
+        <ion-button ion-fab mini class="send-btn"  (click)="sendMessage()">
+          <ion-icon name="send"></ion-icon>
+        </ion-button>
+      </ion-fab>
+    </ion-col>
+  </ion-row>
+</ion-footer>

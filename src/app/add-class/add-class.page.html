@@ -1,0 +1,29 @@
+<ion-header mode="md">
+  <ion-toolbar>
+  	<ion-buttons slot="end">
+  		<ion-back-button></ion-back-button>
+  	</ion-buttons>
+      <ion-title text-right>{{'followUp_student.select_classes' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="md">
+	<div class="students" id="students" *ngIf="classes" > 
+		<!-- <ion-virtual-scroll [items]="students" approxItemHeight="320px"> -->
+		<ion-card  class="text-left body-font card heigt-min"  *ngFor="let class of classes; let i=index">		
+			<ion-item  >
+				<ion-checkbox slot="end" [checked]="class.is_selected" (ionChange)="changeClass(class,$event)"></ion-checkbox>
+			    <ion-label>
+			    	<h4>{{class.courses.name}}</h4>
+			    	<p>{{class.courses.desc}}</p> 
+			    </ion-label>
+			</ion-item>
+		</ion-card> 
+	</div>
+
+</ion-content>
+<ion-footer>
+	<ion-button  expand="block" shape="round" color="primary" [disabled]="!chnagedData.length" (click)="setClasses()">
+		{{'followUp_student.select_classes' | translate}}
+	</ion-button>
+</ion-footer>

@@ -1,0 +1,109 @@
+<ion-header>
+
+  <ion-toolbar mode="md">
+   	<ion-buttons slot="end">
+      <ion-back-button></ion-back-button>
+   	</ion-buttons>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title text-right>{{'create_notes.pagetitle'| translate}}</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+<ion-content padding class="right-direction" mode="md">
+  <form #privateMessage='ngForm' class="fform" *ngIf="!uploadStaus">
+  	<ion-radio-group [(ngModel)]="notes.sendTo" [ngModelOptions]="{standalone: true}" >
+	    <ion-row text-right >
+	      <ion-col size="5" align-self-center text-right>
+	        {{'create_notes.self'| translate}}
+	      </ion-col>
+	      <ion-col size="1" align-self-center no-padding>
+	        <ion-radio value="self" ></ion-radio>
+	      </ion-col>
+	      <ion-col size="5" align-self-center text-right>
+	        {{'create_notes.class'| translate}}
+	      </ion-col>
+	      <ion-col size="1" align-self-center no-padding text-right>
+	        <ion-radio value="class" ></ion-radio>
+	      </ion-col>
+	    </ion-row>
+	    <ion-row text-right padding-top>
+        <ion-col size="6"></ion-col>
+	      <ion-col size="5" align-self-center text-right>
+	        {{'create_notes.single_student'| translate}}
+	      </ion-col>
+	      <ion-col size="1" align-self-center no-padding>
+	        <ion-radio value="oneuser" ></ion-radio>
+	      </ion-col>
+	      <!-- <ion-col size="5" align-self-center text-right>
+	        {{'create_notes.public'| translate}}
+	      </ion-col>
+	      <ion-col size="1" align-self-center no-padding>
+	        <ion-radio value="all"></ion-radio>
+	      </ion-col> -->
+	    </ion-row>
+	</ion-radio-group>
+    <div class="subject" *ngIf="notes.sendTo=='oneuser'">
+      <ion-item>
+        <ion-label> {{'create_notes.student_name'| translate}}</ion-label>
+        <ionic-selectable
+          [(ngModel)]="selectedStudent"
+          [ngModelOptions]="{standalone: true}"
+          [isMultiple]="true"
+          [items]="students"
+          itemValueField="sid"
+          itemTextField="name"
+          [canSearch]="true"
+          (onChange)="portChange($event)">
+        </ionic-selectable>
+      </ion-item>
+     <!--  <ion-item>
+        <ion-input type="email" class="message" name="useremail" placeholder="{{'create_notes.student_id'| translate}}"
+          [(ngModel)]="notes.studentId" text-right></ion-input>
+      </ion-item> -->
+    </div>
+    <!-- <div class="subject">
+      <ion-item>
+        <ion-input type="text" class="message" placeholder="{{'create_notes.noti_title'| translate}}"
+          [(ngModel)]="mail.title" text-right name="title" #title='ngModel' required maxlength="35"></ion-input>
+      </ion-item>
+    </div> -->
+    <div class="subject">
+      <ion-item>
+        <ion-textarea rows="10" cols="20" placeholder="{{'create_notes.note'| translate}}"
+          [(ngModel)]="notes.description" text-right name="msg_body" #msg_body='ngModel' required maxlength="140">
+        </ion-textarea>
+      </ion-item>
+        <ion-item style="display: none;">
+          <input type="file" id="myFileInput" (change)="onSelectFiles($event)" />
+        </ion-item>
+      <ion-button class="attachment" icon-only  (click) = "takePicture()">
+        <ion-icon name="image-outline"></ion-icon>
+      </ion-button>
+      <ion-button class="attachment-video" icon-only (click)="uploadPdf()" >
+        <ion-icon name="document-outline"></ion-icon>
+      </ion-button>
+    </div>
+    <div class="attach-image" *ngIf = "ticketImage != ''">
+      <img src = "assets/imgs/image.png"/>
+    </div>
+    <div class="attach-image" *ngIf = "notes.pdf != ''">
+      <img src = "assets/imgs/pdfnew.png"/>
+    </div>
+  </form>
+  <ion-list *ngIf="uploadStaus && notes.pdf">
+          <ion-list-header>
+            <ion-label>{{uploadStaus}}%</ion-label>
+          </ion-list-header>
+          <ion-range min="0" max="100" step="2" [value]="uploadStaus">
+          <ion-icon slot="end" name="cloud-upload-outline"></ion-icon>
+          <ion-icon size="small" slot="start"  name="cloud-upload"></ion-icon>
+        </ion-range>
+          <!-- <ion-progress-bar value="0.{{uploadStaus}}"></ion-progress-bar> -->
+  </ion-list>
+</ion-content>
+<ion-footer>
+ <ion-button  expand="full" class="send-btn" color="dark"
+    (click)="sendNotes()">{{'create_notes.send_notes'| translate}}</ion-button>
+</ion-footer>

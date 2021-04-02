@@ -1,0 +1,31 @@
+<ion-header mode="md">
+ <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title text-right>{{'delaylist.title' | translate}}
+      <!-- <ion-icon name="send-outline" (click)="editMode = !editMode" class="add-circle" item-end color="icon-header" *ngIf = "editMode"></ion-icon> -->
+      <!-- <div class="edit_enabled_text" *ngIf = "editMode">{{saveText}}</div> -->
+      <!-- <ion-icon name="pencil" class="add-circle" item-end color="icon-header" (click) = "enableEditMode()" *ngIf = "userType == '1' && !editMode"></ion-icon> -->
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="md">
+  <ion-grid no-padding>
+    <ion-row *ngIf = "classes?.length > 0">
+      <ion-col size="6" *ngFor="let course of classes" no-padding>
+        <ion-card class="cards-description" [ngStyle]="{'background-color': course.backgroundColor}" (click)="openClassStudents(course)">
+          <ion-card-header no-padding>
+            <ion-card-title color="light">{{course.name}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content no-padding color="light">
+            {{course.desc}}
+          </ion-card-content>
+          <div class="background-image-div"></div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-label item-center class="norecord-found" *ngIf = "classes?.length == 0">{{noDataFound}}</ion-label>
+</ion-content>

@@ -1,0 +1,60 @@
+<ion-header mode="md">
+
+  <ion-toolbar color="content-back" transparent>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{'login.pagetitle' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content mode="md">
+  <form #loginform='ngForm'>
+  <div class="top-ads-banner">
+    <div class="ad-sec" [ngStyle]="{'background-image': 'url('+topLeftAd+')'}"></div>
+    <div class="ad-sec" [ngStyle]="{'background-image': 'url('+topRightAd+')'}"></div>
+  </div>
+<!--   <div class="earlyLogin" *ngIf="loggedinUser.length>0">
+    <ion-item *ngFor="let oldUser of loggedinUser" (click)="loginOldUser(oldUser)">
+      <ion-label>
+        Login as {{oldUser.email_id}}
+      </ion-label>
+    </ion-item>
+  </div> -->
+  <div class="login-sec">
+    <ion-list >
+      <ion-item >
+        <ion-icon slot="end"  name=""></ion-icon>
+        <ion-input type="text" placeholder="{{'login.username' | translate}}" #username='ngModel' name="name" [(ngModel)]="user.email_id" class="centerInput" required ></ion-input>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-icon slot="end" (click)="togglePass()" *ngIf="!viewPass" name="eye"></ion-icon>
+        <ion-icon slot="end" (click)="togglePass()" *ngIf="viewPass" name="eye-off"></ion-icon>
+        
+        <ion-input  [type]="inputType" placeholder="{{'login.password' | translate}}" #password='ngModel' name="pass" [(ngModel)]="user.password" class="centerInput"
+          required ></ion-input>
+      </ion-item>
+    </ion-list>
+    <div class="remember-me" no-lines text-center>
+      <ion-checkbox [(ngModel)] = "rememberMe" name="rememberme"></ion-checkbox>
+      <span>{{'login.remember_me' | translate}}</span>
+      <span class="fogotPassword" (click)="forgotPassword()">{{'login.forgot' | translate}}</span>
+    </div>
+    <ion-button  expand="block" class="btn-primary" shape="round" color="primary" (click)="login()">{{'login.login_btn' | translate}}</ion-button>
+    <div class="divider-section">
+      <div class="diamond-box">
+        <span class="or-text">{{'login.or' | translate}}</span>
+      </div>
+    </div>
+    <ion-button expand="block" class="btn-secondary" shape="round" fill="outline" color="secondary" (click)="openRegister()">{{'login.register_school' | translate}}</ion-button>
+  </div>
+  <div class="bottom-slider">
+    <ion-slides [options]="slideOptions"  *ngIf="bottomAds?.length > 0" pager="true">
+      <ion-slide *ngFor="let ad of bottomAds">
+        <img [src]="ad.url" />
+      </ion-slide>
+    </ion-slides>
+  </div>
+  </form>
+</ion-content>

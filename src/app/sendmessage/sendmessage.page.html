@@ -1,0 +1,103 @@
+<ion-header mode="md">
+
+  <ion-toolbar>
+   	<ion-buttons slot="end" class="back-btn">
+      <ion-icon name="arrow-back-outline" (click)="moveBack()"></ion-icon>
+   	</ion-buttons>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title text-right>{{'sendmsg.title'| translate}}</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+<ion-content padding class="right-direction" mode="md">
+  <form #privateMessage='ngForm' class="fform">
+    <ion-row text-right>
+      <ion-col size="5" align-self-center text-right>
+        {{'sendmsg.parent'| translate}}
+      </ion-col>
+      <ion-col size="1" align-self-center no-padding>
+        <ion-checkbox [(ngModel)]="mail.send_to.parents" name="parent"></ion-checkbox>
+      </ion-col>
+      <ion-col size="5" align-self-center text-right>
+        {{'sendmsg.mod'| translate}}
+      </ion-col>
+      <ion-col size="1" align-self-center no-padding text-right>
+        <ion-checkbox [(ngModel)]="mail.send_to.mod" name="moderator"></ion-checkbox>
+      </ion-col>
+    </ion-row>
+    <ion-row text-right padding-top>
+      <ion-col size="5" align-self-center text-right>
+        {{'sendmsg.users'| translate}}
+      </ion-col>
+      <ion-col size="1" align-self-center no-padding>
+        <ion-checkbox [(ngModel)]="mail.send_to.others" name="specificuser"></ion-checkbox>
+      </ion-col>
+      <ion-col size="5" align-self-center text-right>
+        {{'sendmsg.admin'| translate}}
+      </ion-col>
+      <ion-col size="1" align-self-center no-padding>
+        <ion-checkbox [(ngModel)]="mail.send_to.admin" name="admin"></ion-checkbox>
+      </ion-col>
+    </ion-row>
+    <ion-row text-right padding-top>
+      <ion-col size="5" align-self-center>
+        {{'sendmsg.viewer'| translate}}
+      </ion-col>
+      <ion-col size="1" align-self-center no-padding text-right>
+        <ion-checkbox [(ngModel)]="mail.send_to.viewer" name="viewer"></ion-checkbox>
+      </ion-col>
+      <ion-col size="5" align-self-center>
+        {{'sendmsg.teachers'| translate}}
+      </ion-col>
+      <ion-col size="1" align-self-center no-padding text-right>
+        <ion-checkbox [(ngModel)]="mail.send_to.tech" name="teacher"></ion-checkbox>
+      </ion-col>
+    </ion-row>
+    <div class="subject" *ngIf="mail.send_to.others">
+      <!-- <ion-item>
+        <ion-input type="email" class="message" name="useremail" placeholder="{{'sendmsg.emai_user_id'| translate}}"
+          [(ngModel)]="mail.one_user_email" text-right></ion-input>
+      </ion-item> -->
+      <ion-item (click)="selectUserpage()" >
+          <ion-label>{{'sendmsg.select_user'| translate}}</ion-label>
+          <p *ngIf="this.mail.selected_users">{{selectedUsersShow[0]}}</p>
+
+          <!-- ionic-selectable style="height: 4vh;" 
+            [(ngModel)]="selectedUsers"
+            [ngModelOptions]="{standalone: true}"
+            [isMultiple]="true"
+            [items]="users"
+            itemValueField="user_no"
+            itemTextField="first_name"
+            (onChange)="portChange($event)"
+            [canSearch]="true">
+          </ionic-selectable> -->
+        </ion-item>
+    </div>
+    <!-- <div class="subject">
+      <ion-item>
+        <ion-input type="text" class="message" placeholder="{{'sendmsg.noti_title'| translate}}"
+          [(ngModel)]="mail.title" text-right name="title" #title='ngModel' required maxlength="35"></ion-input>
+      </ion-item>
+    </div> -->
+    <div class="subject">
+      <ion-item>
+        <ion-textarea rows="10" cols="20" placeholder="{{'sendmsg.notification'| translate}}"
+          [(ngModel)]="mail.notification" text-right name="msg_body" #msg_body='ngModel' required maxlength="140">
+        </ion-textarea>
+      </ion-item>
+      <ion-button class="attachment" icon-only  (click) = "takePicture()">
+        <ion-icon name="attach"></ion-icon>
+      </ion-button>
+    </div>
+    <div class="attach-image" *ngIf = "ticketImage != ''">
+      <img style="width: 41px" src= "assets/imgs/image.png"/>
+    </div>
+  </form>
+</ion-content>
+<ion-footer>
+ <ion-button  expand="full" class="send-btn" color="dark"
+    (click)="sendMessage()">{{'sendmsg.send_msg'| translate}}</ion-button>
+</ion-footer>

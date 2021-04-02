@@ -1,0 +1,51 @@
+app-messages:host {
+    .add-circle{
+        float: left;
+        margin-right: 10px;
+        font-size: 27px;
+    }
+   
+    p{
+        white-space: normal;
+        margin-top: 5px !important;
+        width: 92%;
+    }
+
+    .title-icon {
+        width: 100%;
+        position: relative;
+        ion-icon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 0 !important;
+        }
+    }
+    .custom-modal-content{
+        margin: 0 !important;
+    }
+    .no-record{
+            width: 100%;
+            text-align: center;
+            padding-top: 52px;
+            color: #988f8f;
+    }
+
+    ion-card-content{
+            padding: 2px 0px 9px 0px;
+
+        .mssg-item{
+
+            .title-icon{
+                p{
+                    margin: 0 0 2px;
+                    overflow: inherit;
+                    font-size: 0.9rem;
+                    line-height: normal;
+                    text-overflow: inherit;
+                    color: #666;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,29 @@
+.seminars{
+	background: #f1f1f1;
+    padding: 14px 5px;
+    height: 100%;
+    ion-list{
+    	padding:5px;
+
+		ion-row{
+			text-align: center;
+			ion-col{
+				padding: 7px 0px 7px 0px;
+				border-top: 0.1px solid #00000026;
+			    font-size: 11px;
+			    color: #5d5c5bc9;
+			    border-right: 0.1px solid #00000026;
+			}
+		}
+		.first{
+			border-left: 0.1px solid #00000026;
+		}
+		.last{
+			border-bottom: 0.1px solid #00000026;
+		}
+		.total {
+		    background: #e2e2e2;
+		    color: #5d5c5b !important;
+		}
+	}
+}

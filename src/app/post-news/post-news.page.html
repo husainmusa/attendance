@@ -1,0 +1,47 @@
+<ion-header mode="md">
+  <ion-toolbar>
+   	<ion-buttons slot="end" class="back-btn">
+      <!-- <ion-icon name="arrow-back-outline" (click)="moveBack()"></ion-icon> -->
+      <ion-back-button></ion-back-button>
+   	</ion-buttons>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title text-right>{{'post_news.title'| translate}}</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+<ion-content padding class="right-direction" mode="md">
+  <form #privateMessage='ngForm' class="fform">
+    <!-- <div class="subject">
+      <ion-item>
+        <ion-input type="hidden"  class="message" placeholder="{{'post_news.news_title'| translate}}"
+          [(ngModel)]="news.title" text-right name="title" #title='ngModel' required></ion-input>
+      </ion-item>
+    </div> -->
+    <div class="subject">
+      <ion-item>
+        <ion-textarea rows="10" cols="20" placeholder="{{'post_news.news_description'| translate}}"
+          [(ngModel)]="news.news_description" text-right name="msg_body" #msg_body='ngModel' required maxlength="300">
+        </ion-textarea>
+      </ion-item>
+      <ion-button class="attachment" icon-only  (click)="takePicture()">
+        <ion-icon name="image-outline"></ion-icon>
+      </ion-button>
+      <ion-button class="attachment-video" icon-only  (click) = "takeVideo()">
+        <ion-icon name="videocam-outline"></ion-icon>
+      </ion-button>
+    </div>
+    <div class="attach-image" *ngIf = "safeUrl && mediaKey == 'image'">
+      <img src = "assets/imgs/image.png"/>
+    </div>
+    <div class="attach-image" *ngIf = "safeUrl && mediaKey == 'video'">
+      <video src = "assets/imgs/image" style="height: 76px;"></video>
+    </div>
+  </form>
+</ion-content>
+<ion-footer>
+ <ion-button  expand="full" class="send-btn" color="dark"
+   (click)="sendNews()">{{'post_news.post'| translate}}</ion-button>
+    <!-- (click)="sendMessage()" -->
+</ion-footer>

@@ -1,0 +1,193 @@
+<ion-header>
+  <ion-toolbar>
+  	<ion-buttons slot="end">
+  		<ion-back-button></ion-back-button>
+  	</ion-buttons>
+    <ion-title>{{'manage_report.title' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+	<div class="body">
+		<div class="conatiner-form">
+
+			<ion-card class="form-card">
+				<ion-card-header >
+					<ion-label>{{'manage_report.report_type' |translate}}</ion-label>
+					<ion-item>
+					    <ion-select interface="popover" [(ngModel)]="formData.reportType" placeholder="{{'manage_report.report_type' |translate}}" (ionChange)="changeReportType($event)">
+					      <ion-select-option value="medical">{{'manage_report.medical_report' | translate}}</ion-select-option>
+					      <ion-select-option value="suspend">{{'manage_report.suspension_report' | translate}}</ion-select-option>
+					      <ion-select-option value="exit">{{'manage_report.exit_report' | translate}}</ion-select-option>
+					    </ion-select>
+					</ion-item>
+				</ion-card-header>
+				<ion-card-content *ngIf="formData.reportType">
+					<ion-item-group *ngIf="formData.reportType !='exit'">
+						<ion-label>{{'manage_report.select_date' | translate}}</ion-label>
+						<ion-item>
+						  <ion-datetime [(ngModel)]="formData.selectedDate" displayFormat="YYYY/MM/DD"></ion-datetime>
+						</ion-item>
+					</ion-item-group>
+
+					<ion-item-group *ngIf="formData.reportType !='exit'">
+						<ion-label>{{'manage_report.days'|translate}}</ion-label>
+						<ion-item>
+						  <ion-input type="number" [(ngModel)]="formData.selectedDays"></ion-input>
+						</ion-item>
+					</ion-item-group>
+
+					<ion-item-group *ngIf="formData.reportType =='exit' && !isExitToday">
+						<ion-label>{{'manage_report.note'|translate}}</ion-label>
+						<ion-item>
+						  <ion-input [(ngModel)]="formData.note" type="text"></ion-input>
+						</ion-item>
+					</ion-item-group>
+					<ion-item-group *ngIf="formData.reportType =='suspend'">
+						<ion-label>{{'manage_report.note'|translate}}</ion-label>
+						<ion-item>
+						  <ion-input [(ngModel)]="formData.note" type="text"></ion-input>
+						</ion-item>
+					</ion-item-group>
+				</ion-card-content>
+				<ion-button (click)="submitForm()" ion-button style="margin: 14px;"  expand="block" class="margin"  color="primary"> {{'manage_report.save'|translate}}</ion-button>
+			</ion-card>
+			
+		</div>
+
+		<div class="container-table">
+				<ion-button class="dlt-btn" fill="outline" (click)="printReport()" > <ion-icon name="print-outline"></ion-icon> {{'manage_report.printReport' | translate}} </ion-button>
+		</div>
+
+		<div class="container-table">
+			<ion-card class="card-table">
+				<ion-card-header>{{'manage_report.suspension_days' | translate}}</ion-card-header>
+				<ion-card-content>
+					<ion-row class="header-row">
+						<ion-col size="1" class="top left bottom right">
+							#
+						</ion-col>
+						<ion-col size="3" class="top left bottom">
+							{{'manage_report.start_date' | translate}}
+						</ion-col>
+						<ion-col size="3" class="top left bottom">
+							{{'manage_report.end_date' | translate}}
+						</ion-col>
+						<ion-col size="2" class="top left bottom">
+							{{'manage_report.days' | translate}}
+						</ion-col>
+						<ion-col size="3" class="top left bottom ">
+							{{'manage_report.action' | translate}}
+						</ion-col>
+					</ion-row>
+					<div *ngIf="suspend.length">
+						<ion-row class="body-row" *ngFor="let sdays of suspend; let i=index">
+							<ion-col size="1" class=" left bottom right">
+								{{i+1}}
+							</ion-col>
+							<ion-col size="3" class=" left bottom">
+								{{sdays.start_date}}
+							</ion-col>
+							<ion-col size="3" class=" left bottom">
+								{{sdays.end_date}}
+							</ion-col>
+							<ion-col size="2" class=" left bottom">
+								{{sdays.amount_days}}
+							</ion-col>
+							<ion-col size="3" class=" left bottom ">
+								<ion-button class="dlt-btn" fill="outline" (click)="deleteReport(sdays.id,'suspend')" > {{'manage_report.delete' | translate}}</ion-button>
+							</ion-col>
+						</ion-row>
+					</div>
+				</ion-card-content>
+			</ion-card>
+		</div>
+
+		<div class="container-table">
+			<ion-card class="card-table">
+				<ion-card-header>{{'manage_report.medical_days' | translate}}</ion-card-header>
+				<ion-card-content>
+					<ion-row class="header-row">
+						<ion-col size="1" class="top left bottom right">
+							#
+						</ion-col>
+						<ion-col size="3" class="top left bottom">
+							{{'manage_report.start_date' | translate}}
+						</ion-col>
+						<ion-col size="3" class="top left bottom">
+							{{'manage_report.end_date' | translate}}
+						</ion-col>
+						<ion-col size="2" class="top left bottom">
+							{{'manage_report.days' | translate}}
+						</ion-col>
+						<ion-col size="3" class="top left bottom ">
+							{{'manage_report.action' | translate}}
+						</ion-col>
+					</ion-row>
+					<div *ngIf="medical.length" >
+						<ion-row class="body-row" *ngFor="let mdays of medical; let i=index">
+							<ion-col size="1" class=" left bottom right">
+								{{i+1}}
+							</ion-col>
+							<ion-col size="3" class=" left bottom">
+								{{mdays.start_date}}
+							</ion-col>
+							<ion-col size="3" class=" left bottom">
+								{{mdays.end_date}}
+							</ion-col>
+							<ion-col size="2" class=" left bottom">
+								{{mdays.amount_days}}
+							</ion-col>
+							<ion-col size="3" class=" left bottom ">
+								<ion-button class="dlt-btn" fill="outline" (click)="deleteReport(mdays.id,'medical')" >{{'manage_report.delete' | translate}} </ion-button>
+							</ion-col>
+						</ion-row>
+					</div>
+				</ion-card-content>
+			</ion-card>
+		</div>
+
+		
+		<div class="container-table">
+			<ion-card class="card-table">
+				<ion-card-header>{{'manage_report.exit_days' | translate}}</ion-card-header>
+				<ion-card-content>
+					<ion-row class="header-row">
+						<ion-col size="2" class="top left bottom right">
+							#
+						</ion-col>
+						<ion-col size="3" class="top left bottom">
+							{{'manage_report.date' | translate}}
+						</ion-col>
+						<ion-col size="3" class="top left bottom">
+							{{'manage_report.time' | translate}}
+						</ion-col>
+						<ion-col size="4" class="top left bottom ">
+							{{'manage_report.action' | translate}}
+						</ion-col>
+					</ion-row>
+					<div *ngIf="exitdays.length">
+						<ion-row class="body-row" *ngFor="let edays of exitdays; let i=index">
+							<ion-col size="2" class=" left bottom right">
+								{{i+1}}
+							</ion-col>
+							<ion-col size="3" class=" left bottom">
+								{{edays.date}}
+							</ion-col>
+							<ion-col size="3" class=" left bottom">
+								{{edays.time}}
+							</ion-col>
+							<ion-col size="4" class=" left bottom ">
+								<ion-button class="dlt-btn" fill="outline"  (click)="deleteReport(edays.id,'exit')" >{{'manage_report.delete' | translate}} </ion-button>
+							</ion-col>
+						</ion-row>
+					</div>
+				</ion-card-content>
+			</ion-card>
+		</div>
+
+		
+	</div>
+
+</ion-content>

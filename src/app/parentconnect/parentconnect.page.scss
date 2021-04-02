@@ -1,0 +1,50 @@
+app-parentconnect:host {
+    .page-title {
+        font-size: 1.7rem;
+        font-weight: 600;
+    }
+    ion-card-content{
+        position: relative;
+        padding: unset;
+        ion-avatar{
+            position: relative;
+            .ticket-status-circle {
+                position: absolute;
+                width: 12px;
+                height: 12px;
+                bottom: -2px;
+                right: -2px;
+                border-radius: 50%;
+            }
+        }
+        .ticket-status {
+            position: absolute;
+            top: 50%;
+            left: 8px;
+            transform: translateY(-50%);
+                font-size: 25px;
+            ion-icon::before {
+                font-size: 24px;
+            }
+        }
+        .attachment_image {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    }
+    .custom-modal-content{
+        margin: 0 !important;
+    }
+}
+.chatOpen{
+        // font-size: 12px;
+        color: #43a047;
+}
+.chatClosed{
+    // font-size: 12px;
+    color: red;
+}
+.no-data{
+    text-align: center;
+    padding-top: 20px;
+}

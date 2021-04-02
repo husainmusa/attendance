@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+  	<ion-buttons slot="end">
+  		<!-- <ion-button *ngIf="reportData  && reportData.length" class="small_btn_header"  small clear icon-only (click)="printReport()">
+            <ion-icon name="print-outline" class="add-circle" item-end color="icon-header"></ion-icon>
+        </ion-button> -->
+  	</ion-buttons>
+  	<ion-buttons slot="start">
+  		<ion-menu-button></ion-menu-button>
+  	</ion-buttons>
+    <ion-title>{{'sidemenu.warning_report' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+	<ion-row *ngIf="reportData  && reportData.length" class="row-top">
+		<ion-list>
+			<ion-card *ngFor="let repo of reportData let i=index;" class="card-react" [ngStyle]="{'background-color': repo.cardColor}">
+				<ion-card-header class="card-head">
+					<ion-icon (click)="printReport(i)" name="print-outline" class="add-circle" item-end color="icon-header"></ion-icon>
+				    {{repo.title}} 
+				</ion-card-header>
+				<ion-card-content class="card-content">
+					<h3 *ngIf="repo.studentDetails">{{'create_notes.student_name' | translate }}: {{repo.studentDetails.first_name  }}</h3>
+					<h3 *ngIf="repo.studentDetails">{{'create_notes.student_id'| translate }}: {{repo.studentDetails.username  }}</h3>
+					<h3 *ngIf="repo.studentDetails">{{'createClass.class_name'| translate }}: {{repo.studentDetails.student_class}}</h3>
+					<h3>{{'list-student.unacceptable_absence' | translate}}: {{repo.no_of_unacceptable_absent}}</h3>
+					<!-- <p> {{'student-details.sem' | translate}}: {{repo.sems}} </p> -->
+				</ion-card-content>
+				<div class="bgIcon">
+					<ion-icon name="warning-outline"></ion-icon>
+				</div>
+			</ion-card>
+		</ion-list>
+	</ion-row>
+ 
+	<ion-row class="msg-row" *ngIf="!reportData  || !reportData.length">
+		<div class="msg">
+			{{'alertmessages.no_record_found' | translate}}
+		</div>
+	</ion-row>
+
+</ion-content>

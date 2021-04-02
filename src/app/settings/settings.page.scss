@@ -1,0 +1,57 @@
+app-settings:host {
+  .center-row{
+    text-align: center;
+    h3{
+      width: 100%;
+    }
+  }
+  .image-column{
+    text-align: center;
+    .profilepicture{
+        margin: 15px 0;
+        border-radius: 50%;
+        height: 100px;
+   }
+  } 
+  .background-input{
+      background-color: #ececec;
+      margin: 10px 0;
+  } 
+  .eye-pass{
+        font-size: 19px !important;
+        position: absolute;
+        left: 9px;
+        top: 0px;
+        --color: unset;
+        --background: unset;
+        --box-shadow: unset;
+        color: #aaa9a9;
+        z-index: 21;
+        width: 51px;
+        height: 44px;
+  }
+  ion-navbar{
+    direction: ltr;
+  }
+  ion-label{
+    color: #9a9999;
+  }
+  .add-image-icon {
+    position: absolute;
+    top: 83px;
+    left: 56%;
+    background: #fff;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    ion-icon{
+        color: green;
+        font-size: 26px;
+    }
+    ion-icon::before{
+        font-size: 25px;
+    }
+}
+}

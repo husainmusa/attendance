@@ -1,0 +1,107 @@
+<ion-header mode="md">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title text-right>{{'classlist.pagetitle' | translate}}
+
+      <ion-icon name="arrow-undo-outline" (click)="showIcon = !showIcon" class="add-circle" item-end color="icon-header" *ngIf = "showIcon"></ion-icon>
+      <ion-icon name="ellipsis-vertical-outline"(click)="showIcon = !showIcon" class="add-circle" item-end color="icon-header" *ngIf = "!showIcon"></ion-icon>
+      <ion-icon name="send-outline" (click)="editMode = !editMode" class="add-circle" item-end color="icon-header" *ngIf = "editMode && showIcon"></ion-icon>
+      <ion-icon name="pencil" class="add-circle" item-end color="icon-header" (click) = "enableEditMode()" *ngIf = "userType == '1' && !editMode && showIcon"></ion-icon>
+      <ion-icon name="add" class="add-outline" item-end color="icon-header" class="add-circle" (click) = "createClass()" *ngIf = "userType == '1' && showIcon"></ion-icon>
+      <ion-icon name="search" class="add-outline add-circle" item-end color="icon-header" (click)="openSearchPage()" *ngIf="showIcon"></ion-icon>
+      <ion-icon *ngIf="canReorder  && showIcon" name="swap-vertical-outline" class="add-outline add-circle" item-end color="icon-header" (click)="toogleReorder()"></ion-icon>
+      <ion-icon *ngIf="!canReorder  && showIcon" name="checkbox-outline" class="add-outline add-circle" item-end color="icon-header" (click)="toogleReorder()"></ion-icon>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content mode="md">
+  <ion-refresher slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <!-- The reorder gesture is disabled by default, enable it to drag and drop items -->
+
+
+
+  <div class="container">
+    <ion-row class="segement">
+      <ion-segment *ngIf = "userType == '1'" [(ngModel)]="category" color="primary"  (ionChange)="segmentChanged($event)">
+        <ion-row>
+          <ion-col size="6">
+            <ion-segment-button value="list" >
+             {{'classlist.pagetitle' | translate}}
+            </ion-segment-button>
+          </ion-col>
+
+          <ion-col size="6">
+            <ion-segment-button value="data">
+              {{'classlist.seminar' | translate}}
+            </ion-segment-button>
+          </ion-col>
+        </ion-row>
+      </ion-segment>
+    </ion-row>
+   <div [ngSwitch]="category" class="body">
+      <div *ngSwitchCase="'list'">
+        <ion-grid no-padding>
+          <ion-row *ngIf = "classes?.length > 0 && !canReorder">
+            <ion-reorder-group class="reorder" (ionItemReorder)="doReorder($event)" disabled="false">
+
+                <ion-card *ngFor="let course of classes" class="cards-description" [ngStyle]="{'background-color': course.backgroundColor}" (click)="openClassStudents(course)">
+                <ion-reorder ></ion-reorder>
+                  <ion-card-header no-padding>
+                    <ion-card-title color="light">{{course.name}}</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content no-padding color="light">
+                    {{course.desc}}
+                  </ion-card-content>
+                  <div class="background-image-div"></div>
+                </ion-card>
+
+
+
+            </ion-reorder-group>
+          </ion-row>
+          <ion-row *ngIf = "classes?.length > 0 && canReorder">
+              <ion-col size="6" *ngFor="let course of classes" no-padding>
+                <ion-card class="cards-description" [ngStyle]="{'background-color': course.backgroundColor}" (click)="openClassStudents(course)">
+                  <ion-card-header no-padding>
+                    <ion-card-title color="light">{{course.name}}</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content no-padding color="light">
+                    {{course.desc}}
+                  </ion-card-content>
+                  <div class="background-image-div"></div>
+                </ion-card>
+              </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-label item-center class="norecord-found" *ngIf = "classes?.length == 0">{{noDataFound}}</ion-label>
+      </div>
+      <div *ngSwitchCase="'data'">
+        <ion-grid no-padding>
+          <ion-row *ngIf = "classes?.length > 0" class="small-data">
+            <ion-col size="6" *ngFor="let seminar of dashBoard; let i=index" no-padding>
+              <ion-card class="cards-description" [ngStyle]="{'background-color': classBackgroundColor[i]}" (click)="openSeminar(i+1)">
+                <ion-card-header no-padding>
+                  <ion-card-title color="light" class="card-title">{{seminar.name}}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content no-padding color="light" class="card-constent">
+                 <span>  {{'classlist.present' | translate}}: {{seminar.present}} </span><br>
+                 <span> {{'classlist.absent' | translate}}: {{seminar.absent}}</span><br>
+                 <span> {{'classlist.total_student' | translate}}: {{seminar.total_student}}</span><br>
+                 <span> {{'classlist.present_pecent' | translate}}: {{seminar.total_per_sent}}</span>
+                </ion-card-content>
+                <div class="background-image-div"></div>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-label item-center class="norecord-found" *ngIf = "dashBoard?.length == 0">{{noDataFound}}</ion-label>
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,236 @@
+<ion-header mode="md">
+  <ion-toolbar transparent>
+   	<ion-buttons slot="end">
+      <ion-button icon-only (click)="openPdf()">
+        <ion-icon name="document-attach-outline"></ion-icon>
+      </ion-button>
+   		<ion-back-button>
+   		</ion-back-button>
+   	</ion-buttons>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+     <ion-title text-right class="text-center">{{'student-details.heading' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="md">
+  <ion-row justify-content-center class="text-center" align-items-center>
+    <ion-col size="1"></ion-col>
+    <ion-col size="2" text-center align-self-center (click)="takePicture()">
+      <div class="bgcircle">
+        <ion-icon class="message-content" name="people-circle-outline" color="icon-header"></ion-icon>
+      </div>
+    </ion-col>
+    <ion-col size="1"></ion-col>
+    <ion-col size="4" text-center>
+      <div class="student-background-image" [ngStyle] = "{'background-image': 'url('+studentDetails.pic+')'}">
+      </div>
+    </ion-col>
+    <ion-col size="1"></ion-col>
+    <ion-col size="2" text-center align-self-center>
+      <div class="bgcircle">
+        <ion-icon class="message-content" [name]="studentBehaviour.icon" color="icon-header" *ngIf="notes.agg_ranking == 0"></ion-icon>
+        <img [src]="studentBehaviour.icon" *ngIf="notes.agg_ranking > 0" />
+      </div>
+    </ion-col>
+    <ion-col size="1"></ion-col>
+  </ion-row>
+  <ion-row justify-content-center  class="details text-center">
+    <ion-col size="12" align-self-center>
+      <p text-center class="absence-count">{{studentDetails.name}}</p>
+      <p text-center class="bahaviou-text" *ngIf="studentDetails.course"> {{studentDetails.course.name}}</p> 
+      <p text-center class="bahaviou-text">{{studentBehaviour.text}}</p>
+      <p text-center class="bahaviou-text">{{'delay_stu_list.total_delay' | translate}} {{studentDetails.total_delay}}</p>
+      <!-- {{'delay_stu_list.class_name' | translate}}: -->
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="details" *ngIf="!studentDetails.can_view_absent">
+    <ion-col size="6" text-center class="text-center">
+      <p text-center class="absence-count">{{studentDetails.suspend_days}}</p>
+      <p text-center class="absence">{{'list-student.suspension_days' | translate}}</p>
+    </ion-col>
+    <ion-col size="6" text-left class="text-center lefthorizline">
+      <p text-center class="absence-count">{{studentDetails.medical_days}}</p>
+      <p text-center class="absence">{{'list-student.medical_days' | translate}}</p>
+    </ion-col>
+  </ion-row>  
+  <ion-row class="details" *ngIf="studentDetails.can_view_absent">
+    <ion-col size="4" text-right class="text-center" >
+      <p text-center class="absence-count">{{studentDetails.unacceptable_absent_days}}</p>
+      <p text-center class="absence">{{'list-student.unacceptable_absence' | translate}}</p>
+    </ion-col>
+    <ion-col size="4" text-center class="text-center">
+      <p text-center class="absence-count">{{studentDetails.suspend_days}}</p>
+      <p text-center class="absence">{{'list-student.suspension_days' | translate}}</p>
+    </ion-col>
+    <ion-col size="4" text-left class="text-center lefthorizline">
+      <p text-center class="absence-count">{{studentDetails.medical_days}}</p>
+      <p text-center class="absence">{{'list-student.medical_days' | translate}}</p>
+    </ion-col>
+  </ion-row>
+  <ion-row class="segement">
+    <ion-segment *ngIf="studentDetails.can_view_absent" [(ngModel)]="category" color="primary">
+      <ion-row style="width: 100%;">
+        <ion-col size="6">
+          <ion-segment-button value="absence" >
+            <p>
+              <ion-badge color="count-color">{{studentDetails.absent_count}}</ion-badge>&nbsp;{{'student-details.total_absent' | translate}} 
+            </p>
+          </ion-segment-button>
+        </ion-col>
+
+        <ion-col size="6">
+          <ion-segment-button value="notes">
+            <P>
+              <ion-badge color="count-color">{{notes.notes?.length}}</ion-badge>&nbsp;{{'student-details.notes' | translate}} 
+            </P>
+          </ion-segment-button>
+        </ion-col>
+      </ion-row>
+    </ion-segment>
+  </ion-row>
+
+  <div [ngSwitch]="category">
+    <div *ngSwitchCase="'absence'">
+      <ion-card *ngFor="let details of studentDetails?.absents">
+        <ion-card-header>
+          <p class="right-direction">{{details.date | dateFormat}}</p>
+        </ion-card-header>
+        <ion-card-content>
+          <p class="description">
+            {{details.sem}}
+          </p>
+          <div class="absence-note-sec" *ngFor="let note of details.notes; let i = index;">
+            <div class="note-trash-icon-sec" *ngIf="userDetails.details">
+              <ion-icon name="trash" color="danger" *ngIf="note.created_by == userDetails.details.user_no || userDetails.details.user_type == '1'"
+                (click)="deleteAbsenceNote(details.notes, note.ID, i)"></ion-icon>
+            </div>
+            <div class="absence-note-desc">
+              {{note.note}}
+            </div>
+            <div class="absence-note-icon">
+              <ion-icon name="clipboard"></ion-icon>
+            </div>
+          </div>
+        </ion-card-content>
+        <ion-icon name="add-circle" class="add-circle" color="icon-header" (click)="addAbsentNote(details.notes, details.date)"
+          *ngIf="userType == '1' || userType == '3'"></ion-icon>
+      </ion-card>
+      <div class="text-center" style="width: 100%;">
+        <ion-label text-center  *ngIf="studentDetails.absents?.length == 0">
+          {{noAbsenceFound}}
+        </ion-label>
+      </div>
+    </div>
+    <div *ngSwitchCase="'notes'" class="notes-sec">
+      <div class="right-direction rating-review-sec">
+        <ion-row>
+          <ion-col size="2" align-self-center text-center class="text-center">
+            <ion-icon name="add-circle" color="icon-header" class="add_icon" *ngIf="userType != '4' && canAddStudentNote" (click)="openNoteModal()"></ion-icon>
+          </ion-col>
+          <ion-col size="10" text-right class="text-right" align-self-center>
+            <h4>{{'student-details.rating_reviews' | translate}}</h4>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="8">
+            <div class="rating-bar-sec">
+              <div class="rating-bar">
+                <div class="ranking-fill" [style.width]="notes.total_rating.five_stars+ '%'"></div>
+              </div><span class="rating-star-number">5</span>
+            </div>
+            <div class="rating-bar-sec">
+              <div class="rating-bar">
+                <div class="ranking-fill" [style.width]="notes.total_rating.four_stars+ '%'"></div>
+              </div><span class="rating-star-number">4</span>
+            </div>
+            <div class="rating-bar-sec">
+              <div class="rating-bar">
+                <div class="ranking-fill" [style.width]="notes.total_rating.three_stars+ '%'"></div>
+              </div><span class="rating-star-number">3</span>
+            </div>
+            <div class="rating-bar-sec">
+              <div class="rating-bar">
+                <div class="ranking-fill" [style.width]="notes.total_rating.two_stars+ '%'"></div>
+              </div><span class="rating-star-number">2</span>
+            </div>
+            <div class="rating-bar-sec">
+              <div class="rating-bar">
+                <div class="ranking-fill" [style.width]="notes.total_rating.one_stars+ '%'"></div>
+              </div><span class="rating-star-number">1</span>
+            </div>
+          </ion-col>
+          <ion-col size="4" class="total-rating-sec left-direction" align-self-center text-center>
+            <h4>{{notes.agg_ranking}}</h4>
+            <span *ngFor="let star of getSelectedStars();let i = index;">
+              <ion-icon name="star" [ngStyle]="{'color':aggStars[i]}" *ngIf="!halfStar || halfStarPosition != i"></ion-icon>
+              <ion-icon name="star-half" class="half-star" color="rating" *ngIf="halfStar && halfStarPosition == i"></ion-icon>
+            </span>
+            <p>{{notes.total_notes}}</p>
+          </ion-col>
+        </ion-row>
+      </div>
+      <ion-card *ngFor="let note of notes.notes; let i = index;">
+        <ion-card-header>
+          <p class="right-direction">{{note.date | dateFormat}}</p>
+          <p class="notes-desc">{{note.note}}</p>
+          <div class="user-rating" *ngIf="note.selections != undefined">
+            <span *ngFor="let star of getSelectedStars();let i = index;">
+              <ion-icon name="star" [ngStyle]="{'color':note.selections[i]}"></ion-icon>
+            </span>
+          </div>
+        </ion-card-header>
+        <ion-card-content no-padding>
+          <ion-row style="    width: 100%;" align-items-center>
+            <ion-col size="2">
+              <img [src]="note.pic" class="username">
+            </ion-col>
+            <ion-col size="10">
+              <p class="absence">{{note.first_name}} {{note.last_name}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+        <span *ngIf="userDetails.details">
+          
+          <ion-icon class="add-circle" name="chevron-down" color="primary" (click)="editDeleteNotes(note.id, i,note)" *ngIf="(note.user_id == userDetails.details.user_no || userType == '1') && userType != '2' && userType != '7'"></ion-icon>
+        </span>
+      </ion-card>
+      <ion-label text-center *ngIf="notes?.length == 0">
+        {{noNotesFound}}
+      </ion-label>
+    </div>
+  </div>
+</ion-content>
+
+<div class="custom-modal-main" *ngIf="showNoteModal">
+  <div class="custom-modal">
+    <div class="custom-note-header">
+      <h4>Add Note</h4>
+    </div>
+
+    <div class="custom-note-content">
+      <span *ngFor="let star of getSelectedStars();let i = index;">
+        <ion-icon name="star" class="rating-star" [ngStyle]="{'color':selections[i]}" (click)="selectStarsForRating(i)"></ion-icon>
+      </span>
+      <div class="note-desc">
+        <ion-item>
+          <ion-input type="text" [(ngModel)]="noteMessage" placeholder="{{'student-details.type_here' | translate}}"></ion-input>
+        </ion-item>
+        <p class="max_length">{{noteMessage?.length}}/45</p>
+      </div>
+    </div>
+    <div class="custom-modal-footer right-direction">
+      <ion-row>
+        <ion-col size="6" text-right>
+         <ion-button expand="block" class="btn-primary" shape="round" color="secondary"  (click)="hideNoteModal()">{{'alertmessages.alert_btn_cancel_text' |
+            translate}}</ion-button> 
+        </ion-col>
+        <ion-col size="6" text-center>
+          <ion-button expand="block" class="btn-secondary" shape="round" color="primary" (click)="addNotesNote()">{{'alertmessages.alert_btn_submit_text' | translate}}</ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+</div>

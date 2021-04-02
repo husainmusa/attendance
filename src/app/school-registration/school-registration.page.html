@@ -1,0 +1,128 @@
+<ion-header class="right-direction" mode="md">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="start" class="back-btn">
+     <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title text-right>{{'reg_school.pagetitle' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding mode="md">
+  <form #registerForm='ngForm'>
+    <ion-list style="background: unset;">
+      <div class="image-column">
+          <img [src]="school_logo" class="profilepicture">
+        <div class="add-image-icon" (click)="takePicture('schoollogo')">
+          <ion-icon name="add-circle"></ion-icon>
+        </div>
+      </div>
+      <ion-item class="background-input" align-items-center>
+        <ion-label color="dark" position="floating">{{'reg_school.school_name' | translate}}</ion-label>
+        <ion-input type="text" name="schoolName" #schoolName='ngModel' [(ngModel)]="school.schoolName" text-right
+          required>
+        </ion-input>
+      </ion-item>
+      <div *ngIf="schoolName.invalid && (schoolName.touched)" class="alert alert-danger">
+        <div *ngIf="schoolName.errors.required">
+          {{'validations.required' | translate}}
+        </div>
+      </div>
+
+      <ion-item class="background-input" align-items-center>
+        <ion-label color="dark" position="floating">{{'reg_school.school_details' | translate}}</ion-label>
+        <ion-textarea name="schoolDetails" #schoolDetails='ngModel' [(ngModel)]="school.schoolDetails" text-right
+          required>
+        </ion-textarea>
+      </ion-item>
+      <div *ngIf="schoolDetails.invalid && (schoolDetails.touched)" class="alert alert-danger">
+        <div *ngIf="schoolDetails.errors.required">
+          {{'validations.required' | translate}}
+        </div>
+      </div>
+        <ion-item class="background-input" align-items-center>
+          <ion-label color="dark" position="floating">{{'reg_school.password' | translate}}</ion-label>
+          <ion-input type="password" name="password" #password='ngModel' [(ngModel)]="school.password" text-right
+            required>
+          </ion-input>
+        </ion-item>
+        <div *ngIf="password.invalid && (password.touched)" class="alert alert-danger">
+          <div *ngIf="password.errors.required">
+            {{'validations.required' | translate}}
+          </div>
+        </div>
+        <ion-item class="background-input" align-items-center>
+          <ion-label color="dark" position="floating">{{'reg_school.username' | translate}}</ion-label>
+          <ion-input type="text" name="username" #username='ngModel' [(ngModel)]="school.username" pattern="[A-Za-z0-9_-]*$" text-right required>
+          </ion-input>
+        </ion-item>
+        <div *ngIf="username.invalid && (username.touched)" class="alert alert-danger">
+          <div *ngIf="username.errors.required">
+            {{'validations.required' | translate}}
+          </div>
+          <div *ngIf="username.errors.pattern">
+            {{'validations.invalidusername' | translate}}
+          </div>
+        </div>
+     
+     
+        <ion-item class="background-input" align-items-center>
+          <ion-label color="dark" position="floating">{{'reg_school.contact' | translate}}</ion-label>
+          <ion-input type="text" name="contact" #contact='ngModel' [(ngModel)]="school.contact" text-right required>
+          </ion-input>
+        </ion-item>
+        <div *ngIf="contact.invalid && (contact.touched)" class="alert alert-danger">
+          <div *ngIf="contact.errors.required">
+            {{'validations.required' | translate}}
+          </div>
+        </div>
+        <ion-item class="background-input" align-items-center>
+          <ion-label color="dark" position="floating">{{'reg_school.email' | translate}}</ion-label>
+          <ion-input type="email" name="email" #email='ngModel' pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+            [(ngModel)]="school.email" text-right required>
+          </ion-input>
+        </ion-item>
+        <div *ngIf="email.invalid && (email.touched)" class="alert alert-danger">
+          <div *ngIf="email.errors.required">
+            {{'validations.required' | translate}}
+          </div>
+          <div *ngIf="email.errors.pattern">
+            {{'validations.invalidemail' | translate}}
+          </div>
+        </div>
+        <ion-item class="background-input" align-items-center>
+          <ion-label color="dark" position="floating">{{'reg_school.country' | translate}}</ion-label>
+          <ion-input type="text" name="country" #country='ngModel' [(ngModel)]="countryName" text-right required readonly="true">
+          </ion-input>
+        </ion-item>
+        <ion-item class="background-input" align-items-center>
+          <ion-label color="dark">{{'reg_school.delay_rule' | translate}}</ion-label>
+          <ion-select name="delayRule" #delayRule='ngModel' [(ngModel)]="school.delayRule" interface="popover">
+              <ion-select-option *ngFor = "let delay of getDelayRule();let i = index;" [value] = "(i+1)">{{i+1}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+   <!--    <ion-row class="right-direction background-input" margin-top>
+        <ion-col size="10" align-self-center text-left padding>
+          <h5 no-margin>{{'reg_school.picture' | translate}}</h5>
+        </ion-col>
+        <ion-col size="2" align-self-center>
+          <ion-button  small icon-only clear color="dark" (click)="takePicture('schoolimage')">
+            <ion-icon name="attach"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="12" *ngIf="school.school_image != '' && school.school_image != undefined">
+          <div class="image-sec" [ngStyle]="{'background-image': 'url('+school_image+')'}">
+          </div>
+        </ion-col>
+      </ion-row> -->
+      <ion-row padding>
+        <ion-button    expand="full" class="btn-primary" shape="round" [disabled]="registerForm.invalid"
+          (click)="registerSchool()">{{'reg_school.register_btn' | translate}}</ion-button>
+      </ion-row>
+    </ion-list>
+  </form>
+</ion-content> 

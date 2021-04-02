@@ -1,0 +1,32 @@
+app-private-message:host {
+    .no-data{
+            width: 100%;
+            text-align: center;
+            margin-top: 14px;
+    }
+    p{
+        white-space: normal;
+        margin-top: 5px !important;
+        font-size: 11px;
+    }
+    .custom-modal-content{
+        margin: 0 !important;
+    }
+    .title-icon {
+        width: 100%;
+        position: relative;
+        ion-icon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 0 !important;
+        }
+    }
+}
+
+ion-card{
+    ion-card-content{
+        margin: unset;
+        padding: unset;
+    }
+}

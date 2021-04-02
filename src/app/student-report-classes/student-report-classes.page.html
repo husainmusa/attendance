@@ -1,0 +1,42 @@
+<ion-header mode="md">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title text-right>{{'classlist.pagetitle' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content mode="md">
+  <ion-refresher slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <!-- The reorder gesture is disabled by default, enable it to drag and drop items -->
+
+
+
+  <div class="container"> 
+   <div  class="body">
+        <ion-grid no-padding>
+          <ion-row *ngIf = "classes?.length > 0">
+            <ion-col size="6" *ngFor="let course of classes" no-padding>
+              <ion-card class="cards-description" [ngStyle]="{'background-color': course.backgroundColor}" (click)="openClassStudents(course)">
+                <ion-card-header no-padding>
+                  <ion-card-title color="light">{{course.name}}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content no-padding color="light">
+                  {{course.desc}}
+                </ion-card-content>
+                <div class="background-image-div"></div>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-label item-center class="norecord-found" *ngIf = "classes?.length == 0">{{noDataFound}}</ion-label>
+      </div>
+  </div>
+</ion-content>

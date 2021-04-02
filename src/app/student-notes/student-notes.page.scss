@@ -1,0 +1,28 @@
+// .images{
+// 	    width: 42vw;
+//     	height: 29vh;
+// }
+.pdf-div{
+	img{
+		       width: 16vw;
+				height: 9vh;
+	}
+	ion-icon{
+		font-size: 47px;
+	    position: absolute;
+	    right: 9vh;
+	    top: 8vh;
+	    color: #2979ff;
+	}
+}
+.images{
+	    height: 193px;
+	    width: 100%;
+	    border-radius: 8px;
+}
+.notes{
+	padding: 25px;
+	.no-data{
+		text-align: center;
+	}
+}

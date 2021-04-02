@@ -1,0 +1,63 @@
+<ion-header mode="md">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title text-right>{{'messages.pagetitle' | translate}}
+      <ion-icon *ngIf="userType=='1' || userType=='7' || userType=='8'" name="add-outline" class="add-circle" item-end
+        color="icon-header" (click)="openComposer()"></ion-icon>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="md">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content
+        pullingIcon="chevron-down-circle-outline"
+        pullingText="Pull to refresh"
+        refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+  <ion-list *ngIf = "notifications?.length > 0">
+    <ion-card class="student-class" *ngFor="let notification of notifications; let i = index;">
+      <ion-card-content>
+        <ion-item no-padding class="no-padding mssg-item" lines="none">
+          <ion-avatar  class="item-start" slot="start">
+            <img [src]="notification.pic">
+          </ion-avatar>
+          <ion-label>
+          <div class="title-icon">
+            <h2>{{notification.first_name}}</h2>
+            <ion-icon  class="item-right" name="trash" color="danger" (click)="deleteNotification(notification.ID, i)">
+            </ion-icon>
+          </div>
+          <!-- <h2 *ngIf="notification.title">{{notification.title}}</h2> -->
+          <div class="title-icon">
+            <p>{{notification.notification}}</p>
+            <ion-icon name="attach" item-right *ngIf="notification.notification_image != '' && notification.notification_image" color="menu-color"
+              (click)="openImageContainer(notification.notification_image)"></ion-icon>
+          </div>
+          <span style="font-size: 10px; float: left;">{{notification.date| dateFormat}}</span>
+        </ion-label>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+  <div class="no-record">
+    <ion-label text-center class="text-center norecord-found" *ngIf="notifications?.length == 0">{{noRecordFound}}</ion-label>
+  </div>
+</ion-content>
+
+<div class="custom-modal-main" *ngIf="imageModal" (click)="hideUserImageModal($event)">
+  <div class="custom-modal">
+    <div class="custom-modal-content">
+      <img [src]="imageUrl" imageViewer>
+      <div class="download-button">
+        <button ion-button small icon-only clear (click)="downloadImage(imageUrl)">
+          <ion-icon name="download"></ion-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

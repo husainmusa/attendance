@@ -1,0 +1,154 @@
+<ion-app>
+  <ion-split-pane contentId="main-content">
+    <ion-menu contentId="main-content" type="overlay" side="end" persistent="true">
+      <ion-content class="sidemenu-color">
+            <div *ngIf="user.name" class="sidemenu-header">
+              <ion-row>
+                <ion-col size="6" >
+                    <img [src]="user.image" class="profile-picture" onerror="this.onerror=null;this.src='assets/imgs/logo.png';">
+                </ion-col>
+                <ion-col size="6" >
+                 <!--  <div (click)="changeAccount($event)" class="switch-account"> {{'sidemenu.switch' | translate}}</div> -->
+                  <ion-button mode="ios" size="small" (click)="changeAccount($event)" class="switch-account" color="light">{{'sidemenu.switch' | translate}}</ion-button>
+                </ion-col> 
+              </ion-row>
+                    <p class="username">{{user.name}}</p>
+                    <p class="username-detail">{{user.description}}</p>
+            </div>
+        <ion-list padding>
+          <ion-row  class="sidemenu-names lang-row" >
+            <ion-col size="6" text-right >
+              {{'sidemenu.lang' | translate}}  
+            </ion-col>
+            <ion-col size="6" text-center class="select-language">
+              <label class="switch">
+                <input class="switch-input" [checked]="checked" [value]="'on'" type="checkbox" id="laguage_check" (change)="setLanguage($event)" />
+                <span class="switch-label" data-on="Arabic" data-off="English"></span> <span class="switch-handle"></span> 
+              </label>
+              <!-- <ion-icon [name]="page.icon" color="menuicon"></ion-icon> -->
+             <!--  <ion-select name="language" placeholder="{{changedLanguage}}" (ionChange)="setLanguage($event)" interface="popover">
+                  <ion-select-option value="ar">Arabic</ion-select-option>
+                  <ion-select-option value="en">English</ion-select-option>
+              </ion-select> -->
+            </ion-col>
+          </ion-row>
+          <ion-row *ngFor="let page of pages" class="sidemenu-names" [class.activeMenuPage]="getActivePage(page)" menuClose
+            (click)="openPage(page)">
+            <ion-col size="3" text-center>
+              <ion-icon [name]="page.icon" color="menuicon"></ion-icon>
+            </ion-col>
+            <ion-col size="9" text-right>
+              {{page.title}}
+            </ion-col>
+          </ion-row>
+           <ion-row class="sidemenu-names" *ngIf="activeLink.teacher_link == '1' && user.userType == 'admin'"
+              (click)="shareRegistrationLink()">
+              <ion-col size="3" text-center>
+                <ion-icon name="share" color="menuicon"></ion-icon>
+              </ion-col>
+              <ion-col size="9" text-right>
+                {{'sidemenu.register_link' | translate}}
+              </ion-col>
+            </ion-row>
+          <ion-row class="sidemenu-names" *ngIf="activeLink.parent_link == '1' && user.userType == 'admin' && isSchoolAdmin"
+            (click)="shareParentRegistrationLink()">
+            <ion-col size="3" text-center>
+              <ion-icon name="share" color="menuicon"></ion-icon>
+            </ion-col>
+            <ion-col size="9" text-right>
+              {{'sidemenu.register_parent' | translate}}
+            </ion-col>
+          </ion-row>
+          <ion-row class="sidemenu-names" *ngIf="user.name"
+            (click)="openPage('settings')">
+            <ion-col size="3" text-center>
+              <ion-icon name="settings" color="menuicon"></ion-icon>
+            </ion-col>
+            <ion-col size="9" text-right>
+              {{'sidemenu.settings' | translate}}
+            </ion-col>
+          </ion-row>
+          <ion-row class="sidemenu-names" *ngIf="user.name && (user.userType != 'parent' || user.userType !='student')"
+            (click)="openPage('available-plan')">
+            <ion-col size="3" text-center>
+              <ion-icon color="menuicon" name="card"></ion-icon>
+            </ion-col>
+            <ion-col size="9" text-right>
+              {{'sidemenu.Plans' | translate}}
+            </ion-col>
+          </ion-row>
+          <!-- <ion-row class="sidemenu-names" *ngIf="user.userType == 'student'"
+            (click)="openPage('warning-report')">
+            <ion-col size="3" text-center>
+             <ion-icon name="warning" color="menuicon"></ion-icon>
+            </ion-col>
+            <ion-col size="9" text-right>
+              {{'sidemenu.warning_report' | translate}}
+            </ion-col>
+          </ion-row> -->
+          <ion-row class="sidemenu-names" *ngIf="user.userType == 'admin' || user.userType == 'moderator' || user.userType == 'viewer'" 
+            (click)="openBackendUrl()">
+            <ion-col size="3" text-center>
+              <ion-icon name="globe" color="menuicon"></ion-icon>
+            </ion-col>
+            <ion-col size="9" text-right>
+              {{'sidemenu.backend' | translate}}
+            </ion-col>
+          </ion-row>
+          <ion-row class="sidemenu-names" (click)="rateApp()">
+            <ion-col size="3" text-center>
+              <ion-icon name="star-half"  color="menuicon"></ion-icon>
+            </ion-col>
+            <ion-col size="9" text-right>
+              {{'sidemenu.rate' | translate}}
+            </ion-col>
+          </ion-row>
+          <ion-row class="sidemenu-names" (click)="shareApp()">
+            <ion-col size="3" text-center>
+              <ion-icon  color="menuicon" name="share-social" ></ion-icon>
+            </ion-col>
+            <ion-col size="9" text-right>
+              {{'sidemenu.share' | translate}}
+            </ion-col>
+          </ion-row>
+          <ion-row class="sidemenu-names" (click)="openPage('contact-us')">
+            <ion-col size="3" text-center>
+              <ion-icon  color="menuicon" name="people-outline" ></ion-icon>
+            </ion-col>
+            <ion-col size="9" text-right>
+              {{'sidemenu.contact_us' | translate}}
+            </ion-col>
+          </ion-row>
+          <ion-row class="sidemenu-names" *ngIf="user.userType == 'admin' || user.userType == 'moderator' || user.userType == 'viewer'" 
+            (click)="openPage('about-us')">
+            <ion-col size="3" text-center>
+              <ion-icon name="home" color="menuicon"></ion-icon>
+            </ion-col>
+            <ion-col size="9" text-right>
+              {{'sidemenu.about_us' | translate}}
+            </ion-col>
+          </ion-row>
+
+         <!--  <ion-row class="sidemenu-names" *ngIf="user.userType == 'admin'"
+            (click)="registerParent('new_parent')">
+            <ion-col size="3" text-center>
+              <ion-icon name="list" color="menuicon"></ion-icon>
+            </ion-col>
+            <ion-col size="9" text-right>
+              {{'sidemenu.new_parent' | translate}} 
+            </ion-col>
+          </ion-row> -->
+          
+          
+          
+          
+        </ion-list>
+        <div class="logouts">
+          <ion-button  center expand="block" color="danger" class="logout" menuClose (click)="logout()"
+            *ngIf="loggedin">{{'sidemenu.logout' | translate}}</ion-button>
+        </div>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

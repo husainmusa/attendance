@@ -1,0 +1,35 @@
+<ion-header mode="md">
+  <ion-toolbar>
+  	<ion-buttons slot="end">
+  		<ion-back-button></ion-back-button>
+  	</ion-buttons>
+     <ion-toolbar>
+        <ion-searchbar [(ngModel)]="searchtxt" placeholder="{{'search.search' | translate}}" id="search" (keyup)="filterList($event)"></ion-searchbar>
+      </ion-toolbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="md">
+	<div class="students" id="students" *ngIf="allStudents"> 
+		<!-- <ion-virtual-scroll [items]="students" approxItemHeight="320px"> -->
+		<ion-card  class="text-left body-font card heigt-min"  *ngFor="let student of allStudents">		
+			<ion-item  (click)="openStudentDetails(student)">
+				<ion-avatar slot="start">
+					<img [src]="student.pic"  onerror="this.onerror=null;this.src='assets/imgs/logo.png';">
+				</ion-avatar>
+			    <ion-label>
+			    	<h4>{{student.name}}</h4>
+			    	<p>{{student.student_id}}</p>
+			    	<p>{{student.class_name}}</p> 
+			    </ion-label>
+			</ion-item>
+		</ion-card> 
+			<!-- </ion-virtual-scroll> -->
+
+		
+	</div>
+	<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

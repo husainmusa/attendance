@@ -1,0 +1,492 @@
+
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+body{
+    direction: rtl;
+}
+ion-app.platform-ios12 ion-content { pointer-events: auto; /*fix scroll lock on ios12.2*/ }
+
+.right-direction{
+    direction: ltr !important;
+}
+.left-direction{
+    direction: rtl !important;
+}
+ion-toolbar{
+    --border-color: #b2b2b2;
+    --background: #f8f8f8;
+}
+ion-content{
+    --background: #fafafa !important;
+}
+.text-right{
+    text-align: right;
+}
+.text-center{
+    text-align: center;
+}
+.text-left{
+    text-align: left;
+}
+ion-reorder::part(icon) {
+  color: #fff !important;
+  opacity: 1 !important;
+}
+ion-segment-button{
+        text-transform: capitalize !important;
+    letter-spacing: 0 !important;
+}
+.profile-picture{
+        width: 40px;
+        border-radius: 50%;
+        height: 40px;
+}
+.norecord-found{
+    white-space: normal;
+    padding: 10px 10px;
+}
+
+.centerInput{
+        text-align: center;
+    input{
+        text-align: center;
+    }
+}
+.reorder-icon {
+        color: #fff;
+        opacity: 1!important;
+}
+
+.select-popover{
+    .popover-content{
+            top: 7px !important;
+            /* left: 102px; */
+            right: 7px !important;
+    }
+}
+
+.small_btn_header{
+        --padding-start: 5px !important;
+    --padding-end: unset !important;
+}
+.sidemenu-color{
+        --background: linear-gradient(#4e40ff, #326aff) !important;
+    .sidemenu-header{
+        width: 100%;
+            padding: 5vh 18px 4px;
+    }
+    .username{
+        font-size: 25px;
+        color: #fff;
+        margin: 0px 15px;
+        font-weight: 300;
+    }
+    .username-detail{
+        font-size: 15px;
+        color: #fff;
+        margin: 12px 15px;
+        font-weight: 300;
+    }
+    .sidemenu-names{
+        background: none;
+        color: #fff;
+        font-size: 15px;
+        font-weight: 300;
+        //padding: 2px 0;
+        ion-icon{
+            color: #909dff;
+            font-size: 22px;
+        }
+    }
+    .logout{
+        background-color: #ec418d;
+        margin: 0 auto;
+        font-size: 18px;
+        border-radius: 5px;
+        font-weight: 300;
+        width: 80%;
+    }
+    ion-list{
+        background: unset;
+    }
+}
+ionic-selectable-modal{
+    .buttons-first-slot{
+        position: absolute;
+        left: 7px;
+        z-index: 5;
+    }
+}
+.switch-account{
+    .popover-content{
+        transform-origin: left top;
+        left: unset;
+        width: 96vw !important;
+        right: 2vw !important;
+        bottom: 0px !important;
+        top:unset !important;
+        .body{
+                padding: 21px;
+                margin: 0 auto;
+        }
+    }
+}
+.edit-student{
+    --width: 94vw !important;
+    --height: 45vh !important;
+
+}
+.tab-selected{
+    border-top: 3px solid;
+}
+    .custom-alertController{
+        border-radius: 13px;
+        .title{
+            font-size: 20px !important;
+            text-align: center;
+        }
+        .sub-title{
+            font-size: 15px !important;
+            margin: -29px 0px;
+            color: #bbbbbb;
+            text-align: center;
+        }
+        .abscence{
+            margin: 31px -20px;
+            table{
+                width: 100%;
+                tr{
+                    th{
+                        font-size: 30px;
+                      }
+                    td{
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
+    .alert-danger{
+        color: red;
+        font-size: 11px;
+        margin-left: 16px;
+        margin-top: 1px;
+        padding: 0px 0;
+    }
+    .activeMenuPage{
+        background-color: rgba(255, 255, 255, 0.09) !important;
+        border-radius: 5px;
+        ion-icon{
+            color: #fff !important;
+        }
+    }
+
+.alert-wrapper {
+    width: 100% !important;
+}
+.alert-radio-button {
+    padding: 0px 30px;
+  }
+  .createmessage{
+    border: 1px solid;
+    margin: 0 70px !important;
+  }
+
+//custom profile modal
+  .custom-modal-main {
+    background: rgba(158, 158, 158, 0.65);
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    .custom-modal {
+        background: #fff;
+        width: 90%;
+        padding: 10px;
+        border-radius: 10px;
+        position: relative;
+        .custom-modal-header {
+            position: absolute;
+            top: -49px;
+            width: 100%;
+            left: 0;
+            .image-sec {
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                background-position: center;
+                background-size: contain;
+                margin: 0 auto;
+                border: 5px solid #fff;
+                position: relative;
+                .add-image-icon {
+                    position: absolute;
+                    top: 60px;
+                    right: -4px;
+                    background: #fff;
+                    height: 30px;
+                    width: 30px;
+                    text-align: center;
+                    border: 2px solid #fff;
+                    border-radius: 50%;
+                    ion-icon{
+                        color: green;
+                        font-size: 25px;
+                    }
+                    ion-icon::before{
+                        font-size: 25px;
+                    }
+                }
+            }
+        }
+        .custom-note-header {
+            text-align: center;
+        }
+        .custom-modal-content {
+            text-align: center;
+            width: 100%;
+            margin-top: 15%;
+            h2 {
+                font-weight: bold;
+            }
+            p{
+                margin: 0;
+                color: #666;
+            }
+            .download-button {
+                position: absolute;
+                bottom: 1rem;
+                ion-icon{
+                    font-size: 30px;
+                }
+            }
+        }
+        .custom-note-content{
+            text-align: center;
+            width: 100%;
+            margin-bottom: 20px;
+            ion-icon.rating-star::before {
+                font-size: 2em;
+            }
+        }
+        .custom-modal-footer{
+            .absence-count{
+                font-size: 25px;
+                font-weight: 700;
+                margin: 10px 0 0;
+            }
+            .absence{
+                font-size: 12px;
+                font-weight: 400;
+                color: #666;
+                margin-top: 0;
+            }
+        }
+    }
+}
+//syling cards
+ion-card{
+          margin: 5px 0px 5px 0px;
+}
+
+//custom calender modal
+.custom-calender-modal-main{
+    ion-calendar .calendar-row .today {
+        box-shadow: inset 0 0 10px #3d5afe;
+        background: #3d5afe;
+        align-items: center;
+    }
+    ion-calendar .calendar-row .eventBlip {
+        background: #3d5afe;
+    }
+    background: rgba(158, 158, 158, 0.65);
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 9999;
+    top: 6%;
+    .calender-container {
+        width: 100%;
+        background: #fff;
+        position: relative;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        height: 40%;
+        .calender-body {
+            position: absolute;
+            width: 100%;
+            bottom: auto;
+        }
+    }
+    .clickd-div {
+        width: 100%;
+        height: 60%;
+        position: absolute;
+        bottom: 0;
+    }
+}
+.add-circle{
+    float: left;
+    margin-right: 10px;
+    font-size: 27px;
+}
+.toast-md .toast-wrapper {
+    width: 88% !important;
+    background: #333333b0 !important;
+    border-radius: 50px !important;
+    bottom: 8% !important;
+}
+.toast-md .toast-message {
+    padding: 11px 16px 11px !important;
+}
+.toolbar-ios ion-title {
+    padding: 0 52px 1px 16px !important;
+}
+.parent-connect-rules{
+    ul{
+        list-style: none;
+        padding: 0;
+        margin-left: 0;
+    }
+    li{
+        padding: 4px 0;
+    }
+    li::before {
+        content: "\2022";
+        color: #2979ff;
+        font-weight: bold;
+        display: inline-block;
+        width: 1em;
+        margin-left: 0;
+    }
+}
+.e-learningdesc{
+    p{
+        white-space: normal !important;
+    }
+}
+.btn-primary{
+    --box-shadow:unset;
+    width:100%;
+}
+.btn-secondary{
+    --box-shadow:unset;
+    --border-width:1px;
+    width:100%;
+}
+
+//custon loader
+.loaderStyle{
+    --backdrop-opacity: 0.7;
+    --height: 70vh !important;
+    --width: 83vw !important;
+    .popover-content{
+                top: 40vh !important;
+                left: 20vw !important;
+                background: transparent;
+                box-shadow: none;
+                width: 60vw !important;
+                /* height: 35vh !important; */
+                overflow: hidden !important;
+            .popover-viewport{
+                background: transparent;
+            }
+    }
+}
+.editClassPopup{
+    .btnfirst{
+            color: #3d5afe;
+            // background: #3880ff;
+            margin: 5px 0px;
+            font-weight: bold;
+            position: absolute;
+            top: 2px;
+            left: 7px;
+    }
+    .btnsecond{
+            color: #fff;
+            background: #43a047;
+            margin: 5px 0px;
+            font-weight: bold;
+            width: 46%;
+            text-align: center !important;
+            padding-left: 38px;
+    }
+    .btnthird{
+        color: #fff;
+        background: #f00;
+        margin: 5px 0px;
+        font-weight: bold;
+        width: 46%;
+        position: absolute;
+        bottom: 8px;
+        right: 10px;
+        text-align: center !important;
+        padding-left: 38px;
+    }
+}
+
+//rating popup
+
+.ratePopup{
+        --width: 92vw !important;
+        -height: 44vh!important;
+        .popover-content{
+                top: 14vh !important;
+                left: 4vw !important;
+        }
+}
+
+@media only screen and (max-height: 639px) and (orientation: portrait) {
+    .custom-calender-modal-main{
+        top: 9%;
+        .calender-container {
+            height: 50%;
+        }
+        .clickd-div {
+            height: 50%;
+        }
+    }
+}
+@media only screen and (min-height: 720px) and (orientation: portrait) {
+    .custom-calender-modal-main{
+        top: 5%;
+        .calender-container {
+            height: 35%;
+        }
+        .clickd-div {
+            height: 65%;
+        }
+    }
+}
+
+@media only screen and (orientation: landscape) {
+    .custom-calender-modal-main{
+        top: 9%;
+        .calender-container {
+            height: 70%;
+        }
+        .clickd-div {
+            height: 30%;
+        }
+    }
+}

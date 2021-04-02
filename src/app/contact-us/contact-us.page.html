@@ -1,0 +1,64 @@
+<ion-header mode="md">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title text-right>{{'contact.pagetitle' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding mode="md">
+  <ion-list>
+    <form #contactForm='ngForm' (ngSubmit)="submitContactusForm(contactForm)">
+      <ion-item class="background-input">
+        <ion-label floating>{{'contact.inputname' | translate}}</ion-label>
+        <ion-input type="text" name="username" maxlength = "15" #username='ngModel' [(ngModel)]="user.f1" required></ion-input>
+      </ion-item>
+      <div *ngIf="username.invalid && (username.touched)" class="alert alert-danger">
+        <div *ngIf="username.errors.required">
+          {{'validations.required' | translate}}
+        </div>
+        <div *ngIf="username.errors.maxlength">
+          {{'validations.namemaxlength' | translate}}
+        </div>
+      </div>
+      <ion-item class="background-input">
+        <ion-label floating>{{'contact.inputemail' | translate}}</ion-label>
+        <ion-input type="email" name="useremail" [(ngModel)]="user.f2" #useremail='ngModel' required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"></ion-input>
+      </ion-item>
+      <div *ngIf="useremail.invalid && (useremail.touched)" class="alert alert-danger">
+        <div *ngIf="useremail.errors.required">
+            {{'validations.required' | translate}}
+        </div>
+        <div *ngIf="useremail.errors.pattern">
+            {{'validations.invalidemail' | translate}}
+        </div>
+      </div>
+      <ion-item class="background-input">
+        <ion-label floating>{{'contact.inputtitle' | translate}}</ion-label>
+        <ion-input type="text" name="title" maxlength="30" #title='ngModel' [(ngModel)]="user.f3" required></ion-input>
+      </ion-item>
+      <div *ngIf="title.invalid && (title.touched)" class="alert alert-danger">
+        <div *ngIf="title.errors.required">
+            {{'validations.required' | translate}}
+        </div>
+        <div *ngIf="title.errors.maxlength">
+          {{'validations.titlemaxlength' | translate}}
+      </div>
+      </div>
+      <ion-item class="background-input">
+        <ion-label floating>{{'contact.inputmessage' | translate}}</ion-label>
+        <ion-textarea rows="5" name="message" [(ngModel)]="user.f4" #message='ngModel' required></ion-textarea>
+      </ion-item>
+      <div *ngIf="message.invalid && (message.touched)" class="alert alert-danger">
+        <div *ngIf="message.errors.required">
+            {{'validations.required' | translate}}
+        </div>
+      </div>
+        <ion-button expand="block" class="btn-primary" shape="undefined" color="primary" class="submit-btn" name="submit" type="submit" [disabled]="contactForm.invalid">{{'contact.submit' | translate}}</ion-button>
+    </form>
+  </ion-list>
+</ion-content>

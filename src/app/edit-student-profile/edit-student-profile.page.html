@@ -1,0 +1,40 @@
+<ion-header mode="md">
+  <ion-toolbar>
+  	<ion-buttons slot="end">
+  		<ion-back-button></ion-back-button>
+  	</ion-buttons>
+    <ion-title>{{'edit_student.title' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="md">
+
+	<div class="body_div">
+		<ion-row class="input-row">
+			<ion-item class="item">
+				<ion-label>{{'edit_student.name' | translate}}</ion-label>
+				<ion-input type="text" placeholder="{{studentName}}" value="{{studentName}}" id="input"></ion-input>
+			</ion-item>
+			<ion-item class="item">
+				<ion-label>{{'edit_student.id' | translate}}</ion-label>
+				<ion-input type="text" placeholder="{{student_id}}" value="{{student_id}}" id="inputid"></ion-input>
+			</ion-item>
+			<ion-item class="item">
+				<ion-label>{{'edit_student.class' | translate}}</ion-label>
+				<ion-select placeholder="{{student.course_name}}" value="{{studentSemester}}" id="select" interface="popover">
+					<ion-select-option *ngFor="let c of classes" value={{c.cid}}>{{c.name}}</ion-select-option>
+				</ion-select>
+			</ion-item>
+		</ion-row>
+
+		<ion-row class="btn-row">
+			<ion-col size="12">
+				<ion-button  expand="block" class="btn-primary" shape="round" color="primary" (click)="saveChanges()">{{'edit_student.save' | translate}}</ion-button>
+			</ion-col>
+			<ion-col size="12">
+				<ion-button  expand="block" class="btn-primary" shape="round" color="danger" (click)="deleteStudent()">{{'edit_student.delete' | translate}}</ion-button>
+			</ion-col>
+		</ion-row>
+	</div>
+
+</ion-content>

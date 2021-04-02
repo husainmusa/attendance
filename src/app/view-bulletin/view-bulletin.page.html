@@ -1,0 +1,173 @@
+<ion-header mode="md">
+  <ion-toolbar>
+  	<ion-buttons slot="start">
+  		<ion-menu-button></ion-menu-button>
+  	</ion-buttons>
+  	<ion-buttons slot="end">
+  		<ion-back-button></ion-back-button>
+  	</ion-buttons>
+    <ion-title>{{'bulletin.title' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="md">
+
+
+	<ion-card *ngIf="bulletinDetails.details">
+		<ion-card-header>
+			<h3>{{navData.bulletin_title}}</h3>
+        	<!-- <p *ngIf="navData.description">{{navData.description}}</p> -->
+        	<span >{{navData.created_at | dateFormat}}</span>
+		      <ion-icon *ngIf="bulletinDetails.details.is_closed=='1'" color="secondary" class="lock" name="checkmark-outline">
+		      </ion-icon>
+		</ion-card-header>
+	  <ion-card-content>
+	  	<ion-row>
+	  		
+	  		<!-- <ion-col size="4">
+		        <div class="pdf-div" (click)="openPdf(navData.documents.pdf)">
+		          <img *ngIf="navData.documents.image && navData.documents.pdf" [src]="navData.documents.image" onerror="this.onerror=null;this.src='assets/imgs/pdf.png';" style="min-height: 97px;">
+		            <ion-icon *ngIf="navData.documents.pdf" name="document-attach-outline"></ion-icon>
+		        </div>
+		          <img *ngIf="navData.documents.image && !navData.documents.pdf" [src]="navData.documents.image" onerror="this.onerror=null;this.src='assets/imgs/logo.png';" style="min-height: 97px;" (click)="openImage(navData.documents.image)" class="image_single">
+	  		</ion-col> -->
+	  		<ion-col size="12">
+			  <div class="srow">
+				<ion-row *ngIf="navData.created_by != navData.send_by" >
+					<ion-col size="12" >
+						<div class="title_div">
+							{{'bulletin.forwarded_by' | translate}}
+						</div>
+					</ion-col>
+					<ion-col size="12" >
+						<ion-item style="width: 100%;" >
+				            <ion-label>
+				              <h3>{{navData.send_by_username}}</h3>
+				            </ion-label>
+				        </ion-item>
+					</ion-col>
+				</ion-row>
+				<ion-row >
+					<ion-col size="12" >
+						<div class="title_div">
+							{{'bulletin.created_by' | translate}}
+						</div>
+					</ion-col>
+					<ion-col size="12" >
+						<ion-item style="width: 100%;">
+					          <ion-avatar slot="start">
+					            <img src="{{navData.created_by_user_pic}}" onerror="this.onerror=null;this.src='assets/imgs/logo.png';">
+					          </ion-avatar>
+				            <ion-label>
+				              <h3>{{navData.send_by_username}}</h3>
+				            </ion-label>
+				        </ion-item>
+					</ion-col>
+				</ion-row>
+			</div>
+	  		</ion-col>
+	  		<ion-col size="12">
+	  	    <div *ngIf="navData.documents.pdf !=''">
+              <div class="pdf-div" (click)="openPdfs(navData.documents.pdf)">
+                  <img src="pdf" onerror="this.onerror=null;this.src='assets/imgs/pdf.png';">
+                  <!-- <ion-icon name="document-attach-outline"></ion-icon> -->
+              </div>
+              <div *ngFor="let doc of navData.documents.files">
+                <div *ngIf="!doc.is_img">
+                  <div class="pdf-div" *ngIf="doc.extension=='pdf'" (click)="openPdf(doc.url_original)">
+                    <img [src]="doc.url" onerror="this.onerror=null;this.src='assets/imgs/pdf.png';">
+                    <!-- <ion-icon  name="document-attach-outline"></ion-icon> -->
+                  </div>
+                  <div class="pdf-div" *ngIf="doc.extension!='pdf'" (click)="opendoc(doc.url)">
+                    <img [src]="doc.url" onerror="this.onerror=null;this.src='assets/imgs/doc.png';">
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <div *ngIf="navData.documents.pdf ==''">
+              <div *ngFor="let doc of navData.documents.files">
+                <div class="pdf-div" *ngIf="doc.extension=='pdf' && !doc.is_img" (click)="openPdf(doc.url_original)">
+                  <img [src]="doc.url" onerror="this.onerror=null;this.src='assets/imgs/pdf.png';">
+                  <!-- <ion-icon  name="document-attach-outline"></ion-icon> -->
+                </div>
+                <div class="pdf-div" *ngIf="doc.extension!='pdf' && !doc.is_img" (click)="opendoc(doc.url)">
+                  <img [src]="doc.url" onerror="this.onerror=null;this.src='assets/imgs/doc.png';">
+                </div>
+                <div class="pdf-div" *ngIf="doc.is_img" (click)="openImage(doc.url_original)">
+                  <img [src]="doc.url_original" onerror="this.onerror=null;this.src='assets/imgs/image.png';">
+                </div>
+              </div>
+              
+            </div>
+	  		</ion-col>
+	  	</ion-row>
+        <ion-row *ngIf="bulletinDetails">
+          <ion-row *ngIf="bulletinDetails.details">
+          <ion-col   *ngIf="bulletinDetails.details.is_closed=='0'">
+            <ion-button (click)="openCommentSection(navData)" color="primary" expand="block" shape="round" class="forward-btn">
+              {{'bulletin.comment' | translate}}
+            </ion-button>
+          </ion-col>
+          <ion-col  *ngIf="bulletinDetails.details.is_closed=='0'">
+            <ion-button (click)="shareBulletin(navData)" color="primary" expand="block" shape="round" class="forward-btn">
+              {{'bulletin.share' | translate}}
+            </ion-button>
+          </ion-col>
+          <ion-col  *ngIf="userDetails.details.user_type=='1' && bulletinDetails.details.is_closed=='0'">
+            <ion-button  color="secondary" (click)="completeBulletin()" expand="block" shape="round" class="forward-btn">
+              {{'bulletin.complete' | translate}}
+            </ion-button>
+          </ion-col>
+          <ion-col  *ngIf="userDetails.details.user_type=='1' && bulletinDetails.details.is_closed=='1'">
+            <ion-button  color="secondary" (click)="reOpen()" expand="block" shape="round" class="forward-btn">
+              {{'bulletin.reopen' | translate}}
+            </ion-button>
+          </ion-col>
+          <ion-col  *ngIf="navData.created_by== user_no ||userDetails.details.user_type=='1'">
+            <ion-button  color="danger" (click)="deleteBulletin()" expand="block" shape="round" class="forward-btn">
+              {{'bulletin.delete' | translate}}
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        </ion-row>
+      </ion-card-content>
+	</ion-card>
+
+	<ion-row *ngIf="visibleComment" class="comment-row">
+		<ion-item lines="none">
+				<ion-icon color="primary" (click)="markComment()" slot="start" name="send-outline"></ion-icon>	
+			<ion-textarea placeholder=" {{'bulletin.add_comment' | translate}}" [(ngModel)]="comment">
+			</ion-textarea>
+
+		</ion-item>
+	</ion-row>
+
+	<div *ngIf="bulletinDetails.details">
+		<ion-list >
+			<ion-card *ngFor="let track of bulletinDetails.activity">
+				<ion-card-header>
+					<ion-item class="list-item">
+						<ion-avatar>
+							<img [src]="track.send_by_user_pic" onerror="this.onerror=null;this.src='assets/imgs/logo.png';">
+						</ion-avatar>
+						<span>{{track.send_by_username}} 
+							<ion-icon *ngIf="track.send_to_username" name="caret-back-outline"></ion-icon>
+						</span>
+						<ion-avatar *ngIf="track.send_to_username">
+							<img [src]="track.send_to_user_pic" onerror="this.onerror=null;this.src='assets/imgs/logo.png';">
+						</ion-avatar>
+              			<span>{{track.send_to_username}}</span>
+					</ion-item>
+					<p>{{track.description}}</p>
+					<p>{{track.created_at | dateFormat}}</p>
+					<p *ngIf="track.is_view=='1'"><ion-icon name="checkmark-done-outline" color="secondary"></ion-icon></p>
+				</ion-card-header>
+			</ion-card>
+			
+		</ion-list>
+
+
+	</div>
+
+</ion-content>

@@ -1,0 +1,53 @@
+<ion-header mode="md">
+  <ion-toolbar>
+  	<ion-buttons slot="end">
+  		<ion-back-button></ion-back-button>
+  	</ion-buttons>
+     <ion-toolbar>
+        <ion-searchbar style="padding-top: 15px;" mode="ios" placeholder="{{'search.search_user' | translate}}" id="search" (keyup)="filterList($event)"></ion-searchbar>
+      </ion-toolbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="md">
+	<div class="students" id="students" *ngIf="allUsers && bulletinId && type!='create'" > 
+		<!-- <ion-virtual-scroll [items]="students" approxItemHeight="320px"> -->
+		<ion-card  class="text-left body-font card heigt-min"  *ngFor="let users of allUsers; let i=index">		
+			<ion-item  >
+				<ion-checkbox slot="end" id="ch{{i}}" (ionChange)="selectUser(users,$event,i)"></ion-checkbox>
+				<ion-avatar slot="start">
+					<img [src]="users.pic"  onerror="this.onerror=null;this.src='assets/imgs/logo.png';">
+				</ion-avatar>
+			    <ion-label>
+			    	<h4>{{users.first_name}}</h4>
+			    	<p>{{users.username}}</p> 
+			    </ion-label>
+			</ion-item>
+		</ion-card> 
+			<!-- </ion-virtual-scroll> -->
+	</div>
+	<div class="students" id="students" *ngIf="allUsers && type=='create'"> 
+		<!-- <ion-virtual-scroll [items]="students" approxItemHeight="320px"> -->
+		<ion-card  class="text-left body-font card heigt-min"  *ngFor="let users of allUsers">		
+			<ion-item  (click)="uplaodBullentin(users)">
+				<ion-avatar slot="start">
+					<img [src]="users.pic"  onerror="this.onerror=null;this.src='assets/imgs/logo.png';">
+				</ion-avatar>
+			    <ion-label>
+			    	<h4>{{users.first_name}}</h4>
+			    	<p>{{users.username}}</p> 
+			    </ion-label>
+			</ion-item>
+		</ion-card> 
+			<!-- </ion-virtual-scroll> -->
+	</div>
+	<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>
+<ion-footer>
+	<ion-button *ngIf="type!='create'" expand="block" shape="round" color="primary" (click)="uplaodBullentin('users')">
+		{{'bulletin.share' | translate}}
+	</ion-button>
+	</ion-footer>

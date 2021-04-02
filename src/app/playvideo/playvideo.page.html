@@ -1,0 +1,49 @@
+<ion-header mode="md">
+  <ion-toolbar transparent>
+    <ion-buttons slot="end">
+   		<ion-back-button></ion-back-button>
+   	</ion-buttons>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>    
+    <ion-title text-right>{{'eLearning.title' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content mode="md">
+  <div class="video-fix" style="top: 0px;" *ngIf="flag">
+    <div class="video" color="menu-color">
+      <video #videoPlayer controls *ngIf="material.material_video_file !=''" [src]="material.material_video_file"
+        autoplay class="videoPlayer"></video>
+      <iframe #youTubeVideo class="material-video-iframe" allowfullscreen="allowfullscreen" *ngIf="material.material_video_link !=''"
+        [src]="material.material_video_link | safe"></iframe>
+    </div>
+    <div style="min-height: 100px;">
+      <ion-item no-lines class="e-learningdesc">
+      	<ion-label>
+	        <h4>{{material.material_title}}</h4>
+          <p>{{material.material_description}}</p>
+      	</ion-label>
+        <ion-icon name="share-social-outline" (click)="share(material)"></ion-icon>
+      </ion-item>
+    </div>
+  </div>
+
+  <div style="height: 280px;" class="videoscroll">
+    <div *ngFor="let relatedVideo of material.related_videos">
+      <ion-row align-items-center (click)="playvideo(relatedVideo.id)">
+        <ion-col size="4">
+          <img *ngIf="relatedVideo.video_thumb?.length > 0" src="{{relatedVideo.video_thumb}}" class="upcomming-video">
+          <img *ngIf="relatedVideo.video_thumb?.length == 0" src="https://webapp.ws/att-admin/uploads/no-thumb.jpg"
+            class="upcomming-video">
+        </ion-col>
+        <ion-col size="8">
+          <p class="videosname">{{relatedVideo.material_title}}</p>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+  <div>
+  </div>
+</ion-content>

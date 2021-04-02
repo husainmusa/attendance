@@ -1,0 +1,66 @@
+
+ion-title{
+	font-size: 2.1vh;
+}
+.container{
+	margin: 5px;
+	.scan-btn-col{
+		    margin-top: 25px;
+		    .scan-btn-div{
+		    	    width: 50%;
+    				margin: 0px auto;
+		    }
+	}
+	.view-image{
+		.selected-image{
+			img{
+				    width: 100%;
+    				height: 97px;
+			}
+			ion-icon{
+				position: absolute;
+			    font-size: 44px;
+			    color: red;
+			}
+		}
+		.add-more{
+			    //margin: 5px;
+			    background: #cccccc;
+			    text-align: center;
+			    color: #fff;
+			    font-size: 38px;
+			    min-height: 96px;
+			    ion-icon{
+			    	vertical-align: middle;
+			    	    padding-top: 26px;
+			    }
+		}
+	}
+}
+.students:hover{
+	--color: #2979ff !important;
+    --background: aliceblue;
+    p{
+		color: #2979ff !important;
+    }
+}
+.mform{
+	width: 100%;
+	ion-item{
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+}
+.image-name{
+	position: absolute;
+    z-index: 1;
+    right: 2px;
+    bottom: 2px;
+    text-align: center;
+    font-size: 12px;
+    background: #ffffff91;
+}
+
+#myFileInput {
+    display:none;
+}

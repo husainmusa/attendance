@@ -1,0 +1,73 @@
+<ion-header mode="md">
+
+  <ion-toolbar transparent>
+   	<ion-buttons slot="end">
+      <!-- <ion-button icon-only (click)="selectNewsCountry()">
+        <ion-icon name="help-circle-outline" ></ion-icon>
+      </ion-button> -->
+   		<ion-back-button>
+   		</ion-back-button>
+   	</ion-buttons>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title text-right>{{'eLearning.title' | translate}}</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content mode="md"> 
+    <!-- <ion-row class="county">
+
+        <ion-item >
+          <ion-label>{{'location.select_country'| translate}}</ion-label>
+          <ionic-selectable
+            [(ngModel)]="selected_country"
+            [items]="country"
+            itemValueField="code"
+            itemTextField="name"
+            (onChange)="portChange($event)"
+            [canSearch]="true">
+          </ionic-selectable>
+        </ion-item>
+  </ion-row> -->
+  <ion-item color="content-back" lines="none" class="body">
+    <ion-avatar item-start>
+      <img [src]="school.pic">
+    </ion-avatar>
+    <ion-label>
+	    <h2>{{school.school_name}}</h2>
+	    <h3>{{school.detail}}</h3>
+    </ion-label>
+  </ion-item>
+
+  <div *ngIf = "categories?.length > 0">
+    <ion-card *ngFor="let category of categories; let i=index">
+        <ion-row class="category-heading" [id]="'row'+i" (click)="hideDisplay('2row'+i,'icon'+i)">
+          <ion-col size="1" align-self-center text-center>
+            <div class="material-list-container">
+              <ion-icon name="list" [id]="'icon'+i"></ion-icon>
+            </div>
+          </ion-col>
+          <ion-col size="10" (click)="playCategoryList()" align-self-center>
+            <h2><b>{{category.cat_title}}</b></h2>
+          </ion-col>
+          <ion-col size="1" tet-center *ngIf="category.materials?.length > 0">
+            <ion-icon name="caret-down" class="arrow-left"></ion-icon>
+          </ion-col>
+        </ion-row>
+          <ion-row  [id]="'2row'+i" class="hideDisplay">
+            <div *ngIf="category.materials?.length > 0">
+              <ion-col size="2"></ion-col>
+              <ion-col size="10">
+                <div *ngFor="let material of category.materials">
+                  <ion-item lines="none" (click)="playvideo(material.id)">{{material.material_title}}</ion-item>
+                </div>
+              </ion-col>
+            </div>
+          </ion-row>
+    </ion-card>
+  </div>
+
+</ion-content>

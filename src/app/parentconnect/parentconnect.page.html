@@ -1,0 +1,84 @@
+<ion-header mode="md">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+          <ion-button ion-button small clear icon-only (click)="createChatMessage()" *ngIf="userType == '4' ||  userType == '8'">
+            <ion-icon name="add-circle-outline" class="add-circle" item-end color="icon-header"></ion-icon>
+          </ion-button>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="userType == '8'"> {{'parentconnect.pagetitlestudent' | translate}}</ion-title>
+    <ion-title *ngIf="userType != '8'"> {{'parentconnect.pagetitle' | translate}}</ion-title>
+       
+  </ion-toolbar>
+</ion-header>
+<ion-content mode="md">
+  <ion-list *ngIf = "chats?.length > 0">
+    <ion-card class="student-class" *ngFor="let chatuser of chats">
+      <ion-card-content no-padding>
+        <ion-row no-padding no-margin>
+          <ion-col size="10" align-self-center no-padding>
+            <ion-item (click)="openChat(chatuser)" lines="none">
+              <ion-label>
+                <h2>{{chatuser.name}}</h2>
+                <p>{{chatuser.title}}</p>
+                <p style="font-size: 10px;">{{chatuser.updated_time| dateFormat}}</p>
+              </ion-label>
+              <ion-avatar slot="start">
+                <img [src]="chatuser.pic" onerror="this.onerror=null;this.src='assets/imgs/logo.png';">
+                <div class="ticket-status-circle"
+                  [ngStyle]="{'background': chatuser.ticket_status == '0' ? '#43a047' : '#ececec'  }"></div>
+              </ion-avatar>
+            </ion-item>
+            <ion-button clear icon-only small margin-right
+              *ngIf="chatuser.message_image != '' && chatuser.message_image" class="attachment_image"
+              (click)="openImageContainer(chatuser.message_image)">
+              <ion-icon name="attach"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="1" align-self-center no-padding *ngIf="userType=='1'">
+            <span *ngIf="chatuser.ticket_status == '0';else closed;" class="ticket-status">
+              <ion-icon name="lock-open-outline" color="secondary" (click)="closeTicket(chatuser)"></ion-icon>
+            </span>
+            <ng-template #closed>
+              <span class="ticket-status">
+                <ion-icon name="lock-closed-outline" color="danger"  (click)="reopenTicket(chatuser)">
+                  
+                </ion-icon>
+              </span>
+            </ng-template>
+          </ion-col>
+          <ion-col size="2" align-self-center no-padding *ngIf="userType=='4'">
+            <span *ngIf="chatuser.ticket_status == '0';else closed;" class="ticket-status">
+            <!--   <span class="chatOpen">Open</span> -->
+              <ion-icon name="lock-open-outline" class="chatOpen"></ion-icon>
+            </span>
+            <ng-template #closed>
+              <span class="ticket-status">
+                <ion-icon name="lock-closed-outline" class="chatClosed"></ion-icon>
+              </span>
+            </ng-template>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+  <div class="no-data">
+    <ion-label text-center *ngIf="chats?.length == 0">{{noDataFound}}</ion-label>
+  </div>
+</ion-content>
+
+<div class="custom-modal-main" *ngIf="imageModal" (click)="hideUserImageModal($event)">
+  <div class="custom-modal">
+    <div class="custom-modal-content">
+      <img [src]="imageUrl" imageViewer>
+      <div class="download-button">
+        <ion-button  small icon-only clear (click)="downloadImage(imageUrl)">
+          <ion-icon name="download"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</div>

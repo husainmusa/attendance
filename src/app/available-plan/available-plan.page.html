@@ -1,0 +1,121 @@
+<ion-header mode="md">
+  <ion-toolbar>
+   	<ion-buttons slot="end">
+   		<ion-back-button>
+   		</ion-back-button>
+   	</ion-buttons>
+    <ion-title>{{'plan.title' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="md">
+	<div class="availablePlan">
+		<ion-card *ngIf="availablePlan.ammount" [ngStyle]="{'background-color': availablePlan.cardColor}">
+			<ion-card-header>
+				<div class="cardTitle">
+					{{'plan.currentPlan' | translate}}
+				</div>
+			</ion-card-header>
+			<ion-card-content>
+				<ion-row>
+					<ion-col size="6" class="title">{{'plan.name' | translate}}</ion-col>
+					<ion-col size="6" *ngIf="availablePlan.ammount<2">{{'plan.monthly_subscription' | translate}}</ion-col>
+					<ion-col size="6" *ngIf="availablePlan.ammount>2">{{'plan.yearly_subscription' | translate}}</ion-col>
+				</ion-row> 
+				<ion-row>
+					<ion-col size="6" class="title">{{'plan.ammount' | translate}}</ion-col>
+					<ion-col size="6">{{availablePlan.ammount}}</ion-col>
+				</ion-row>
+				<ion-row>
+					<ion-col size="6" class="title">{{'plan.duration' | translate}}</ion-col>
+					<ion-col size="6">{{availablePlan.duration}}</ion-col>
+				</ion-row>
+				<ion-row>
+					<ion-col size="6" class="title">{{'plan.startFrom' | translate}}</ion-col>
+					<ion-col size="6">{{availablePlan.Reg_date}}</ion-col>
+				</ion-row>
+				<ion-row>
+					<ion-col size="6" class="title">{{'plan.endOn' | translate}}</ion-col>
+					<ion-col size="6">{{availablePlan.exp_date}}</ion-col>
+				</ion-row>
+				<ion-row>
+					<ion-col size="6" class="title">{{'plan.status' | translate}}</ion-col>
+					<ion-col size="6" *ngIf="!availablePlan.isExpire">{{ 'plan.available' | translate}}</ion-col>
+					<ion-col size="6" *ngIf="availablePlan.isExpire">{{ 'plan.expired' | translate}}</ion-col>
+				</ion-row>
+			</ion-card-content>
+
+			<div class="bgIcon" >
+				<ion-icon *ngIf="availablePlan.isExpire" name="warning-outline"></ion-icon>
+				<ion-icon *ngIf="!availablePlan.isExpire" name="checkmark-circle-outline"></ion-icon>
+			</div>
+		</ion-card>
+
+		
+
+		<ion-card *ngIf="!availablePlan.ammount" [ngStyle]="{'background-color': 'rgb(249 169 5)'}">
+
+			<ion-card-header>
+				{{'plan.noPlan' | translate}}
+			</ion-card-header>
+
+			<div class="bgIcon" >
+				<ion-icon style="font-size: 3rem;"  name="warning-outline"></ion-icon>
+			</div>
+		</ion-card>
+
+
+	</div>
+
+	<div class="whatPlanAre">
+		<ion-card>
+			<ion-card-header>
+				{{'plan.what_are_plan'| translate}}
+			</ion-card-header>
+			<ion-card-content>
+				{{'plan.what_are_plan_decription'| translate}} 
+				<span (click)="openPdf()">{{'plan.what_are_plan_link'| translate}}</span>
+			</ion-card-content>
+		</ion-card>
+	</div>
+
+	<div class="plan-list" >
+		<div class="plans">
+			{{'plan.availablePlan' | translate}}
+		</div>
+		<ion-card >
+			<ion-row>
+				<ion-col size="6" class="title">{{'plan.name' | translate}}</ion-col>
+				<ion-col size="6">{{'plan.monthly_subscription' | translate}}</ion-col>
+			</ion-row> 
+			<ion-row>
+				<ion-col size="6" class="title">{{'plan.ammount' | translate}}</ion-col>
+				<ion-col size="6">$1.99</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col size="6" class="title">{{'plan.duration' | translate}}</ion-col>
+				<ion-col size="6"> {{'plan.monthly' | translate}}</ion-col>
+			</ion-row>
+			<ion-row class="btn-row">
+				<ion-button [disabled]="(!availablePlan.ammount || availablePlan.isExpire)? false:true" shape="round" expand="block"  (click)="subscribe(0)">{{'plan.subscribe' | translate}}</ion-button>
+			</ion-row>
+		</ion-card>
+		<ion-card >
+			<ion-row>
+				<ion-col size="6" class="title">{{'plan.name' | translate}}</ion-col>
+				<ion-col size="6">{{'plan.yearly_subscription' | translate}}</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col size="6" class="title">{{'plan.ammount' | translate}}</ion-col>
+				<ion-col size="6">$19.95</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col size="6" class="title">{{'plan.duration' | translate}}</ion-col>
+				<ion-col size="6"> {{'plan.yearly' | translate}}</ion-col>
+			</ion-row>
+			<ion-row class="btn-row">
+				<ion-button [disabled]="(!availablePlan.ammount || availablePlan.isExpire)? false:true" shape="round" expand="block"  (click)="subscribe(1)">{{'plan.subscribe' | translate}}</ion-button>
+			</ion-row>
+		</ion-card>
+	</div>
+</ion-content>

@@ -1,0 +1,63 @@
+<ion-header mode="md">
+  <ion-toolbar>
+    <ion-title text-right>{{'createClass.pagetitle' | translate}}
+      <ion-icon item-end name="close" (click)="viewCtrl.dismiss(false)" class="close"></ion-icon>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding mode="md">
+  <form #registerForm='ngForm'>
+    <ion-list style="margin: 10px;">
+      <ion-item class="background-input" align-items-center>
+        <ion-label color="dark" floating>{{'createClass.class_code' | translate}}</ion-label>
+        <ion-input type="text" name="classCode" #classCode='ngModel' [(ngModel)]="class.code"
+          pattern="[A-Za-z0-9]*$" text-right required>
+        </ion-input>
+      </ion-item>
+      <div *ngIf="classCode.invalid && (classCode.touched)" class="alert alert-danger">
+        <div *ngIf="classCode.errors.required">
+          {{'validations.required' | translate}}
+        </div>
+        <div *ngIf="classCode.errors.pattern">
+          {{'validations.invalidclasscode' | translate}}
+        </div>
+      </div>
+
+      <ion-item class="background-input" align-items-center>
+        <ion-label color="dark" floating>{{'createClass.class_name' | translate}}</ion-label>
+        <ion-input type="text" name="className" #className='ngModel' [(ngModel)]="class.name" text-right required>
+        </ion-input>
+      </ion-item>
+      <div *ngIf="className.invalid && (className.touched)" class="alert alert-danger">
+        <div *ngIf="className.errors.required">
+          {{'validations.required' | translate}}
+        </div>
+      </div>
+
+      <ion-item class="background-input" align-items-center>
+        <ion-label color="dark" floating>{{'createClass.class_desc' | translate}}</ion-label>
+        <ion-textarea name="classDesc" #classDesc='ngModel' [(ngModel)]="class.desc" text-right required>
+        </ion-textarea>
+      </ion-item>
+      <div *ngIf="classDesc.invalid && (classDesc.touched)" class="alert alert-danger">
+        <div *ngIf="classDesc.errors.required">
+          {{'validations.required' | translate}}
+        </div>
+      </div>
+
+      <ion-item class="background-input" align-items-center>
+        <ion-label color="dark">{{'createClass.seminar' | translate}}</ion-label>
+        <ion-select name="seminar" #seminar='ngModel' [(ngModel)]="class.semno" interface="popover">
+          <ion-select-option *ngFor="let seminar of getSeminars();let i = index;" [value]="(i+1)">{{i+1}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-row padding>
+        <ion-button  expand="full" class="btn-primary" shape="round" color="primary" [disabled]="registerForm.invalid"
+          (click)="registerClass()">{{'createClass.reg_btn' | translate}}</ion-button>
+      </ion-row>
+    </ion-list>
+  </form>
+</ion-content>

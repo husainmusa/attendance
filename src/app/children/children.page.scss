@@ -1,0 +1,15 @@
+    .abs-outer {
+        width: 30px;
+        height: 30px;
+        background: #ececec;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      //  margin: 0 auto;
+            margin: 2.5vh;
+    }
+    ion-card-content{
+        padding: unset;
+        border-bottom: unset;
+    }

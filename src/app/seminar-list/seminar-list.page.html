@@ -1,0 +1,112 @@
+<ion-header mode="md">
+   <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button icon-only (click)="printReport()">
+       <ion-icon name="print-outline"></ion-icon>
+    </ion-button>
+      <ion-back-button>
+      </ion-back-button>
+    </ion-buttons>
+
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-row>
+      <ion-col size="8" align-self-center no-padding text-right>
+        <div class="title" (click)="openCalenderModal()">{{dateSelected | date: 'mediumDate'}}</div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="md">
+  <div class="seminars" id="printSection">
+
+    <ion-list lines="none" *ngIf="seminarList">
+      <ion-list-header>
+        {{'seminar_list.title' | translate}}
+      </ion-list-header>
+      <ion-row class="row">
+        <ion-col size="4" >
+         {{'seminar_list.name' | translate}}
+        </ion-col>
+        <ion-col size="3">
+          {{'seminar_list.present' | translate}}
+        </ion-col>
+        <ion-col size="2">
+          {{'seminar_list.absent' | translate}}
+        </ion-col>
+        <ion-col size="3" class="first">
+          {{'seminar_list.total' | translate}}
+        </ion-col>
+      </ion-row>
+      <div *ngFor="let group of seminarList.records">
+        <ion-row class="row" *ngFor="let class of group.classess" >
+          <ion-col size="4" >
+            {{class.class_name}}
+          </ion-col>
+          <ion-col size="3">
+            {{class.present}}
+          </ion-col>
+          <ion-col size="2">
+            {{class.absent}}
+          </ion-col>
+          <ion-col size="3" class="first">
+            {{class.total_student}}
+          </ion-col>
+        </ion-row>
+        <ion-row class="total" >
+          <ion-col size="4" >
+            {{'seminar_list.total' | translate}}
+          </ion-col>
+          <ion-col size="3">
+            {{group.group_total_pre}}
+          </ion-col>
+          <ion-col size="2">
+            {{group.group_total_abs}}
+          </ion-col>
+          <ion-col size="3" class="first">
+            {{group.group_total_stu}}
+          </ion-col>
+        </ion-row>
+      </div>
+        <ion-row class="row" >
+          <ion-col size="4" >
+            {{'seminar_list.grand_total' | translate}}
+          </ion-col>
+          <ion-col size="3">
+            {{seminarList.all_present_total}}
+          </ion-col>
+          <ion-col size="2">
+            {{seminarList.all_absent_total}}
+          </ion-col>
+          <ion-col size="3" class="first">
+            {{seminarList.all_student_total}}
+          </ion-col>
+        </ion-row>
+        <ion-row class="total last">
+          <ion-col size="4" >
+            {{'seminar_list.total_percent' | translate}} %
+          </ion-col>
+          <ion-col size="3">
+            {{seminarList.total_per_sent}}
+          </ion-col>
+          <ion-col size="5" class="first">
+          </ion-col>
+        </ion-row>
+
+    </ion-list>
+
+  </div>
+
+  <div class="custom-calender-modal-main" *ngIf="showCalenderModal">
+    <div class="calender-container">
+      <div class="calender-body" class="right-direction">
+        <ion-calendar #calendar [options]="options" canBackwardsSelected="true"  (change)="onDaySelect($event)"></ion-calendar>
+        <!-- [events]="currentEvents" -->
+      </div>
+    </div>
+    <div class="clickd-div" (click)="hideCalenderModal()"></div>
+  </div>
+
+</ion-content>

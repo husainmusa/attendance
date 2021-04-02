@@ -1,0 +1,31 @@
+    .earlyLogin{
+        text-align: center;
+        margin: 0px auto;
+        width: 100%;
+        ion-item{
+                    font-size: 15px;
+                    margin-bottom: 9px;
+                    .used-user{
+                            font-size: 35px;
+                            color: green;
+                    }
+                    .unused-user{
+                            font-size: 25px;
+                            color: red;
+                    }
+                    .addUser{
+                        font-size: 25px;
+                    }
+        }
+    }
+
+    .login-type{
+        .type-col{
+            .type-div{
+                    font-size: 15px;
+            }
+        }
+        .col1{
+                border-right: 1px solid #60b060;
+        }
+    }

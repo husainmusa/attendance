@@ -1,0 +1,80 @@
+<ion-header mode="md">
+  <ion-toolbar>
+  	<ion-buttons slot="end">
+  		<ion-back-button></ion-back-button>
+  	</ion-buttons>
+    <ion-title text-right>{{'reg_parent.pagetitle' | translate}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding mode="md">
+  <form #registerForm='ngForm'>
+    <ion-list>
+      <ion-item class="background-input" align-items-center>
+        <ion-label color="dark" floating>{{'reg_parent.parentid' | translate}}</ion-label>
+        <ion-input type="text" name="parentID" #parentID='ngModel' class="centerInput" [(ngModel)]="parent.parentId"
+          pattern="[0-9]*$" (keypress)="_keyPress($event)" text-right required>
+        </ion-input>
+      </ion-item>
+      <div *ngIf="parentID.invalid && (parentID.touched)" class="alert alert-danger">
+        <div *ngIf="parentID.errors.required">
+          {{'validations.required' | translate}}
+        </div>
+        <div *ngIf="parentID.errors.pattern">
+          {{'validations.invalidparentId' | translate}}
+        </div>
+      </div>
+
+      <ion-item class="background-input" align-items-center>
+        <ion-label color="dark" floating>{{'reg_parent.parentname' | translate}}</ion-label>
+        <ion-input type="text" name="parentName" #parentName='ngModel' class="centerInput" [(ngModel)]="parent.name" text-right required>
+        </ion-input>
+      </ion-item>
+      <div *ngIf="parentName.invalid && (parentName.touched)" class="alert alert-danger">
+        <div *ngIf="parentName.errors.required">
+          {{'validations.required' | translate}}
+        </div>
+      </div>
+
+
+      <ion-item class="background-input" align-items-center>
+        <ion-label color="dark" floating>{{'reg_parent.studentid' | translate}}</ion-label>
+        <ion-input type="text" name="studentId" #studentId='ngModel' class="centerInput" [(ngModel)]="parent.studentId" text-right required (keypress)="_keyPress($event)">
+        </ion-input>
+      </ion-item>
+      <div *ngIf="studentId.invalid && (studentId.touched)" class="alert alert-danger">
+        <div *ngIf="studentId.errors.required">
+          {{'validations.required' | translate}}
+        </div>
+      </div>
+      <ion-item class="background-input" align-items-center>
+        <ion-label color="dark" floating>{{'reg_parent.studentname' | translate}}</ion-label>
+        <ion-input type="text" name="studentName" #studentName='ngModel' class="centerInput" [(ngModel)]="parent.studentName" text-right required>
+        </ion-input>
+      </ion-item>
+      <div *ngIf="studentName.invalid && (studentName.touched)" class="alert alert-danger">
+        <div *ngIf="studentName.errors.required">
+          {{'validations.required' | translate}}
+        </div>
+      </div>
+
+      <ion-item class="background-input" align-items-center>
+        <ion-label color="dark" floating>{{'reg_parent.parentpassword' | translate}}</ion-label>
+        <ion-input type="password" name="parentPassword" #parentPassword='ngModel' class="centerInput" [(ngModel)]="parent.password" text-right required></ion-input>
+      </ion-item>
+      <div *ngIf="parentPassword.invalid && (parentPassword.touched)" class="alert alert-danger">
+        <div *ngIf="parentPassword.errors.required">
+          {{'validations.required' | translate}}
+        </div>
+      </div>
+
+      <ion-row padding>
+        <ion-button  expand="full" class="btn-primary" shape="round" color="primary"  [disabled]="registerForm.invalid"
+          (click)="registerparent()">{{'reg_parent.reg_btn' | translate}}</ion-button>
+      </ion-row>
+    </ion-list>
+  </form>
+</ion-content>
+ 

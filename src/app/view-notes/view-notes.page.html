@@ -1,0 +1,51 @@
+<ion-header mode="md">
+  <ion-toolbar>
+  	<ion-buttons slot="end">
+  		<ion-button class="small_btn_header"  small clear icon-only (click)="addNotes()">
+            <ion-icon name="add" class="add-circle" item-end color="icon-header"></ion-icon>
+        </ion-button>
+  		<ion-back-button></ion-back-button>
+  	</ion-buttons>
+    <ion-title>{{'student_notes.pagetitle' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="md">
+    <div *ngIf="data">
+		<ion-card *ngFor=" let note of dataAll; let i=index">
+			<ion-card-header>
+				<span style="float: left;">{{note.datetime| dateFormat}}</span>
+				<ion-item style="width: 100%;" *ngIf="note.profile">
+					<ion-avatar slot="start">
+						<img src="{{note.profile.pic}}" onerror="this.onerror=null;this.src='assets/imgs/logo.png';">
+					</ion-avatar>
+					<ion-label>
+						<h3>{{note.profile.first_name}}</h3>
+						<p>{{note.profile.email_id}}</p>
+						<span class="typeSpan" *ngIf="userType=='1' || note.profile.user_no==userDetails.details.user_no"> {{'student_notes.sendTO' | translate}}: {{note.send_to}} </span>
+					</ion-label>
+				</ion-item>
+			</ion-card-header>
+			<ion-card-content>
+				<p style="    padding-right: 13px;">
+					{{note.description}}
+				</p>
+				<div *ngIf="note.file_link" class="pdf-div" (click)="openPdf(note.file_link)">
+		          <img  [src]="'bullet.documents.image'" onerror="this.onerror=null;this.src='assets/imgs/pdfnew.png';">
+		            <!-- <ion-icon name="document-attach-outline"></ion-icon> -->
+		        </div>
+				<!-- <a   href=""><ion-icon name="attach"></ion-icon></a> -->
+				<img *ngIf="note.image_file" [src]="note.image_file" class="images" (click)="showPhoto(note.image_file)" onerror="this.onerror=null;this.src='assets/imgs/logo.png';">
+				<ion-button *ngIf="userType=='1' || note.profile.user_no==userDetails.details.user_no" expand="block" (click)="deleteNote(note,i)" mode="ios" color="danger">
+					{{'bulletin.delete'| translate}}
+				</ion-button>
+				<!-- <ion-icon class="trash" name="trash-outline" ></ion-icon> -->
+			</ion-card-content>
+		</ion-card>
+    </div>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

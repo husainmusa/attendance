@@ -1,0 +1,110 @@
+app-login:host {
+    .input-cover {
+        display: none;
+    }
+    .earlyLogin{
+        text-align: center;
+        margin: 0px auto;
+        width: fit-content;
+        ion-item{
+                text-align: center;
+                border: 1px solid #6db570;
+                --color: #3fbf45;
+                border-radius: 31px;
+                margin: 15px;
+        }
+    }
+    ion-content{
+        --padding: 2px;
+        .top-ads-banner {
+            width: 100%;
+            margin: 19px 0;
+            text-align: center;
+            .ad-sec {
+                width: 48%;
+                height: 105px;
+                display: inline-block;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+            }
+        }
+        .login-sec {
+            width: 90%;
+            margin: 0 auto;
+            ion-list{
+                border-radius: 20px;
+                overflow: hidden;
+            }
+            ion-input {
+                padding: 8px;
+            }
+            .text-input::-webkit-input-placeholder {
+                text-align: center;
+              }
+              
+              .text-input:-moz-placeholder {
+                text-align: center;
+              }
+              
+              .text-input::-moz-placeholder {
+                text-align: center;
+              }
+              
+              .text-input:-ms-input-placeholder {
+                text-align: center;
+              }
+            .remember-me {
+                display: flex;
+                text-align: center;
+                justify-content: center;
+                padding: 22px 0;
+                span {
+                    margin-right: 13px;
+                    font-size: 13px;
+                }
+                .checkbox-inner{
+                    position: absolute !important;
+                    left: 9px !important;
+                    height: 14px !important;
+                    top: 4px !important;
+                }
+            }
+            .divider-section {
+                position: relative;
+                width: 100%;
+                border: 1px solid #ddd;
+                margin: 2.4em 0;
+                .diamond-box {
+                    position: absolute;
+                    border: 1px solid #ddd;
+                    top: -4px;
+                    background: #fff;
+                    transform: rotate(-316deg) translateX(-50%);
+                    height: 30px;
+                    width: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    left: 50%;
+                    .or-text {
+                        transform: rotate(318deg);
+                        position: absolute;
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+        .bottom-slider {
+            direction: ltr !important;
+        }
+    }
+    .fogotPassword{
+       // position: absolute; 
+        direction: ltr;
+        /* left: 2px; */
+        font-weight: 700;
+        color: #43a047;
+        z-index: 10;
+    }
+}

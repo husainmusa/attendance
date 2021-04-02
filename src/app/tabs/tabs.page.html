@@ -1,0 +1,56 @@
+<ion-tabs>
+
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button selected="!isParent && !isStudent" tab="classlist"  *ngIf="!isParent && !isStudent">
+      <ion-icon name="list-outline"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button selected="isStudent" tab="student-notes" *ngIf="isStudent">
+      <ion-icon name="list-outline"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="warning-report" *ngIf="isStudent">
+      <ion-icon name="warning"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="delaylist" *ngIf="!isParent && !isStudent && !isteacher">
+      <ion-icon name="time-outline"></ion-icon>
+    </ion-tab-button> 
+
+ <!--    <ion-tab-button tab="follow-up-student" *ngIf="!isParent && !isStudent "> 
+      <ion-icon name="create-outline"></ion-icon>
+    </ion-tab-button> --> <!-- isTM -->
+
+    <!-- <ion-tab-button tab="elearning-schools" *ngIf="isStudent">
+      <ion-icon name="time-outline"></ion-icon>
+    </ion-tab-button> -->
+    <ion-tab-button tab="parentconnect" *ngIf="isStudent">
+      <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button  tab="news" *ngIf="!isParent">
+      <ion-icon name="newspaper-outline"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="messages" *ngIf="!isParent && !isStudent">
+      <ion-icon name="mail-outline"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button selected="isParent" tab="children" *ngIf="isParent">
+      <ion-icon name="list-outline"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="news" *ngIf="isParent">
+      <ion-icon name="newspaper-outline"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="parentconnect" *ngIf="isParent">
+      <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="private-message" *ngIf="isParent || isStudent">
+      <ion-icon name="mail-outline"></ion-icon>
+    </ion-tab-button>
+  </ion-tab-bar>
+
+</ion-tabs>

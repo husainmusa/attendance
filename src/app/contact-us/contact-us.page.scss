@@ -1,0 +1,22 @@
+app-contact-us:host {
+    ion-content{
+            --padding-start: 10px;
+            --padding-end: 10px;
+    }
+    ion-content{
+        --background: #fff !important;
+        .background-input {
+            --background: #ddd !important;
+            margin-bottom: 5px !important;
+            ion-input {
+                input {
+                  text-align: right;
+                }
+            }
+        }
+        .submit-btn {
+            margin: 28px auto !important;
+            width: 80% !important;
+        }
+    }
+}

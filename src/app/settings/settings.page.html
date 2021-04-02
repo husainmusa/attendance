@@ -1,0 +1,107 @@
+<ion-header mode="md">
+  <ion-toolbar transparent>
+    <ion-buttons slot="end">
+   		<ion-back-button></ion-back-button>
+   	</ion-buttons>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>   
+    <ion-title text-right>{{'setting.title' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding mode="md">
+    <div class="image-column">
+        <img [src]="displayPic" class="profilepicture" onerror="this.onerror=null;this.src='assets/imgs/logo.png';">
+      <div class="add-image-icon" (click) = "takePicture()">
+        <ion-icon name="add"></ion-icon>
+      </div>
+    </div>
+  <ion-row class="center-row" justify-content-center>
+    <h3 style="margin-top: unset;">{{user.name}}</h3>
+  </ion-row>
+  <ion-list>
+    <ion-item class="background-input" align-items-center>
+      <ion-label color="dark" position="floating">{{'setting.name' | translate}}</ion-label>
+      <ion-input type="text" name="name"  [value]="user.name" disabled text-right>
+      </ion-input>
+    </ion-item>
+    <ion-item class="background-input">
+      <ion-label color="dark" position="floating">{{'setting.peronalid' | translate}}</ion-label>
+      <ion-input type="text" name="personalid" [value]="user.username" disabled text-right>
+      </ion-input>
+    </ion-item>
+    <ion-item class="background-input">
+      <ion-label color="dark" position="floating">{{'setting.email' | translate}}</ion-label>
+      <ion-input type="email" name="email" #email='ngModel' pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+        [(ngModel)]="user.email_id" text-right>
+      </ion-input>
+    </ion-item>
+    <div *ngIf="email.invalid && (email.touched)" class="alert alert-danger">
+      <div *ngIf="email.errors.pattern">
+        {{'validations.invalidemail' | translate}}
+      </div>
+    </div>
+    <ion-item class="background-input">
+      <ion-label color="dark" position="floating">{{'setting.phone' | translate}}</ion-label>
+      <ion-input type="number" name="phone" #phonenumber='ngModel' [(ngModel)]="user.phone_no" text-right>
+      </ion-input>
+    </ion-item>
+    <ion-item class="background-input">
+      <ion-label color="dark" position="floating">{{'setting.oldpass' | translate}}</ion-label>
+      <ion-input [type]="passwordType" name="oldpassword" #oldpassword='ngModel' [(ngModel)]="user.oldpass"
+        text-right>
+      </ion-input>
+      <ion-button  clear icon-only type="button" item-right class="eye-pass" (click)="showpass()">
+        <ion-icon [name]="passwordIcon" > </ion-icon>
+      </ion-button>
+    </ion-item>
+    
+    <ion-item class="background-input">
+      <ion-label color="dark" position="floating">{{'setting.newpass' | translate}}</ion-label>
+      <ion-input [type]="passwordTypecnf" name="newpassword" #newpassword='ngModel' [(ngModel)]="user.newpass"
+        text-right>
+      </ion-input>
+      <ion-button ion-button clear icon-only type="button" item-right class="eye-pass" (click)="showpasscnf()">
+        <ion-icon [name]="passwordIconcnf" > </ion-icon>
+      </ion-button>
+    </ion-item>
+    <div *ngIf="is_school_admin">
+      <ion-item class="background-input" *ngIf="userType=='1'">
+        <p color="dark" position="floating">{{'setting.parent_share_link' | translate}}</p>
+        <ion-toggle [checked]="parent_link" color="primary" [(ngModel)]="user.parent_register_link"  slot="end"></ion-toggle>
+      </ion-item>
+      <ion-item class="background-input" *ngIf="userType=='1'">
+        <p color="dark" position="floating">{{'setting.teacher_register_link' | translate}}</p>
+        <ion-toggle [checked]="teacherLink" color="primary" [(ngModel)]="user.teacher_register_link"  slot="end"></ion-toggle>
+      </ion-item>
+      <ion-item class="background-input" *ngIf="userType=='1'">
+        <ion-label color="dark" position="floating">{{'setting.delay_rule' | translate}}</ion-label>
+        <ion-input type="number" [(ngModel)]="user.delay_rule" ></ion-input>
+      </ion-item>
+      <ion-item class="background-input" *ngIf="userType=='1'">
+        <ion-label color="dark" position="floating">{{'setting.warning_report' | translate}}</ion-label>
+        <ion-input type="number" [(ngModel)]="user.warning_report" ></ion-input>
+      </ion-item>
+      <ion-item class="background-input" *ngIf="userType=='1'">
+        <ion-label color="dark" position="floating">{{'setting.warning_report_second' | translate}}</ion-label>
+        <ion-input type="number" [(ngModel)]="user.warning_report_second" ></ion-input>
+      </ion-item>
+      <ion-item class="background-input" *ngIf="userType=='1'">
+        <ion-label color="dark" position="floating">{{'setting.warning_report_third' | translate}}</ion-label>
+        <ion-input type="number" [(ngModel)]="user.warning_report_third" ></ion-input>
+      </ion-item>
+      <ion-item class="background-input" *ngIf="userType=='1'">
+        <ion-label color="dark" style="    max-width: 78px;" >{{'setting.country' | translate}}</ion-label>
+        <ion-select class="set" [(ngModel)]="selectedCountyCode" (ionChange)="assignCountry()" interface="popover" [placeholder]="user.country">
+          <ion-select-option *ngFor="let c of countries" [value]="c.code">{{c.name}}</ion-select-option>
+        </ion-select> 
+        <!-- <ion-input type="number" [(ngModel)]="user.country" placeholder="{{user.country}}"  readonly="true"></ion-input> -->
+      </ion-item>
+    </div>
+    <ion-button  shape="round"  expand="full" color="primary" (click)="update()">{{'contact.submit' | translate}}</ion-button>
+  </ion-list>
+
+
+</ion-content>

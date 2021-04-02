@@ -1,0 +1,66 @@
+app-student-report-manage:host{
+	.body{
+		min-height: 100%;
+		background: #e8e8e8;
+		.conatiner-form{
+			    padding: 8px;
+			    .form-card{
+			    	ion-label{
+			    		font-size: 15px;
+					    font-weight: bold;
+					    color: #222428;
+			    	}
+			    	ion-item{
+		    		        border: 1px solid #dad7d7;
+						    margin-top: 5px;
+						    color: #3171e0;
+						    border-radius: 5px;
+			    	}
+			    	ion-select{
+			    		width: 100%;
+			    	}
+			    }
+		}
+		.container-table{
+			padding: 8px;
+    		text-align: center;
+			.card-table{
+				ion-card-header{
+				    font-size: 15px;
+				    text-align: center;
+				    font-weight: bold;
+				    color: #888b8e;
+				}
+				ion-card-content{
+				    padding: 2px;
+				    ion-col{
+				    	padding: 10px 0px;
+				    }
+					.header-row{
+					    background: #ebf6ff;
+					    font-weight: bold;
+					    color: #2b3742;
+					}
+					.top{
+						border-top: 1px solid;
+					}
+					.bottom{
+						border-bottom: 1px solid;
+					}
+					.left{
+						border-left: 1px solid;
+					}
+					.right{
+						border-right: 1px solid;
+					}
+					.dlt-btn{
+					    --padding-end: 10px;
+					    --padding-start: 10px;
+					    font-size: 14px;
+					    text-transform: capitalize;
+					}
+				}
+			}
+		}
+	}
+}

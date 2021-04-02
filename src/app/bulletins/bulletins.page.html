@@ -1,0 +1,107 @@
+<ion-header mode="md">
+  <ion-toolbar>
+  	<ion-buttons slot="end">
+  		<ion-button ico-only *ngIf="userType=='1'" (click)="addBulletin()">
+  			<ion-icon name="add-outline" ></ion-icon>
+  		</ion-button>
+  		<ion-back-button>
+  		</ion-back-button>
+  	</ion-buttons>   
+
+  	<ion-buttons slot="start">
+  		<ion-menu-button>
+  		</ion-menu-button>
+  	</ion-buttons>
+    <ion-title>{{'bulletin.title' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="md">
+<div *ngIf="allBullentins">
+    <ion-card *ngFor="let bullet of allBullentins">
+      <ion-icon *ngIf="bullet.is_closed=='1'" color="secondary" class="lock" name="checkmark-outline"></ion-icon>
+      <ion-card-header>
+        <h3>{{bullet.bulletin_title}}</h3>
+        <span >{{bullet.created_at | dateFormat}}</span>
+        <ion-item style="width: 100%;" *ngIf="bullet.created_by== user_no">
+          <ion-avatar slot="start">
+            <img src="{{bullet.created_by_user_pic}}" onerror="this.onerror=null;this.src='assets/imgs/logo.png';">
+          </ion-avatar>
+            <ion-label>
+              <h3>{{bullet.created_by_username}}</h3>
+            </ion-label>
+        </ion-item>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-row>
+          <ion-col size="12">
+            <ion-item style="width: 100%;" *ngIf="bullet.created_by == bullet.send_by && bullet.created_by!= user_no">
+          <span>{{'bulletin.send_by' | translate}} <ion-icon name="caret-back-outline"></ion-icon></span>
+              <h3>{{bullet.send_by_username}}</h3>
+        </ion-item>
+        
+        <ion-item style="width: 100%;" *ngIf="bullet.created_by != bullet.send_by && bullet.created_by!= user_no">
+          <span>{{'bulletin.forwarded_by' | translate}} <ion-icon name="caret-back-outline"></ion-icon></span>
+              <h3>{{bullet.send_by_username}}</h3>
+        </ion-item>
+          </ion-col>
+          <ion-col size="12">
+            <div *ngIf="bullet.documents.pdf !=''">
+              <div class="pdf-div" (click)="openPdfs(bullet.documents.pdf)">
+                  <img src="pdf" onerror="this.onerror=null;this.src='assets/imgs/pdfnew.png';">
+                  <!-- <ion-icon name="document-attach-outline"></ion-icon> -->
+              </div>
+              <div *ngFor="let doc of bullet.documents.files">
+                <div *ngIf="!doc.is_img">
+                  <div class="pdf-div" *ngIf="doc.extension=='pdf'" (click)="openPdf(doc.url_original)">
+                    <img [src]="doc.url" onerror="this.onerror=null;this.src='assets/imgs/pdfnew.png';">
+                    <!-- <ion-icon  name="document-attach-outline"></ion-icon> -->
+                  </div>
+                  <div class="pdf-div" *ngIf="doc.extension!='pdf'" (click)="opendoc(doc.url)">
+                    <img [src]="doc.url" onerror="this.onerror=null;this.src='assets/imgs/doc.png';">
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <div *ngIf="bullet.documents.pdf ==''">
+              <div *ngFor="let doc of bullet.documents.files">
+                <div class="pdf-div" *ngIf="doc.extension=='pdf' && !doc.is_img" (click)="openPdf(doc.url_original)">
+                  <img [src]="doc.url" onerror="this.onerror=null;this.src='assets/imgs/pdfnew.png';">
+                  <!-- <ion-icon  name="document-attach-outline"></ion-icon> -->
+                </div>
+                <div class="pdf-div" *ngIf="doc.extension!='pdf' && !doc.is_img" (click)="opendoc(doc.url)">
+                  <img [src]="doc.url" onerror="this.onerror=null;this.src='assets/imgs/doc.png';">
+                </div>
+                <div class="pdf-div" *ngIf="doc.is_img" (click)="openImage(doc.url_original)">
+                  <img [src]="doc.url_original" onerror="this.onerror=null;this.src='assets/imgs/image.png';">
+                </div>
+              </div>
+              
+            </div>
+          </ion-col>
+          <!-- <ion-col size="6">
+            <div class="pdf-div" (click)="openPdf(bullet.documents.pdf)">
+              <img *ngIf="bullet.documents.image && bullet.documents.pdf" [src]="bullet.documents.image" onerror="this.onerror=null;this.src='assets/imgs/pdfnew.png';">
+                <ion-icon *ngIf="bullet.documents.pdf" name="document-attach-outline"></ion-icon>
+            </div>
+              <img *ngIf="bullet.documents.image && !bullet.documents.pdf" [src]="bullet.documents.image" onerror="this.onerror=null;this.src='assets/imgs/logo.png';" (click)="openImage(bullet.documents.image)" class="image_single">
+          </ion-col> -->
+        </ion-row>
+        <ion-row>
+          <ion-col size="6" >
+            <ion-button (click)="openBulletin(bullet)" color="primary" expand="block" shape="round" class="forward-btn">
+              {{'bulletin.view' | translate}}
+            </ion-button>
+          </ion-col>
+          <ion-col size="6"></ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+</div>
+<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+</ion-infinite-scroll>
+
+</ion-content>

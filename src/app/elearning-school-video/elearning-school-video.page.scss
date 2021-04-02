@@ -1,0 +1,48 @@
+
+    ion-card {
+        width: 100% !important;
+        margin: 5px 0 !important;
+        h2{
+            font-weight: 600 !important;
+            color:#000;
+            font-size: 20px;
+            padding-right: 10px;
+           }
+           .category-heading {
+            border-bottom: 1px solid #eee;
+            border-top: 1px solid #eee;
+            padding: 5px 4px;
+        }
+       
+           .material-list-container {
+               width: 28px;
+               height: 28px;
+               background: #1a73b9;
+               display: flex;
+               align-items: center;
+               justify-content: center;
+               border-radius: 50%;
+               color: #fff;
+           }
+           .material-list-container .icon:before {
+               font-size: 25px;
+               transform: rotate(180deg);
+           }
+    }
+    .hideDisplay{
+      display: none;
+    }
+
+    .county{
+        position: fixed;
+    z-index: 10;
+    width: 100%;
+    ion-item{
+        width: 100%;
+    --background: #f8f8f8;
+        font-size: 17px;
+    }
+}
+.body{
+   // margin-top: 60px;
+}
