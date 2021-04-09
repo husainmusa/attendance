@@ -36,40 +36,39 @@ export class StudentReportManagePage implements OnInit {
 	medical:any=[];
 	suspend:any=[];
   constructor(public navCtrl: NavController,
-      		  	public dataProvider: DataService,
-      		    public authProvider: AuthService, 
-    	        public dbProvider: DatabaseService,
-    	        public studentService:StudentDataService,
-    	        public alertController: AlertController,
-      		    public translate: TranslateService,
-      		    public alertCtrl: AlertController, 
-      		    public camera: Camera, 
-      		    public network: Network,
-    	        private route : ActivatedRoute,
-    	        private router:Router,
-              private printer: Printer,
-    	        public zone:NgZone,
-    	        private popover:PopoverController, 
-		          public platform: Platform,
-	            private storage: Storage) {
+			  			public dataProvider: DataService,
+			  			public authProvider: AuthService,
+			  			public dbProvider: DatabaseService,
+			  			public studentService:StudentDataService,
+			  			public alertController: AlertController,
+			  			public translate: TranslateService,
+			  			public alertCtrl: AlertController,
+			  			public camera: Camera,
+			  			public network: Network,
+			  			private route : ActivatedRoute,
+			  			private router:Router,
+			  			private printer: Printer,
+			  			public zone:NgZone,
+			  			private popover:PopoverController,
+			  			public platform: Platform,
+			  			private storage: Storage) {
 
   	this.route.queryParams.subscribe(params => {
 	        if(this.router.getCurrentNavigation().extras.state) {
     				this.navData = this.router.getCurrentNavigation().extras.state;
     				console.log(this.navData);
 	        }
-	    });
+    });
     this.translate.get("alertmessages").subscribe((val)=>{
       this.lang = val;
     })
   }
 
   ngOnInit() {
-  	
 		if (localStorage.getItem("userloggedin")) {
      		this.userDetails = JSON.parse(localStorage.getItem("userloggedin"));
      		this.getReports();
-  		}
+		}
   }
   
   submitForm(){
@@ -100,8 +99,8 @@ export class StudentReportManagePage implements OnInit {
   		student_id:this.navData.student_id,
   		course_id:this.navData.course_id,
   		user_no: this.userDetails.details.user_no,
-      school_id: this.userDetails.details.school_id,
-      session_id: this.userDetails.session_id
+  		school_id: this.userDetails.details.school_id,
+  		session_id: this.userDetails.session_id
   	}
   	if(loader)this.dataProvider.showLoading();
 
@@ -112,8 +111,8 @@ export class StudentReportManagePage implements OnInit {
   				if(res.data.suspend.length){
 					  this.suspend=res.data.suspend;
   				}else{
-            this.suspend=[];
-          }
+  					this.suspend=[];
+  				}
   				if(res.data.exitdays.length){
   					this.exitdays=res.data.exitdays;
   					this.exitdays.forEach((d)=>{
@@ -122,14 +121,14 @@ export class StudentReportManagePage implements OnInit {
   						d.time=spl[1]
   					})
   				}else{
-            this.exitdays=[];
-          }
+  					this.exitdays=[];
+  				}
   				if(res.data.medical.length){
 					  this.medical=res.data.medical;
   				}else{
-            this.medical=[];
-          }
-				  this.isExitToday=false;
+  					this.medical=[];
+  				}
+  				this.isExitToday=false;
   				if(res.data.exittoday && res.data.exittoday.length){
 				    this.isExitToday=true;
   				}
@@ -139,7 +138,7 @@ export class StudentReportManagePage implements OnInit {
   			this.router.navigate(['login'],{replaceUrl:true});
   		}
   	}).catch(er=>{
-		  if(loader)this.dataProvider.hideLoading();
+  		if(loader)this.dataProvider.hideLoading();
   		console.log(er);
   	})
   }
@@ -151,7 +150,7 @@ export class StudentReportManagePage implements OnInit {
   		this.formData.selectedDate=this.dataProvider.getFormatedDate(tomorrow);
   	}else{
   		var today = new Date();
-		  this.formData.selectedDate=this.dataProvider.getFormatedDate(today);
+  		this.formData.selectedDate=this.dataProvider.getFormatedDate(today);
   	}
   }
 
@@ -188,12 +187,12 @@ export class StudentReportManagePage implements OnInit {
       user_no: this.userDetails.details.user_no,
       school_id: this.userDetails.details.school_id,
     }
-
+    
     this.dataProvider.printAllReports(data).then(data=>{
       this.dataProvider.hideLoading();
       if(data){
         let options: PrintOptions = { orientation: 'portrait'};
-        this.printer.print(data.data,options).then((onSuccess:any)=>{
+        this.printer.print(data.data,options).then((onSuccess:any)=>{ 
         },(e:any)=>{
           console.log('printer.print',e)
           this.dataProvider.showToast(this.lang.report_error);

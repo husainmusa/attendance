@@ -37,7 +37,7 @@ export class ManageTeacherPage implements OnInit {
                      let isUpdated = this.router.getCurrentNavigation().extras.state.isUpdated;
                      if(isUpdated){
                        this.userDetails = JSON.parse(localStorage.getItem("userloggedin"));
-                       this.getTeacher();
+                       this.getTeacher(false);
                      }
                 }
               });
@@ -62,15 +62,15 @@ export class ManageTeacherPage implements OnInit {
     });
   }
 
-  getTeacher(){
+  getTeacher(loader=true){
     let data={
       'class_id':'',
       'school_id':this.userDetails.details.school_id,
       'user_no':this.userDetails.details.user_no
     }
-    this.dataProvider.showLoading();
+    if(loader) this.dataProvider.showLoading();
     this.dataProvider.getTeachers(data).then(res=>{
-      this.dataProvider.hideLoading();
+      if(loader) this.dataProvider.hideLoading();
       console.log('teschers',res);
       if(res.session){
         this.teacherList=res.data;
@@ -89,7 +89,7 @@ export class ManageTeacherPage implements OnInit {
       }
     },error=>{
       this.noTeacher=true;
-      this.dataProvider.hideLoading();
+      if(loader) this.dataProvider.hideLoading();
       console.log(error);
     })
   }
@@ -217,6 +217,10 @@ export class ManageTeacherPage implements OnInit {
     //       (<HTMLElement>item).style.display = shouldShow ? 'block' : 'none';
     // });
 
+  }
+
+  addTeacher(){
+    this.router.navigate(['add-teacher']);
   }
 
 }

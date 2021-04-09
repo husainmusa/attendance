@@ -240,7 +240,6 @@ export class DataService {
       }).catch((error) => {
         console.log(error);
           //this.showToast(response.message);
-
       })
     }
 
@@ -254,7 +253,6 @@ export class DataService {
       }).catch((error) => {
         console.log(error);
           //this.showToast(response.message);
-
       })
     }
     deleteTeacher(data, callback:any){
@@ -267,7 +265,6 @@ export class DataService {
       }).catch((error) => {
         console.log(error);
           //this.showToast(response.message);
-
       })
     }
     deleteParent(data, callback:any){
@@ -280,7 +277,6 @@ export class DataService {
       }).catch((error) => {
         console.log(error);
           //this.showToast(response.message);
-
       })
     }
     deleteNote(data, callback:any){
@@ -293,7 +289,6 @@ export class DataService {
       }).catch((error) => {
         console.log(error);
           //this.showToast(response.message);
-
       })
     }
     updateStudentProfile(data, callback:any){
@@ -306,7 +301,6 @@ export class DataService {
       }).catch((error) => {
         console.log(error);
           //this.showToast(response.message);
-
       })
     }
 
@@ -572,7 +566,7 @@ export class DataService {
       // console.log(data);
       this.postRequest(data, 'printAllReports').then((response: any) => {
         if (response.success) {
-            resolve({ session: true, data: response});
+            resolve({ session: true, data: response.response});
         } else {
             reject(response.msg)
         }
@@ -1042,11 +1036,59 @@ export class DataService {
         }
       })
     })
+  } 
+
+  registerTeacher(data): Promise<any> {
+    return new Promise((resolve, reject) => {
+      // console.log(data);
+      this.postRequest(data, 'createNewTeacher').then((response: any) => {
+        if (response) {
+          if(response.response){
+            resolve(response);
+          }else{
+            reject(response.msg);
+          }
+        } else {
+            reject(response);
+        }
+      }).catch((error) => {
+        console.log(error);
+        if (error.message != undefined && error.message != '' && error.message != null) {
+          reject(error.message)
+        } else {
+          reject(this.lang.usnexpectedError)
+        }
+      })
+    })
   }  
   subscribePlan(data): Promise<any> {
     return new Promise((resolve, reject) => {
       // console.log(data);
       this.postRequest(data, 'subscribe_plans').then((response: any) => {
+        if (response) {
+          if(response.response){
+            resolve(response);
+          }else{
+            reject(response);
+          }
+        } else {
+            reject(response);
+        }
+      }).catch((error) => {
+        console.log(error);
+        if (error.message != undefined && error.message != '' && error.message != null) {
+          reject(error.message)
+        } else {
+          reject(this.lang.usnexpectedError)
+        }
+      })
+    })
+  }
+
+  purchase(data): Promise<any> {
+    return new Promise((resolve, reject) => {
+      // console.log(data);
+      this.postRequest(data, 'purchase').then((response: any) => {
         if (response) {
           if(response.response){
             resolve(response);
@@ -1515,11 +1557,58 @@ export class DataService {
       })
     })
   }
-    /** Get courses from API to show on classlist page.
+    /** Get follow up fields.
    * @param {Object} data - contains user_no, school_id, session_id
    * @returns list of courses or error
   */
-  getSelectedCourses(data: any): Promise<any> {
+  getFollowupFields(data: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      // console.log(data);
+      this.postRequest(data, 'getFollowupFields').then((response: any) => {
+        if (response) {
+           if (response.success) {
+            resolve({ session: true, data: response.result});
+          } else {
+            reject(response.msg)
+          }
+        }
+      }).catch((error) => {
+        console.log(error);
+        if (error.message != undefined && error.message != '' && error.message != null) {
+          reject(error.message)
+        } else {
+          reject(this.lang.usnexpectedError)
+        }
+      })
+    })
+  }
+    /** delete fields.
+   * @param {Object} data - contains user_no, school_id, session_id
+   * @returns list of courses or error
+  */
+  deleteFollowupFields(data: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      // console.log(data);
+      this.postRequest(data, 'deleteFollowupFields').then((response: any) => {
+        if (response) {
+           if (response.success) {
+            resolve({ session: true, data: response.result});
+          } else {
+            reject(response.msg)
+          }
+        }
+      }).catch((error) => {
+        console.log(error);
+        if (error.message != undefined && error.message != '' && error.message != null) {
+          reject(error.message)
+        } else {
+          reject(this.lang.usnexpectedError)
+        }
+      })
+    })
+  }
+
+    getSelectedCourses(data: any): Promise<any> {
     return new Promise((resolve, reject) => {
       // console.log(data);
       this.postRequest(data, 'getSelectedCourses/' + data.school_id).then((response: any) => {
@@ -1566,6 +1655,49 @@ export class DataService {
             resolve({ session: false, message: response.msg });
           } else if (response.response==true) {
             resolve({ session: true, data: response.msg});
+          } else {
+            resolve(response.msg)
+          }
+        } else {
+        }
+      },(error) => {
+        console.log(error);
+        if (error.message != undefined && error.message != '' && error.message != null) {
+          reject(error.message)
+        } else {
+          reject(this.lang.usnexpectedError)
+        }
+      });
+    })
+  }
+
+
+    /** set inpu5t field for follow up student.
+   * @param {Object} data - contains user_no, school_id, session_id
+   * @returns list of courses or error
+  */
+  saveFollowupFields(data: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let header = new HttpHeaders();
+          header.append('Content-Type', 'application/json');
+           let body = new HttpParams();
+           data.lang_code = environment.lang_code;
+           Object.keys(data).forEach(function (key) {
+             if(key != 'field') body = body.append(key, data[key]);
+          });
+          // body['updates']=[];
+           Object.keys(data.field).map((key) => {
+            Object.keys(data.field[key]).map((sid) => {
+              body=body.append('field'+'['+ key+']'+'['+sid+']' , data.field[key][sid]);
+            })
+          })
+      this.httpClient.post( env.serverURL + 'saveFollowupFields',body, { headers: header }).subscribe((response: any) => {
+        if (response) {
+         console.log('tescherList',response);
+          if (response.success==false) {
+            resolve({ session: false, message: response.msg });
+          } else if (response.success==true) {
+            resolve({ session: true, data: response.result});
           } else {
             resolve(response.msg)
           }

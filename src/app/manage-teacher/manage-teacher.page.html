@@ -1,8 +1,13 @@
 <ion-header mode="md">
   <ion-toolbar>
   	<ion-buttons slot="end">
+  		<ion-icon style="font-size: 22px;" name="person-add-outline" (click)="addTeacher()"></ion-icon>
+  	</ion-buttons>
+
+  	<ion-buttons slot="end">
   		<ion-back-button></ion-back-button>
   	</ion-buttons>
+
     <ion-title>{{'edit_teacher.title' | translate}}</ion-title>
   </ion-toolbar>
 </ion-header>

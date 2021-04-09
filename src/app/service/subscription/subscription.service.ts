@@ -61,30 +61,61 @@ export class SubscriptionService {
                 type: this.iap2.CONSUMABLE
             }
     ];
+    public products_ios = [
+            {
+                id:'apple.monthlySubscription',
+                price:'1.99',
+                billingPeriod:1,
+                billingPeriodUnit:'month',
+                appleProductId:'apple.monthlySubscription',
+                googleProductId:'com.monthlysubscribe.com',
+                type: this.iap2.CONSUMABLE,
+            },
+            {
+                id:'apple.yearlySubscription.com',
+                price:'19.99',
+                billingPeriod:1,
+                billingPeriodUnit:'year',
+                appleProductId:'apple.yearlySubscription.com',
+                googleProductId:'com.yearlysubscription.com',
+                type: this.iap2.CONSUMABLE
+            }
+    ];
 
 
  setup() {
      console.log('callSetup');
     this.iap2.verbosity = this.iap2.DEBUG;
-    this.iap2.register(this.products);
+    if (this.platform.is('ios')) {
+      this.iap2.register(this.products_ios);
+    } else if (this.platform.is('android')) {
+      this.iap2.register(this.products);
+    }
     this.iap2.refresh();
   }
 
   checkout(p) {
       this.dataService.showLoading();
       let productId;
+      let pData={};
         if (this.platform.is('ios')) {
-                productId = this.products[p].appleProductId;
+                productId = this.products_ios[p].appleProductId;
+                pData={
+                      id:this.products_ios[p].id,
+                      price:this.products_ios[p].price,
+                      billingPeriod:this.products_ios[p].billingPeriod,
+                      billingPeriodUnit:this.products_ios[p].billingPeriodUnit
+                }
             } else if (this.platform.is('android')) {
                 productId = this.products[p].googleProductId;
+                pData={
+                    id:this.products[p].id,
+                    price:this.products[p].price,
+                    billingPeriod:this.products[p].billingPeriod,
+                    billingPeriodUnit:this.products[p].billingPeriodUnit
+                }
             }
            console.log('productId',productId);
-           let pData={
-                id:this.products[p].id,
-                price:this.products[p].price,
-                billingPeriod:this.products[p].billingPeriod,
-                billingPeriodUnit:this.products[p].billingPeriodUnit
-           }
     this.registerHandlersForPurchase(productId,pData);
     try {
       let product = this.iap2.get(productId);
@@ -98,16 +129,16 @@ export class SubscriptionService {
         console.log('Error Ordering From Store' + e);
       });
     } catch (err) {
-        this.dataService.showToast('Error Ordering From Store')
+        // this.dataService.showToast('Error Ordering From Store')
         this.dataService.hideLoading();
-      console.log('Error Ordering ' + JSON.stringify(err));
+        console.log('Error Ordering ' + JSON.stringify(err));
     }
   }
-    registerHandlersForPurchase(productId,pData) {
+  registerHandlersForPurchase(productId,pData) {
     let self = this.iap2;
     console.log('self::::',self);
     this.iap2.when(productId).updated(function (product: IAPProduct) {
-     if (product.loaded && product.valid && product.state === self.APPROVED && product.transaction != null) {
+      if (product.loaded && product.valid && product.state === self.APPROVED && product.transaction != null) {
           console.log('updated',product);
           product.finish();
       }
@@ -118,7 +149,11 @@ export class SubscriptionService {
     this.iap2.when(productId).approved((product: IAPProduct) => {
       product.finish();
       console.log('approved',product);
-      this.subcribeToServer(product,pData);
+      if(this.platform.is('android')){
+        this.subcribeToServer(product,pData);
+      }else{
+        this.purchaseToServer(product,pData);
+      }
     });
     this.iap2.when(productId).refunded((product: IAPProduct) => {
     });
@@ -144,6 +179,35 @@ export class SubscriptionService {
                   this.iap2.refresh();
                   this.dataService.showToast('Plan subscribed Successfully');
                   const navigation: NavigationExtras = {
+                    state : data
+                  };
+                  this.zone.run(() => {
+                    this.router.navigate(['student-detail'], navigation);
+                  });
+              });
+
+          },e=>{
+              this.dataService.showToast('Error in processing payment');
+          })
+
+  }
+    purchaseToServer(subs,pData){
+        let receipt =JSON.parse(subs.transaction.receipt);
+          let data={
+              plan_id: pData.id,
+              iap_id:receipt.orderId,
+              paymentType:subs.transaction.type,
+              billingPeriod:pData.billingPeriod,
+              billingPeriodUnit:pData.billingPeriodUnit,
+              ammount:pData.price,
+              user_id:this.userDetails.details.user_no,
+              school:this.userDetails.details.school_id
+          }
+          this.dataService.purchase(data).then(res=>{
+              this.paymentDone=true;
+              this.storage.get('currentStudent').then((data) => {
+                  this.iap2.refresh();
+                  const navigation: NavigationExtras = {
                   state : data
                   };
                   this.zone.run(() => {
@@ -158,8 +222,17 @@ export class SubscriptionService {
   }
 
 
-  paymentStatus(){
-       this.iap2.refresh();
+  paymentStatus(pid?,callback?){
+    let productId;
+    if (this.platform.is('ios')) {
+      productId = this.products_ios[pid].appleProductId;
+      this.iap2.when(productId).approved(p => p.verify()).verified(p => p.finish());
+    } else if (this.platform.is('android')) {
+      productId = this.products[pid].googleProductId;
+    }
+    
+    this.iap2.refresh();
+    callback(true);
   }
 
 

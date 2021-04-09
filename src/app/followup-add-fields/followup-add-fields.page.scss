@@ -1,0 +1,42 @@
+.fields{
+    min-height: 100%;
+    background: #e8e8e8;
+    .fields-list{
+    	background: transparent;
+    	.fields-card{
+    		margin: 5px;
+    		.c-head{
+    			font-size: 18px;
+    			font-weight: bold;
+    			ion-icon{
+				    float: left;
+				    font-size: 25px;
+				    color: #2979ff;
+    			}
+    		}
+    		.c-content{
+    			.c-row{
+    				.c-col{
+    			    	font-weight: bold;
+    				}
+    				.c-col-input{
+    					
+    					ion-input{
+						    border: 1px solid #d0d0d0;
+    						border-radius: 7px;
+    					}
+    				}
+    			}
+    		}
+    	}
+    }
+    .btn-addField{
+	    margin: 0 auto;
+		width: fit-content;
+		padding: 22px 0px;
+    }
+    .btn-submit{
+	    width: 87%;
+	    margin: 0px auto;
+    }
+}

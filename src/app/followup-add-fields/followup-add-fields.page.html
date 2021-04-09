@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+  	<ion-buttons slot="end">
+  		<ion-back-button></ion-back-button>
+  	</ion-buttons>
+    <ion-title>{{'followUp_student.add_fields' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+	<div class="fields">
+		<ion-list class="fields-list" *ngIf="fields.length">
+			<ion-card class="fields-card" *ngFor="let f of fields; let i=index">
+				<ion-card-header class="c-head" >
+					{{'followUp_student.field_name_enter' | translate}}
+					<ion-icon (click)="removeField(i,f)" name="remove-circle-outline"></ion-icon>
+				</ion-card-header>
+				<ion-card-content  class="c-content" >
+					<ion-row  class="c-row" >
+						<ion-col size="6"  class="c-col" >
+							{{'followUp_student.field_name' | translate}}
+						</ion-col>
+						<ion-col size="6" class="c-col-input">
+							<ion-input [(ngModel)]="f.field_name" type="text"></ion-input>
+						</ion-col>
+					</ion-row>
+					<ion-row class="c-row">
+						<ion-col size="6" class="c-col">
+							{{'followUp_student.field_max_mark' | translate }}
+						</ion-col>
+						<ion-col size="6" class="c-col-input">
+							<ion-input [(ngModel)]="f.field_max_marks" type="number"></ion-input>
+						</ion-col>
+					</ion-row>
+					<ion-row class="c-row">
+						<ion-col size="6" class="c-col">
+							{{'followUp_student.mark_on_present' | translate }}
+						</ion-col>
+						<ion-col size="6" class="c-col-input">
+							<ion-input [(ngModel)]="f.marks_on_present" type="number"></ion-input>
+						</ion-col>
+					</ion-row>
+					<ion-row class="c-row">
+						<ion-col size="6" class="c-col">
+							{{'followUp_student.absent_fill' | translate }}
+						</ion-col>
+						<ion-col size="6" class="c-col-input input-check">
+							<ion-checkbox [(ngModel)]="f.absent_marks" color="primary"></ion-checkbox>	
+						</ion-col>
+					</ion-row>
+				</ion-card-content>
+			</ion-card>
+		</ion-list>
+
+		<div class="btn-addField">
+			<ion-button (click)="addExtraFields()" >{{'followUp_student.add_field' | translate }}</ion-button>
+		</div>
+
+		<div *ngIf="fields.length" class="btn-submit">
+			<ion-button expand="block" (click)="submitFields()" >{{'followUp_student.submit' | translate}}</ion-button>
+		</div>
+	</div>
+
+</ion-content>

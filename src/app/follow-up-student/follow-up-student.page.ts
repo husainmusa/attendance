@@ -99,6 +99,7 @@ export class FollowUpStudentPage implements OnInit {
 		};
 		this.dataProvider.getSelectedCourses(data).then(response=>{
 		  if(loader)this.dissmissPopOver();
+		  	console.log('response.data',response);
 		  if(response.session){
 		    let courses = response.data;
 		    if(courses && courses.length > 0){
@@ -110,6 +111,7 @@ export class FollowUpStudentPage implements OnInit {
 		        if(i == 9) i = 0;
 		      })
 		    }else{
+		      this.classes=[];
 		      this.noDataFound = this.lang.no_record_found;
 		    }
 		  }else{
@@ -118,6 +120,9 @@ export class FollowUpStudentPage implements OnInit {
 		  }
 		}).catch(error =>{
 			if(loader) this.dissmissPopOver();
+			console.log('response.data',error);
+			this.classes=[];
+		      this.noDataFound = this.lang.no_record_found;
 		})
 	}
 

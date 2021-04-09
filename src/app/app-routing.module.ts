@@ -271,6 +271,14 @@ const routes: Routes = [
   {
     path: 'student-report-manage',
     loadChildren: () => import('./student-report-manage/student-report-manage.module').then( m => m.StudentReportManagePageModule)
+  },
+  {
+    path: 'followup-add-fields',
+    loadChildren: () => import('./followup-add-fields/followup-add-fields.module').then( m => m.FollowupAddFieldsPageModule)
+  },
+  {
+    path: 'add-teacher',
+    loadChildren: () => import('./add-teacher/add-teacher.module').then( m => m.AddTeacherPageModule)
   }
 ];
 

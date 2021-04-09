@@ -56,6 +56,9 @@ export class FollowupStudentListPage implements OnInit {
 			this.route.queryParams.subscribe(params => {
 		      if (this.router.getCurrentNavigation().extras.state) {
 		      		 this.navData = this.router.getCurrentNavigation().extras.state.course;
+               if(this.router.getCurrentNavigation().extras.state.update){
+                 this.ngOnInit(false);
+               }
 		      }
 	    });
 
@@ -66,7 +69,7 @@ export class FollowupStudentListPage implements OnInit {
 
   }
 
-	ngOnInit() {
+	ngOnInit(loader:boolean = true) {
 		if (localStorage.getItem("userloggedin")) {
 			this.userDetails = JSON.parse(localStorage.getItem("userloggedin"));
 			this.userType = this.userDetails.details.user_type;
@@ -110,7 +113,7 @@ export class FollowupStudentListPage implements OnInit {
 				this.dataProvider.hideLoading();
 				console.log(error);
 			})
-			this.getStudents();
+			this.getStudents(loader);
 	  } else {
 	    this.dataProvider.hideLoading();
 	    this.authProvider.flushLocalStorage();
@@ -167,15 +170,24 @@ export class FollowupStudentListPage implements OnInit {
   }
 
   changeMarks(eve,student,field){
+    // console.log(field,eve);
+    if((+eve.detail.value)> (+field.field_max_marks)){
+      eve.detail.value=field.field_max_marks;
+      eve.target.value='';
+      this.dataProvider.showToast(this.lang.could_not_be_greater+field.field_max_marks);
+      return;
+    }
   	let isPresent=false;
   	let obj:any={};
   	obj.sid=student.sid;
   	obj.cid=student.cid;
-  	obj[field]=eve.detail.value;
+    obj.marks_id=field.marks_id;
+    obj.marks=eve.detail.value;
+    obj.field_id=field.field_id;
   	if(this.markSheet.length>0){
 	  	for (let i=0; i<this.markSheet.length; i++) {
-	  		if(this.markSheet[i].sid==obj.sid && this.markSheet[i].cid==obj.cid){
-	  			this.markSheet[i][field]=eve.detail.value;
+	  		if(this.markSheet[i].sid==obj.sid && this.markSheet[i].cid==obj.cid && this.markSheet[i].field_id==field.field_id){
+	  			this.markSheet[i]['marks']=eve.detail.value;
 	  			isPresent=true;
 	  		}
 	  	}
@@ -185,6 +197,7 @@ export class FollowupStudentListPage implements OnInit {
   	}else{
   		this.markSheet.push(obj);
   	}
+    // console.log('obj',obj);
   }
 
   submitMarks(){
@@ -198,6 +211,7 @@ export class FollowupStudentListPage implements OnInit {
 	      "school_id": this.userDetails.details.school_id,
   	}
 
+    console.log('this.markSheet',this.markSheet);
   	if(this.markSheet.length){
   		this.dataProvider.submitMarks(data,this.markSheet).then((response) => {
         this.dataProvider.hideLoading();
@@ -472,6 +486,23 @@ export class FollowupStudentListPage implements OnInit {
       this.dataProvider.showToast(this.lang.report_error);
     })
 	}
+
+  addFields(){
+    let course = this.navData;
+    const navigation: NavigationExtras = {
+      state : {
+        "date": this.dataProvider.getFormatedDate(this.dateSelected),
+        "user_no": this.userDetails.details.user_no,
+        "session_id": this.userDetails.session_id,
+        "course_id": course.cid,
+        "school_id": this.userDetails.details.school_id,
+        course:this.navData
+      }
+    };
+    this.zone.run(() => {
+      this.router.navigate(['followup-add-fields'], navigation);
+    });
+  }
 
 }
  

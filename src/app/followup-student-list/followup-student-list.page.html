@@ -16,6 +16,9 @@
           <ion-button class="small_btn_header"  small clear icon-only (click)="presentPrintOption()">
             <ion-icon name="print-outline"></ion-icon>
           </ion-button>
+          <ion-button class="small_btn_header"  small clear icon-only (click)="addFields()">
+            <ion-icon name="add-circle-outline"></ion-icon>
+          </ion-button>
         </ion-buttons>
       </ion-col>
     </ion-row>
@@ -53,19 +56,19 @@
           </ion-item>
         </ion-col>
         <ion-col size="12" align-self-center text-right no-padding class="checkbox-area">
-        	<ion-row class="marks-row">
-        		<ion-col size="4" class="marks-col">
-        			<p>{{'followUp_student.attendance_mark' | translate}}</p>
-        			<ion-input [value]="student.sheet.attendance_mark" class="inp-marks" debounce="500" type="number" (ionChange)="changeMarks($event,student,'attendance_mark')"></ion-input>
+        	<ion-row style="direction: rtl;" class="marks-row" *ngIf="student.sheet.length">
+        		<ion-col  size="4" class="marks-col" *ngFor="let sheet of student.sheet">
+        			<p>{{sheet.field_name}}</p>
+        			<ion-input [value]="sheet.marks" [max]="sheet.field_max_marks" class="inp-marks" debounce="500" type="number" (ionChange)="changeMarks($event,student,sheet)"></ion-input>
         		</ion-col>
-        		<ion-col size="4" class="marks-col">
+        		<!-- <ion-col size="4" class="marks-col">
         			<p>{{'followUp_student.participation_mark' |translate}}</p>
-        			<ion-input [value]="student.sheet.participation_mark" class="inp-marks" debounce="300" type="number" (ionChange)="changeMarks($event,student,'participation_mark')"></ion-input>
-        		</ion-col>
-        		<ion-col size="4" class="marks-col">
+        			<ion-input [value]="student" class="inp-marks" debounce="300" type="number" (ionChange)="changeMarks($event,student,'participation_mark')"></ion-input>
+        		</ion-col> -->
+        		<!-- <ion-col size="4" class="marks-col">
         			<p>{{'followUp_student.assessments_mark' | translate}}</p>
-        			<ion-input [value]="student.sheet.assessments_mark" class="inp-marks" debounce="300" type="number" (ionChange)="changeMarks($event,student,'assessments_mark')"></ion-input>
-        		</ion-col>
+        			<ion-input [value]="student" class="inp-marks" debounce="300" type="number" (ionChange)="changeMarks($event,student,'assessments_mark')"></ion-input>
+        		</ion-col> -->
         	</ion-row>
         </ion-col>
       </ion-row>

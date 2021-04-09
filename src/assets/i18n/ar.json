@@ -447,7 +447,15 @@
         "select_classes": "تحديد الصفوف",
         "attendance_mark": "درجة الحضور",
         "participation_mark": "درجة المشاركة",
-        "assessments_mark": "درجة الواجب"
+        "assessments_mark": "درجة الواجب",
+        "add_fields":"Add fields",
+        "field_name_enter":"Enter field details",
+        "field_name":"Field name",
+        "field_max_mark":"Field max. mark",
+        "mark_on_present":"Auto marks on present",
+        "absent_fill":"Fill 0 on absent",
+        "add_field":"Add field",
+        "submit":"Submit"
     },
     "manage_report":{
       "title":"التحكم في التقارير",
@@ -470,7 +478,16 @@
       "time":"الوقت",
       "printReport":"طباعة التقرير"
     },
+    "add_teacher":{
+        "title":"Add teacher",
+        "Email" :"Email",
+        "Name":"Name",
+        "user_id":"Username",
+        "Password": "Password",
+        "confirm_password":"Confirm password",
+        "Submit": "Submit"
 
+    },
     
     "alertmessages":{
         "login_unauthorized"            : "الرجاء التأكد من البيانات المدخله",
@@ -585,6 +602,15 @@
         "report_deleted"                : "تم حذف التقرير",
         "report_option"                 : "عرض التقرير بصيغة",
         "exel"                          : "Exel",
-        "pdf"                           :"PDF"
+        "pdf"                           :"PDF",
+        "field_error"                   : "Unable to generate fields",
+        "field_name_required"           : "Fields data must contain fields name",
+        "field_max_marks_required"      :"Fields data must contain fields marks",
+        "could_not_be_greater"          : "Field marks could not be gerater then ",
+        "email_valid"                   :  "Invalid email address",
+        "usename_required"              :  "User name is required",
+        "user_id_required"              :   "Please enter valid user id",
+        "password_required"             : "Please enter valid password",
+        "confirm_password_required"     : "Confirm password did not match"
     } 
 }

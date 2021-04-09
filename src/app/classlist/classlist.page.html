@@ -4,7 +4,6 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title text-right>{{'classlist.pagetitle' | translate}}
-
       <ion-icon name="arrow-undo-outline" (click)="showIcon = !showIcon" class="add-circle" item-end color="icon-header" *ngIf = "showIcon"></ion-icon>
       <ion-icon name="ellipsis-vertical-outline"(click)="showIcon = !showIcon" class="add-circle" item-end color="icon-header" *ngIf = "!showIcon"></ion-icon>
       <ion-icon name="send-outline" (click)="editMode = !editMode" class="add-circle" item-end color="icon-header" *ngIf = "editMode && showIcon"></ion-icon>

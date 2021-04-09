@@ -91,8 +91,11 @@ export class AvailablePlanPage implements OnInit {
   }
 
   subscribe(p){
-    this.subscriptionService.paymentStatus();
-		this.subscriptionService.checkout(p);
+    this.subscriptionService.paymentStatus(p,(res)=>{
+      this.subscriptionService.checkout(p);
+    });
+  //   this.subscriptionService.paymentStatus();
+		// this.subscriptionService.checkout(p);
   }
 
   openPdf(){
